@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+<head>
+    <title>Trazos</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/jquery.min.js"></script>
+    <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+</head>
+<body>
+
+    <!-- Aca mostramos los otros punteros -->
+    <div id="pointers"></div>
+
+    <!-- Canvas en el que se dibujan las cosas -->
+    <canvas id="trazos_canvas" width="600" height="400"></canvas>
+
+    <div id="info">
+        <p>Trazos v0.0.1</p>
+        <p>Usuarios conectados: <span id="connected_users"></span></p>
+        <div id="pallete">
+            <p>Colores:</p>
+            <div class="color" data-color="#ffffff"></div>
+            <div class="color" data-color="#ff00ff"></div>
+            <div class="color" data-color="#00ffff"></div>
+            <div class="color" data-color="#ffff00"></div>
+            <div class="color" data-color="#ff0000"></div>
+            <div class="color" data-color="#00ff00"></div>
+            <div class="color" data-color="#0000ff"></div>
+        </div>
+        <div id="strokes">
+            <p>Trazos</p>
+            <div class="stroke" data-stroke-weight="2"></div>
+            <div class="stroke" data-stroke-weight="5"></div>
+            <div class="stroke" data-stroke-weight="10"></div>
+        </div>
+    </div>
+
+    <!-- Socket IO -->
+    <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+
+    <!-- Cliente -->
+    <script src="js/script.js"></script>
+
+</body>
+</html>

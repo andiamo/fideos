@@ -1,0 +1,62 @@
+body{
+    background-color:#222;
+    margin:0;
+    font-family: Helvetica;
+}
+
+#pointers{
+    position:relative;
+    top:0;
+    left:0;
+}
+
+.pointer{
+    position:absolute;
+    color:#777;
+    width:10px;
+    height:10px;
+}
+
+#trazos_canvas{
+    background:#333;
+}
+
+#info{
+    width:100%;
+    font-size:0.7em;
+    color:#999;
+    text-transform: uppercase;
+    line-height: 0.1em;
+}
+
+#pallete{
+    width:100%;
+    padding-top:10px;
+}
+
+#pallete .color{
+    float:left;
+    width:60px;
+
+    height:10px;
+}
+
+.color:hover{
+    opacity:0.7;
+}
+
+
+#strokes{
+    float:left;
+    width:100%;
+    padding-top:10px;
+}
+
+
+.stroke{
+    width:40px;
+    height:10px;
+    float:left;
+    background-color:#666;
+    margin-right:5px;
+}
