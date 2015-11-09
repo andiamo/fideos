@@ -1,7 +1,8 @@
-$(document).ready(function() {
+// Socket.io
+var socket = io();
+var id = Math.round($.now() * Math.random()); // Provisional
 
-    // Socket.io
-    var socket = io();
+$(document).ready(function() {
 
     // DOM
     var doc = $(document);
@@ -9,7 +10,6 @@ $(document).ready(function() {
     var canvas = $("#trazos_canvas");
     var connections = $('#connections');
     var ctx = canvas[0].getContext('2d');
-    var id = Math.round($.now() * Math.random()); // Provisional
 
     // Estados
     var drawing = false;
@@ -74,7 +74,7 @@ $(document).ready(function() {
 
         // Si esta dibujando y existe
         if(data.drawing && clients[data.id]){
-          drawLine(clients[data.id].x, clients[data.id].y, data.x, data.y, data.color,data.stroke_weight);
+            drawLine(clients[data.id].x, clients[data.id].y, data.x, data.y, data.color,data.stroke_weight);
         }
 
         // Actualizamos el array local de cientes
@@ -178,4 +178,144 @@ $(document).ready(function() {
         ctx.stroke();
     }
 
+
+
+
+
+
+
+
 });// End ready
+
+
+
+/*
+
+AGREGADO DESDE ANDIAMO.JS
+
+*/
+
+
+var startGestureTime = 0;
+
+function mousePressed() {
+    var t0 = startGestureTime = millis();
+
+    var connected = false;
+    if (lastGesture && grouping && t0 - lastGesture.t1 < 1000 * MAX_GROUP_TIME) {
+        t0 = lastGesture.t0;
+        connected = true;
+    }
+
+    //ENVIAMOS EL PRESS
+    var movement = {
+        'e': "PRESS",
+        'x': mouseX,
+        'y': mouseY,
+        'id': id
+    }
+    socket.emit("andiamoMouseEvent", movement);
+
+    console.log("Hola");
+
+    currGesture = new StrokeGesture(t0, dissapearing, fixed, lastGesture);
+
+    if (connected) {
+        lastGesture.next = currGesture;
+    }
+
+    addPointToRibbon(mouseX, mouseY);
+}
+
+function mouseDragged() {
+    if (currGesture) {
+
+        var movement = {
+            'e': "DRAGGED",
+            'x': mouseX,
+            'y': mouseY,
+            'id': id
+        }
+        socket.emit("andiamoMouseEvent", movement);
+
+        addPointToRibbon(mouseX, mouseY);
+    }
+}
+
+function mouseReleased() {
+    if (currGesture) {
+        addPointToRibbon(mouseX, mouseY);
+        currGesture.setLooping(looping);
+        currGesture.setEndTime(millis());
+        if (currGesture.visible) {
+            layers[currLayer].push(currGesture);
+        }
+        var movement = {
+            'e': "RELEASED",
+            'x': mouseX,
+            'y': mouseY,
+            'id': id
+        }
+        socket.emit("andiamoMouseEvent", movement);
+        lastGesture = currGesture;
+        currGesture = null;
+    }
+}
+
+
+
+
+
+
+
+
+
+// Recibo un trazo externo
+socket.on('andiamoMouseEvent', function(data){
+    console.log(data.id);
+    console.log(data.e);
+    console.log(data.x);
+    console.log(data.y);
+
+
+    if (data.e === "PRESS") {
+
+        var t0 = startGestureTime = millis();
+
+        var connected = false;
+        if (lastGesture && grouping && t0 - lastGesture.t1 < 1000 * MAX_GROUP_TIME) {
+            t0 = lastGesture.t0;
+            connected = true;
+        }
+
+        currGesture = new StrokeGesture(t0, dissapearing, fixed, lastGesture);
+
+        if (connected) {
+            lastGesture.next = currGesture;
+        }
+
+        addPointToRibbon(data.x,data.y);
+
+    }
+
+    if (data.e === "DRAGGED") {
+        addPointToRibbon(data.x, data.y);
+    }
+
+
+    if (data.e === "RELEASED"){
+
+        if (currGesture) {
+            addPointToRibbon(data.x, data.y);
+            currGesture.setLooping(looping);
+            currGesture.setEndTime(millis());
+            if (currGesture.visible) {
+                layers[currLayer].push(currGesture);
+            }
+            lastGesture = currGesture;
+            currGesture = null;
+        }
+    }
+
+
+});

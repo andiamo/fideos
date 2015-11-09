@@ -36,6 +36,11 @@ io.on('connection', function(socket) {
         socket.broadcast.emit('move', data);
     });
 
+    //Andiamo mouse
+    socket.on('andiamoMouseEvent',function(data){
+        socket.broadcast.emit('andiamoMouseEvent',data);
+    });
+
     // Desconexion de un cliente
     socket.on('disconnect', function() {
         connections--;
