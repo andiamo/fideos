@@ -1,46 +1,20 @@
 // Socket.io
 var socket = io();
-var id = Math.round($.now() * Math.random()); // Provisional
+var id = Math.round($.now() * Math.random());
 
+// El DOM termina de cargar.
 $(document).ready(function() {
 
-    // DOM
     var doc = $(document);
     var win = $(window);
-    var canvas = $("#trazos_canvas");
     var connections = $('#connections');
-    var ctx = canvas[0].getContext('2d');
-
-    // Estados
-    var drawing = false;
     var clients = {};
     var pointers = {};
     var prev = {};
     var lastEmit = $.now();
-    var current_color = "#ffffff";
-    var current_stroke_weight = "1";
-
-    // Paleta de colores
-
-    $(".color").each(function(index){
-        $(this).css("background-color",$(this).data('color'));
-    });
-
-    $(".color").click(function(){
-        current_color = $(this).data('color');
-    })
-
-    // Paleta de strokes
-
-    $(".stroke").each(function(index){
-        $(this).css("height",$(this).data('stroke-weight'));
-    });
-
-    $(".stroke").click(function(){
-        current_stroke_weight = $(this).data('stroke-weight');
-    });
 
     /*
+
     connectionHandler()
 
     Muestra la cantidad de usuarios conectados en el DOM.
@@ -52,6 +26,7 @@ $(document).ready(function() {
     }
 
     /*
+
     externalMoveHandler()
 
     Maneja el movimiento de los punteros externos.
@@ -72,11 +47,6 @@ $(document).ready(function() {
             'top' : data.y
         });
 
-        // Si esta dibujando y existe
-        if(data.drawing && clients[data.id]){
-            drawLine(clients[data.id].x, clients[data.id].y, data.x, data.y, data.color,data.stroke_weight);
-        }
-
         // Actualizamos el array local de cientes
         clients[data.id] = data;
         clients[data.id].updated = $.now();
@@ -84,6 +54,7 @@ $(document).ready(function() {
     }
 
     /*
+
     mouseMoveHandler()
 
     Cuando el mouse local se mueve.
@@ -97,35 +68,12 @@ $(document).ready(function() {
             var movement = {
                 'x': e.pageX,
                 'y': e.pageY,
-                'drawing': drawing,
-                'color': current_color,
-                'stroke_weight': current_stroke_weight,
                 'id': id
             }
             socket.emit("mousemove", movement);
             lastEmit = $.now();
         }
 
-        if (drawing) {
-            drawLine(prev.x, prev.y, e.pageX, e.pageY, current_color,current_stroke_weight);
-            prev.x = e.pageX;
-            prev.y = e.pageY;
-        }
-
-    }
-
-    /*
-    mousedownHandler()
-
-    Cuando el mouse local se presiona sobre el canvas.
-
-    */
-
-    function mousedownHandler(e) {
-        e.preventDefault();
-        drawing = true;
-        prev.x = e.pageX;
-        prev.y = e.pageY;
     }
 
     /*
@@ -134,11 +82,7 @@ $(document).ready(function() {
 
     */
 
-    canvas.on('mousedown', mousedownHandler);
     doc.on('mousemove', mouseMoveHandler);
-    doc.bind('mouseup mouseleave',function(){
-        drawing = false;
-    });
 
     /*
 
@@ -162,43 +106,30 @@ $(document).ready(function() {
     }, 5000);
 
 
-    /*
-
-    CANVAS FUNCTIONS
-
-    */
-
-    function drawLine(fromx, fromy, tox, toy, color,stroke_weight) {
-        ctx.beginPath(); // create a new empty path (no subpaths!)
-        ctx.strokeStyle = color;
-        ctx.lineWidth = stroke_weight;
-        ctx.lineCap = 'round';
-        ctx.moveTo(fromx, fromy);
-        ctx.lineTo(tox, toy);
-        ctx.stroke();
-    }
-
-
-
-
-
-
-
-
 });// End ready
 
 
 
 /*
 
-AGREGADO DESDE ANDIAMO.JS
+ANDIAMO
 
 */
 
 
 var startGestureTime = 0;
 
+
+/*
+
+mousePressed() - P5.js
+
+Captura el mousePressed dentro del canvas de P5.js.
+
+*/
+
 function mousePressed() {
+
     var t0 = startGestureTime = millis();
 
     var connected = false;
@@ -207,16 +138,15 @@ function mousePressed() {
         connected = true;
     }
 
-    //ENVIAMOS EL PRESS
+    // Este es el objeto que se emite
     var movement = {
         'e': "PRESS",
         'x': mouseX,
         'y': mouseY,
         'id': id
     }
-    socket.emit("andiamoMouseEvent", movement);
 
-    console.log("Hola");
+    socket.emit("andiamoMouseEvent", movement);
 
     currGesture = new StrokeGesture(t0, dissapearing, fixed, lastGesture);
 
@@ -224,12 +154,20 @@ function mousePressed() {
         lastGesture.next = currGesture;
     }
 
+
     addPointToRibbon(mouseX, mouseY);
 }
 
+/*
+
+mouseDragged() - P5.js
+
+Captura el mouseDragged dentro del canvas de P5.js
+
+*/
+
 function mouseDragged() {
     if (currGesture) {
-
         var movement = {
             'e': "DRAGGED",
             'x': mouseX,
@@ -241,6 +179,14 @@ function mouseDragged() {
         addPointToRibbon(mouseX, mouseY);
     }
 }
+
+/*
+
+mouseReleased() - P5.js
+
+Captura el mouseReleased dentro del canvas de P5.js
+
+*/
 
 function mouseReleased() {
     if (currGesture) {
@@ -263,23 +209,22 @@ function mouseReleased() {
 }
 
 
+/*
 
+socket.on -> "andiamoMouseEvent"
 
+*/
 
-
-
-
-
-// Recibo un trazo externo
 socket.on('andiamoMouseEvent', function(data){
-    console.log(data.id);
-    console.log(data.e);
-    console.log(data.x);
-    console.log(data.y);
 
+    // Debug log
+    console.log("data.id: "+data.id + " data.e: " + data.e + " data.x: " + data.x + " data.y: " + data.y);
+
+    /*
+    PRESS
+    */
 
     if (data.e === "PRESS") {
-
         var t0 = startGestureTime = millis();
 
         var connected = false;
@@ -295,16 +240,21 @@ socket.on('andiamoMouseEvent', function(data){
         }
 
         addPointToRibbon(data.x,data.y);
-
     }
+
+    /*
+    DRAGGED
+    */
 
     if (data.e === "DRAGGED") {
         addPointToRibbon(data.x, data.y);
     }
 
+    /*
+    RELEASED
+    */
 
     if (data.e === "RELEASED"){
-
         if (currGesture) {
             addPointToRibbon(data.x, data.y);
             currGesture.setLooping(looping);

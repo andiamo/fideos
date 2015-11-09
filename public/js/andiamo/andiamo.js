@@ -28,8 +28,7 @@ function setup() {
     w = document.body.clientWidth;
     h = document.body.clientHeight;
   }
-  //canvas = createCanvas(w, h);
-  canvas = createCanvas(600,400);
+  canvas = createCanvas(w-5, h-5);
   canvas.parent('andiamo');
   startup();
 }
