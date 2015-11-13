@@ -21,7 +21,7 @@ function initRibbons() {
     if (ui % ribbonDetail == 0) {
       nVertPerStretch += 4;
     }
-  }    
+  }
   lspline = new BSpline(true);
   rspline = new BSpline(true);
   println(lspline);
@@ -38,7 +38,7 @@ function addPointToRibbon(x, y) {
     pY0 = pY;
     nControl = 0;
     return;
-  } 
+  }
 
   // Discarding steps that are too small.
   if (Math.abs(pX - pX0) < MIN_POS_CHANGE && Math.abs(pY - pY0) < MIN_POS_CHANGE) return;
@@ -53,7 +53,7 @@ function addPointToRibbon(x, y) {
     var p1 = createVector(pX, pY, 0);
     var p0 = createVector(pX0, pY0, 0);
     var p10 = p5.Vector.sub(p0, p1);
-    var p_1 = p5.Vector.add(p0, p10); 
+    var p_1 = p5.Vector.add(p0, p10);
     var p_2 = p5.Vector.add(p_1, p10);
 
     lspline.setCPoint(0, p_2);
@@ -73,7 +73,7 @@ function addPointToRibbon(x, y) {
     nControl = 4;
   }
 
-//  twist[i] = TWO_PI * cos(TWO_PI * millis() / (1000.0 * twistPeriod[i]) + twistPhase[i]); 
+//  twist[i] = TWO_PI * cos(TWO_PI * millis() / (1000.0 * twistPeriod[i]) + twistPhase[i]);
   oldX = newX;
   oldY = newY;
   oldZ = newZ;
@@ -87,14 +87,14 @@ function addPointToRibbon(x, y) {
 
   var nX = +dY;
   var nY = -dX;
-  var nZ = 0;    
+  var nZ = 0;
 
   var dir = createVector(dX, dY, dZ);
   var nor = createVector(nX, nY, nZ);
   oldVel = newVel;
-  var l = dir.mag();  
+  var l = dir.mag();
   newVel = ribbonsWidth / map(l, 0, 100, 1, NORM_FACTOR + 0.1);
-  
+
 //  println(tablet.getPressure());
 //  newVel = 1 + tablet.getPressure() * NORM_FACTOR;
 
@@ -129,7 +129,7 @@ var Sid1Point0 = null;
 var Sid1Point1 = null;
 var Sid2Point0 = null;
 var Sid2Point1 = null;
-function drawRibbonStretch(spline1, spline2) {  
+function drawRibbonStretch(spline1, spline2) {
   var ti;
   var t;
   var x, y, z;
@@ -137,13 +137,13 @@ function drawRibbonStretch(spline1, spline2) {
   if (!Sid1Point0) Sid1Point0 = createVector(0, 0);
   if (!Sid1Point1) Sid1Point1 = createVector(0, 0);
   if (!Sid2Point0) Sid2Point0 = createVector(0, 0);
-  if (!Sid2Point1) Sid2Point1 = createVector(0, 0);  
+  if (!Sid2Point1) Sid2Point1 = createVector(0, 0);
 
   // The initial geometry is generated.
   spline1.feval(0, Sid1Point1);
   spline2.feval(0, Sid2Point1);
 
-  for (ti = 1; ti <= 10; ti++) {    
+  for (ti = 1; ti <= 10; ti++) {
     if (ti % ribbonDetail == 0) {
       t = 0.1 * ti;
 
@@ -154,7 +154,7 @@ function drawRibbonStretch(spline1, spline2) {
       // The new geometry is generated.
       spline1.feval(t, Sid1Point1);
       spline2.feval(t, Sid2Point1);
-      
+
       var quad = new StrokeQuad(millis());
       var r = currColor[0];
       var g = currColor[1];
@@ -167,13 +167,13 @@ function drawRibbonStretch(spline1, spline2) {
       quad.setVertex(3, Sid1Point1.x, Sid1Point1.y, 0, uTexCoord, r, g, b, a);
       updateTexCoordU();
       currGesture.addQuad(quad);
-    }    
+    }
   }
 }
 
-function updateTexCoordU() { 
+function updateTexCoordU() {
   uTexCoord += TEXCOORDU_INC;
   if (1 < uTexCoord) {
     uTexCoord = 0;
-  } 
+  }
 }

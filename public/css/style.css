@@ -29,18 +29,24 @@ body{
     line-height: 0.1em;
     position:fixed;
     top:0px;
+    border-bottom:1px solid #666;
+}
+
+#info .data{
+    float: left;
+    margin-right: 20px;
 }
 
 #pallete{
-    width:100%;
-    padding-top:10px;
+    float:left;
 }
 
 #pallete .color{
     float:left;
-    width:60px;
-
-    height:10px;
+    width:20px;
+    height:20px;
+    margin:5px;
+    border:1px solid rgba(255,255,255,0.4)
 }
 
 .color:hover{
@@ -48,6 +54,45 @@ body{
 }
 
 
+#pallete .white{
+    background-color:rgb(255,255,255);
+}
+
+#pallete .red{
+    background-color:rgb(200,40,40);
+}
+
+#pallete .green{
+    background-color:rgb(40,200,90);
+}
+
+#pallete .blue{
+    background-color:rgb(97,101,196);
+}
+
+#pallete .orange{
+    background-color:rgb(224,165,75);
+}
+
+#pallete .violet{
+    background-color:rgb(154,75,224);
+}
+
+#pallete .yellow{
+    background-color:rgb(240,233,92);
+}
+
+#pallete .light_blue{
+    background-color:rgb(92,199,244);
+}
+
+#pallete .aqua{
+    background-color:rgb(65,221,237);
+}
+
+#pallete .black{
+    background-color:rgb(0,0,0);
+}
 #strokes{
     float:left;
     width:100%;

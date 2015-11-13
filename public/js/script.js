@@ -13,6 +13,15 @@ $(document).ready(function() {
     var prev = {};
     var lastEmit = $.now();
 
+
+
+    $("#pallete .color").click(function(){
+        console.log($(this).index());
+        currColor = STROKE_COLORS[$(this).index()];
+    })
+
+
+
     /*
 
     connectionHandler()
@@ -143,6 +152,7 @@ function mousePressed() {
         'e': "PRESS",
         'x': mouseX,
         'y': mouseY,
+        'color': currColor,
         'id': id
     }
 
