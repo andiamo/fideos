@@ -15,18 +15,18 @@ function mousePressed() {
     lastGesture.next = currGesture;
   }
   
-  addPointToRibbon(mouseX, mouseY);
+  ribbon.addPoint(currGesture, currColor, currAlpha, mouseX, mouseY);
 }
 
 function mouseDragged() {
   if (currGesture) {
-    addPointToRibbon(mouseX, mouseY);
+    ribbon.addPoint(currGesture, currColor, currAlpha, mouseX, mouseY);
   }
 }
 
 function mouseReleased() {
   if (currGesture) {
-    addPointToRibbon(mouseX, mouseY);
+    ribbon.addPoint(currGesture, currColor, currAlpha, mouseX, mouseY);
     currGesture.setLooping(looping);
     currGesture.setEndTime(millis());
     if (currGesture.visible) {

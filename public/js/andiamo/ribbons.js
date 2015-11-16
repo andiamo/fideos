@@ -1,89 +1,107 @@
-var ribbonDetail = 0;
-var nVertPerStretch = 0;
-var nControl = 0;
-var lspline = null;
-var rspline = null;
+function Ribbon() {
+  this.ribbonDetail = 0;
+  this.nVertPerStretch = 0;
+  this.nControl = 0;
+  this.lspline = null;
+  this.rspline = null;
 
-var oldX = 0, oldY = 0, oldZ = 0;
-var newX = 0, newY = 0, newZ = 0;
-var oldVel = 0;
-var newVel = 0;
-var twist = 0;
-var ribbonsWidth = 0;
+  this.oldX = 0, 
+  this.oldY = 0, 
+  this.oldZ = 0;
+  
+  this.newX = 0;
+  this.newY = 0;
+  this.newZ = 0;
+  
+  this.oldVel = 0;
+  this.newVel = 0;
+  this.twist = 0;
+  this.ribbonsWidth = 0;
 
-var pX0 = 0, pY0 = 0;
-var pX = 0, pY = 0;
+  this.pX0 = 0;
+  this.pY0 = 0;
+  
+  this.pX = 0; 
+  this.pY = 0;
 
-function initRibbons() {
-  ribbonDetail = RIBBON_DETAIL;
-  nVertPerStretch = 0;
-  for (var ui = 1; ui <= 10; ui ++) {
-    if (ui % ribbonDetail == 0) {
-      nVertPerStretch += 4;
-    }
-  }
-  lspline = new BSpline(true);
-  rspline = new BSpline(true);
-  println(lspline);
-  ribbonsWidth = 0.7 * RIBBON_WIDTH + 1.3 * RIBBON_WIDTH * Math.random();
+  this.uTexCoord = 0;
+  this.Sid1Point0 = null;
+  this.Sid1Point1 = null;
+  this.Sid2Point0 = null;
+  this.Sid2Point1 = null;  
 }
 
-function addPointToRibbon(x, y) {
-  pX = x;
-  pY = y;
+Ribbon.prototype.init = function() {
+  this.ribbonDetail = RIBBON_DETAIL;
+  this.nVertPerStretch = 0;
+  for (var ui = 1; ui <= 10; ui ++) {
+    if (ui % this.ribbonDetail == 0) {
+      this.nVertPerStretch += 4;
+    }
+  }
+  this.lspline = new BSpline(true);
+  this.rspline = new BSpline(true);
+  println(this.lspline);
+  this.ribbonsWidth = 0.7 * RIBBON_WIDTH + 1.3 * RIBBON_WIDTH * Math.random();
+}
 
-  if (currGesture.isStarting()) {
+Ribbon.prototype.addPoint = function(gesture, col, alp, x, y) {
+  this.pX = x;
+  this.pY = y;
+
+  if (gesture.isStarting()) {
     // (x, y) is the first position, so initializing the previous position to this one.
-    pX0 = pX;
-    pY0 = pY;
-    nControl = 0;
+    this.pX0 = this.pX;
+    this.pY0 = this.pY;
+    this.nControl = 0;
     return;
   }
 
   // Discarding steps that are too small.
-  if (Math.abs(pX - pX0) < MIN_POS_CHANGE && Math.abs(pY - pY0) < MIN_POS_CHANGE) return;
-  pX0 = pX;
-  pY0 = pY;
+  if (Math.abs(this.pX - this.pX0) < MIN_POS_CHANGE && 
+      Math.abs(this.pY - this.pY0) < MIN_POS_CHANGE) return;
+  this.pX0 = this.pX;
+  this.pY0 = this.pY;
 
-  if (nControl == 4) {
-    lspline.shiftBSplineCPoints();
-    rspline.shiftBSplineCPoints();
+  if (this.nControl == 4) {
+    this.lspline.shiftBSplineCPoints();
+    this.rspline.shiftBSplineCPoints();
   } else {
     // Initializing the first 4 control points
-    var p1 = createVector(pX, pY, 0);
-    var p0 = createVector(pX0, pY0, 0);
+    var p1 = createVector(this.pX, this.pY, 0);
+    var p0 = createVector(this.pX0, this.pY0, 0);
     var p10 = p5.Vector.sub(p0, p1);
     var p_1 = p5.Vector.add(p0, p10);
     var p_2 = p5.Vector.add(p_1, p10);
 
-    lspline.setCPoint(0, p_2);
-    lspline.setCPoint(1, p_1);
-    lspline.setCPoint(2, p0);
-    lspline.setCPoint(3, p1);
+    this.lspline.setCPoint(0, p_2);
+    this.lspline.setCPoint(1, p_1);
+    this.lspline.setCPoint(2, p0);
+    this.lspline.setCPoint(3, p1);
 
-    rspline.setCPoint(0, p_2);
-    rspline.setCPoint(1, p_1);
-    rspline.setCPoint(2, p0);
-    rspline.setCPoint(3, p1);
+    this.rspline.setCPoint(0, p_2);
+    this.rspline.setCPoint(1, p_1);
+    this.rspline.setCPoint(2, p0);
+    this.rspline.setCPoint(3, p1);
 
-    newX = pX;
-    newY = pY;
-    newZ = 0;
+    this.newX = this.pX;
+    this.newY = this.pY;
+    this.newZ = 0;
 
-    nControl = 4;
+    this.nControl = 4;
   }
 
 //  twist[i] = TWO_PI * cos(TWO_PI * millis() / (1000.0 * twistPeriod[i]) + twistPhase[i]);
-  oldX = newX;
-  oldY = newY;
-  oldZ = newZ;
-  newX = SMOOTH_COEFF * oldX + (1 - SMOOTH_COEFF) * pX;
-  newY = SMOOTH_COEFF * oldY + (1 - SMOOTH_COEFF) * pY;
-  newZ = 0;
+  this.oldX = this.newX;
+  this.oldY = this.newY;
+  this.oldZ = this.newZ;
+  this.newX = SMOOTH_COEFF * this.oldX + (1 - SMOOTH_COEFF) * this.pX;
+  this.newY = SMOOTH_COEFF * this.oldY + (1 - SMOOTH_COEFF) * this.pY;
+  this.newZ = 0;
 
-  var dX = newX - oldX;
-  var dY = newY - oldY;
-  var dZ = newZ - oldZ;
+  var dX = this.newX - this.oldX;
+  var dY = this.newY - this.oldY;
+  var dZ = this.newZ - this.oldZ;
 
   var nX = +dY;
   var nY = -dX;
@@ -91,9 +109,9 @@ function addPointToRibbon(x, y) {
 
   var dir = createVector(dX, dY, dZ);
   var nor = createVector(nX, nY, nZ);
-  oldVel = newVel;
+  this.oldVel = this.newVel;
   var l = dir.mag();
-  newVel = ribbonsWidth / map(l, 0, 100, 1, NORM_FACTOR + 0.1);
+  this.newVel = this.ribbonsWidth / map(l, 0, 100, 1, NORM_FACTOR + 0.1);
 
 //  println(tablet.getPressure());
 //  newVel = 1 + tablet.getPressure() * NORM_FACTOR;
@@ -103,77 +121,72 @@ function addPointToRibbon(x, y) {
 //    rmat.rotate(twist[i], dir.x, dir.y, dir.z);
 //    PVector rnor = rmat.mult(nor, null);
 
-  addControlPoint(lspline, newX, newY, newZ, nor, +newVel);
-  addControlPoint(rspline, newX, newY, newZ, nor, -newVel);
+  this.addControlPoint(this.lspline, this.newX, this.newY, this.newZ, nor, +this.newVel);
+  this.addControlPoint(this.rspline, this.newX, this.newY, this.newZ, nor, -this.newVel);
 
-  drawRibbonStretch(lspline, rspline);
+  this.drawRibbonStretch(gesture, col, alp, this.lspline, this.rspline);
 }
 
-function addControlPoint(spline, newX, newY, newZ, nor, vel) {
+Ribbon.prototype.addControlPoint = function(spline, newX, newY, newZ, nor, vel) {
   var addCP = true;
   var cp1 = createVector(newX - vel * nor.x, newY - vel * nor.y, newZ - vel * nor.z);
-  if (1 < nControl) {
+  if (1 < this.nControl) {
     var cp0 = createVector(0, 0);
-    spline.getCPoint(nControl - 2, cp0);
+    spline.getCPoint(this.nControl - 2, cp0);
     addCP = MIN_CTRL_CHANGE < cp1.dist(cp0);
   }
   if (addCP) {
-    spline.setCPoint(nControl - 1, cp1);
+    spline.setCPoint(this.nControl - 1, cp1);
     return true;
   }
   return false;
 }
 
-var uTexCoord = 0;
-var Sid1Point0 = null;
-var Sid1Point1 = null;
-var Sid2Point0 = null;
-var Sid2Point1 = null;
-function drawRibbonStretch(spline1, spline2) {
+Ribbon.prototype.drawRibbonStretch = function(gesture, col, alp, spline1, spline2) {
   var ti;
   var t;
   var x, y, z;
 
-  if (!Sid1Point0) Sid1Point0 = createVector(0, 0);
-  if (!Sid1Point1) Sid1Point1 = createVector(0, 0);
-  if (!Sid2Point0) Sid2Point0 = createVector(0, 0);
-  if (!Sid2Point1) Sid2Point1 = createVector(0, 0);
+  if (!this.Sid1Point0) this.Sid1Point0 = createVector(0, 0);
+  if (!this.Sid1Point1) this.Sid1Point1 = createVector(0, 0);
+  if (!this.Sid2Point0) this.Sid2Point0 = createVector(0, 0);
+  if (!this.Sid2Point1) this.Sid2Point1 = createVector(0, 0);
 
   // The initial geometry is generated.
-  spline1.feval(0, Sid1Point1);
-  spline2.feval(0, Sid2Point1);
+  spline1.feval(0, this.Sid1Point1);
+  spline2.feval(0, this.Sid2Point1);
 
   for (ti = 1; ti <= 10; ti++) {
-    if (ti % ribbonDetail == 0) {
+    if (ti % this.ribbonDetail == 0) {
       t = 0.1 * ti;
 
       // The geometry of the previous iteration is saved.
-      Sid1Point0.set(Sid1Point1);
-      Sid2Point0.set(Sid2Point1);
+      this.Sid1Point0.set(this.Sid1Point1);
+      this.Sid2Point0.set(this.Sid2Point1);
 
       // The new geometry is generated.
-      spline1.feval(t, Sid1Point1);
-      spline2.feval(t, Sid2Point1);
+      spline1.feval(t, this.Sid1Point1);
+      spline2.feval(t, this.Sid2Point1);
 
       var quad = new StrokeQuad(millis());
-      var r = currColor[0];
-      var g = currColor[1];
-      var b = currColor[2];
-      var a = currAlpha;
-      quad.setVertex(0, Sid1Point0.x, Sid1Point0.y, 0, uTexCoord, r, g, b, a);
-      quad.setVertex(1, Sid2Point0.x, Sid2Point0.y, 1, uTexCoord, r, g, b, a);
-      updateTexCoordU();
-      quad.setVertex(2, Sid2Point1.x, Sid2Point1.y, 1, uTexCoord, r, g, b, a);
-      quad.setVertex(3, Sid1Point1.x, Sid1Point1.y, 0, uTexCoord, r, g, b, a);
-      updateTexCoordU();
-      currGesture.addQuad(quad);
+      var r = col[0];
+      var g = col[1];
+      var b = col[2];
+      var a = alp;
+      quad.setVertex(0, this.Sid1Point0.x, this.Sid1Point0.y, 0, this.uTexCoord, r, g, b, a);
+      quad.setVertex(1, this.Sid2Point0.x, this.Sid2Point0.y, 1, this.uTexCoord, r, g, b, a);
+      this.updateTexCoordU();
+      quad.setVertex(2, this.Sid2Point1.x, this.Sid2Point1.y, 1, this.uTexCoord, r, g, b, a);
+      quad.setVertex(3, this.Sid1Point1.x, this.Sid1Point1.y, 0, this.uTexCoord, r, g, b, a);
+      this.updateTexCoordU();
+      gesture.addQuad(quad);
     }
   }
 }
 
-function updateTexCoordU() {
-  uTexCoord += TEXCOORDU_INC;
-  if (1 < uTexCoord) {
-    uTexCoord = 0;
+Ribbon.prototype.updateTexCoordU = function() {
+  this.uTexCoord += TEXCOORDU_INC;
+  if (1 < this.uTexCoord) {
+    this.uTexCoord = 0;
   }
 }

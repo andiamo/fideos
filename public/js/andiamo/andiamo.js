@@ -3,6 +3,7 @@ var canvas;
 var layers = [];
 var currGesture = null;
 var lastGesture = null;
+var ribbons = null;
 var looping = false;
 var fixed = false;
 var dissapearing = false;
@@ -53,8 +54,6 @@ function draw() {
 }
 
 function startup() {
-  initRibbons();
-
   looping = LOOPING_AT_INIT;
   println("Looping: " +  looping);
 
@@ -75,6 +74,8 @@ function startup() {
   currLayer = 0;
   lastGesture = null;
   currGesture = new StrokeGesture(0, dissapearing, fixed, lastGesture);
+  ribbon = new Ribbon()
+  ribbon.init();
   println("Selected stroke layer: " + 1);
 }
 
