@@ -13,14 +13,10 @@ $(document).ready(function() {
     var prev = {};
     var lastEmit = $.now();
 
-
-
+    // Selector de color
     $("#pallete .color").click(function(){
-        console.log($(this).index());
         currColor = STROKE_COLORS[$(this).index()];
     })
-
-
 
     /*
 
@@ -118,17 +114,6 @@ $(document).ready(function() {
 });// End ready
 
 
-
-/*
-
-ANDIAMO
-
-*/
-
-
-var startGestureTime = 0;
-
-
 /*
 
 mousePressed() - P5.js
@@ -139,15 +124,20 @@ Captura el mousePressed dentro del canvas de P5.js.
 
 function mousePressed() {
 
+    var startGestureTime = 0;
     var t0 = startGestureTime = millis();
 
-    var connected = false;
-    if (lastGesture && grouping && t0 - lastGesture.t1 < 1000 * MAX_GROUP_TIME) {
-        t0 = lastGesture.t0;
-        connected = true;
-    }
+    // Creamos el currGesture (este es el que se dibuja desde p5.js)
+    currGesture = new StrokeGesture(t0, dissapearing, fixed, lastGesture);
 
-    // Este es el objeto que se emite
+    // Creamos el nuevo ribbon
+    ribbon = new Ribbon();
+    ribbon.init();
+
+    // Agregamos el punto al ribbon
+    ribbon.addPoint(currGesture, currColor, currAlpha, mouseX, mouseY);
+
+    // Objeto que se emite
     var movement = {
         'e': "PRESS",
         'x': mouseX,
@@ -155,17 +145,9 @@ function mousePressed() {
         'color': currColor,
         'id': id
     }
+    // Emitimos el evento a los demas clientes.
+    socket.emit("externalMouseEvent", movement);
 
-    socket.emit("andiamoMouseEvent", movement);
-
-    currGesture = new StrokeGesture(t0, dissapearing, fixed, lastGesture);
-
-    if (connected) {
-        lastGesture.next = currGesture;
-    }
-
-
-    addPointToRibbon(mouseX, mouseY);
 }
 
 /*
@@ -182,11 +164,12 @@ function mouseDragged() {
             'e': "DRAGGED",
             'x': mouseX,
             'y': mouseY,
+            'color': currColor,
             'id': id
         }
-        socket.emit("andiamoMouseEvent", movement);
+        socket.emit("externalMouseEvent", movement);
 
-        addPointToRibbon(mouseX, mouseY);
+        ribbon.addPoint(currGesture, currColor, currAlpha, mouseX, mouseY);
     }
 }
 
@@ -200,19 +183,26 @@ Captura el mouseReleased dentro del canvas de P5.js
 
 function mouseReleased() {
     if (currGesture) {
-        addPointToRibbon(mouseX, mouseY);
+
+        // Agregamos el último punto
+        ribbon.addPoint(currGesture, currColor, currAlpha, mouseX, mouseY);
         currGesture.setLooping(looping);
         currGesture.setEndTime(millis());
+
+        // Pusheamos el gesture a la capa
         if (currGesture.visible) {
             layers[currLayer].push(currGesture);
         }
+
         var movement = {
             'e': "RELEASED",
             'x': mouseX,
             'y': mouseY,
+            'color': currColor,
             'id': id
         }
-        socket.emit("andiamoMouseEvent", movement);
+        socket.emit("externalMouseEvent", movement);
+
         lastGesture = currGesture;
         currGesture = null;
     }
@@ -221,60 +211,60 @@ function mouseReleased() {
 
 /*
 
-socket.on -> "andiamoMouseEvent"
+socket.on -> "externalMouseEvent"
 
 */
 
-socket.on('andiamoMouseEvent', function(data){
-
-    // Debug log
-    console.log("data.id: "+data.id + " data.e: " + data.e + " data.x: " + data.x + " data.y: " + data.y);
+socket.on('externalMouseEvent', function(data){
 
     /*
-    PRESS
+    MOUSE PRESS
     */
 
     if (data.e === "PRESS") {
+
+        // Variables
+        var startGestureTime = 0;
         var t0 = startGestureTime = millis();
+        var lastGesture = null;
+        var grouping = true;
 
-        var connected = false;
-        if (lastGesture && grouping && t0 - lastGesture.t1 < 1000 * MAX_GROUP_TIME) {
-            t0 = lastGesture.t0;
-            connected = true;
-        }
+        // Agregamos este gesture a la lista de gestures
+        otherGestures.put(data.id,new StrokeGesture(t0, dissapearing, fixed, lastGesture));
+        // Agregamos un ribbon
+        otherRibbons.put(data.id,new Ribbon());
+        // Inicializamos el ribbon
+        otherRibbons.get(data.id).init();
+        // Le agregamos este punto
+        otherRibbons.get(data.id).addPoint(otherGestures.get(data.id), data.color, currAlpha, data.x, data.y);
 
-        currGesture = new StrokeGesture(t0, dissapearing, fixed, lastGesture);
-
-        if (connected) {
-            lastGesture.next = currGesture;
-        }
-
-        addPointToRibbon(data.x,data.y);
     }
 
     /*
-    DRAGGED
+    MOUSE DRAGGED
     */
 
     if (data.e === "DRAGGED") {
-        addPointToRibbon(data.x, data.y);
+        // Agregamos el punto
+        otherRibbons.get(data.id).addPoint(otherGestures.get(data.id), data.color, currAlpha, data.x, data.y);
     }
 
     /*
-    RELEASED
+    MOUSE RELEASED
     */
 
     if (data.e === "RELEASED"){
-        if (currGesture) {
-            addPointToRibbon(data.x, data.y);
-            currGesture.setLooping(looping);
-            currGesture.setEndTime(millis());
-            if (currGesture.visible) {
-                layers[currLayer].push(currGesture);
-            }
-            lastGesture = currGesture;
-            currGesture = null;
-        }
+
+        // Seteamos el ultimo punto
+        otherRibbons.get(data.id).addPoint(otherGestures.get(data.id), data.color, currAlpha, data.x, data.y);
+        // Seteamos el looping
+        otherGestures.get(data.id).setLooping(true);
+        otherGestures.get(data.id).setEndTime(millis());
+        // Lo agregamos a la capa local
+        layers[currLayer].push(otherGestures.get(data.id));
+        // Borramos este gesture
+        otherGestures.remove(data.id);
+
     }
 
 

@@ -5,14 +5,14 @@ function Ribbon() {
   this.lspline = null;
   this.rspline = null;
 
-  this.oldX = 0, 
-  this.oldY = 0, 
+  this.oldX = 0,
+  this.oldY = 0,
   this.oldZ = 0;
-  
+
   this.newX = 0;
   this.newY = 0;
   this.newZ = 0;
-  
+
   this.oldVel = 0;
   this.newVel = 0;
   this.twist = 0;
@@ -20,15 +20,15 @@ function Ribbon() {
 
   this.pX0 = 0;
   this.pY0 = 0;
-  
-  this.pX = 0; 
+
+  this.pX = 0;
   this.pY = 0;
 
   this.uTexCoord = 0;
   this.Sid1Point0 = null;
   this.Sid1Point1 = null;
   this.Sid2Point0 = null;
-  this.Sid2Point1 = null;  
+  this.Sid2Point1 = null;
 }
 
 Ribbon.prototype.init = function() {
@@ -41,7 +41,7 @@ Ribbon.prototype.init = function() {
   }
   this.lspline = new BSpline(true);
   this.rspline = new BSpline(true);
-  println(this.lspline);
+  // println(this.lspline);
   this.ribbonsWidth = 0.7 * RIBBON_WIDTH + 1.3 * RIBBON_WIDTH * Math.random();
 }
 
@@ -58,7 +58,7 @@ Ribbon.prototype.addPoint = function(gesture, col, alp, x, y) {
   }
 
   // Discarding steps that are too small.
-  if (Math.abs(this.pX - this.pX0) < MIN_POS_CHANGE && 
+  if (Math.abs(this.pX - this.pX0) < MIN_POS_CHANGE &&
       Math.abs(this.pY - this.pY0) < MIN_POS_CHANGE) return;
   this.pX0 = this.pX;
   this.pY0 = this.pY;

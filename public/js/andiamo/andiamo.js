@@ -11,6 +11,10 @@ var grouping = false;
 var currColor = [255, 255, 255];
 var currAlpha = 150;
 
+// Hashmaps para los trazos externos
+var otherGestures = new HashMap();
+var otherRibbons = new HashMap();
+
 function setup() {
   var w = 0, h = 0;
   if(typeof(window.innerWidth) == 'number') {
@@ -49,34 +53,28 @@ function draw() {
     currGesture.update(t);
     currGesture.draw();
   }
+
+  // Dibujar los trazos externos
+  for (var i = 0; i < otherGestures.values().length; i++) {
+      otherGestures.values()[i].update(t);
+      otherGestures.values()[i].draw();
+  }
+
   cleanup();
 
 }
 
 function startup() {
   looping = LOOPING_AT_INIT;
-  println("Looping: " +  looping);
-
   fixed = FIXED_STROKE_AT_INIT;
-  println("Fixed: " +  fixed);
-
   dissapearing = DISSAPEARING_AT_INIT;
-  println("Dissapearing: " +  looping);
-
   grouping = false;
-  println("Gouping: " +  grouping);
-
   layers = [null, null, null, null];
   for (var i = 0; i < 4; i++) {
     layers[i] = [];
   }
 
   currLayer = 0;
-  lastGesture = null;
-  currGesture = new StrokeGesture(0, dissapearing, fixed, lastGesture);
-  ribbon = new Ribbon()
-  ribbon.init();
-  println("Selected stroke layer: " + 1);
 }
 
 function cleanup() {

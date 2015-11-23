@@ -31,14 +31,14 @@ io.on('connection', function(socket) {
         connections: connections
     });
 
-    // Movimiento del mouse
+    // Movimiento del puntero
     socket.on('mousemove', function(data) {
         socket.broadcast.emit('move', data);
     });
 
-    //Andiamo mouse
-    socket.on('andiamoMouseEvent',function(data){
-        socket.broadcast.emit('andiamoMouseEvent',data);
+    // Movimiento de los trazos
+    socket.on('externalMouseEvent',function(data){
+        socket.broadcast.emit('externalMouseEvent',data);
     });
 
     // Desconexion de un cliente
