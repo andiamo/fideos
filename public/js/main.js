@@ -13,10 +13,29 @@ $(document).ready(function() {
     var prev = {};
     var lastEmit = $.now();
 
-    // Selector de color
-    $("#pallete .color").click(function(){
+    // Seteo el color en base al data-color
+    $(".color_button").each(function(index){
+        $(this).css('background-color', $(this).data('color'));
+    });
+
+    // Setea el color cuando clickea
+    $(".color_button").click(function(){
         currColor = STROKE_COLORS[$(this).index()];
-    })
+    });
+
+    // Menú desplegable de color
+    $(".sidebar_button_color").hover(function(){
+        $(".drop_color").stop().fadeIn(200);
+    },function(){
+        $(".drop_color").stop().fadeOut(200);
+    });
+
+    // Menú desplegable de color
+    $(".sidebar_weight_button").hover(function(){
+        $(".drop_weight").stop().fadeIn(200);
+    },function(){
+        $(".drop_weight").stop().fadeOut(200);
+    });
 
     /*
 
@@ -27,7 +46,7 @@ $(document).ready(function() {
     */
 
     function connectionHandler(data) {
-        $("#connected_users").text(data.connections);
+        $("#connected_users").text("Users: "+data.connections);
     }
 
     /*

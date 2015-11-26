@@ -2,7 +2,7 @@ var RIBBON_WIDTH = 0.8; // Average ribbon width
 var SMOOTH_COEFF = 0.7; // Smoothing coefficient used to ease the jumps in the tracking data.
 var RIBBON_DETAIL = 5;
 var MIN_POS_CHANGE = 2;
-var NORM_FACTOR = 5;  // This factor allows to normalize ribbon width with respect to the speed of the 
+var NORM_FACTOR = 5;  // This factor allows to normalize ribbon width with respect to the speed of the
                       // drawing, so that all ribbons have approximately same width.
 var MIN_CTRL_CHANGE = 5;
 var TEXCOORDU_INC = 0.1;
@@ -18,27 +18,25 @@ var DELETE_FACTOR = 0.9;
 
 
 var STROKE_COLORS = [
-  [255, 255, 255], // white
-  [200, 40, 40],   // red
-  [40, 200, 90],   // green
-  [97, 101, 196],  // blue
-  [224, 165, 75],  // orange
-  [154, 75, 224],  // violet
-  [240, 233, 92],  // yellow
-  [92, 199, 244],  // light blue
-  [65, 221, 237],  // aqua
-  [0, 0, 0]        // black  
+  [0, 0, 0],
+  [255, 255, 255],
+  [255, 0, 0],
+  [255, 75, 0],
+  [255, 255, 0],
+  [0, 255, 110],
+  [0, 73, 255],
+  [175, 0, 255],
 ];
 
 var COLOR_KEYS = [
   'q',
   'w',
   'e',
-  'r',    
+  'r',
   't',
   'y',
   'u',
   'i',
   'o',
-  'p'  
+  'p'
 ];

@@ -1,0 +1,238 @@
+/*
+
+VARIABLES
+
+*/
+
+body_background_color = #000000;
+sidebar_width = 75px;
+sidebar_background_color = #202020;
+sidebar_button_hover_opacity = 0.8;
+sidebar_separator_color = #046904;
+pointer_color = #666666;
+
+
+/*
+
+BASE
+
+*/
+
+body{
+    background-color:body_background_color;
+    margin:0;
+    min-height:100%;
+    min-width:100%;
+    width:100%;
+    height:100%;
+}
+
+/*
+
+SIDEBAR
+
+*/
+
+
+// Marco del sidebar
+#sidebar{
+    background-color:sidebar_background_color;
+    width:sidebar_width;
+    position: absolute;
+    height: 100%;
+}
+
+// Boton de cambiar color
+.sidebar_button_color{
+    height: 40px;
+    width: 40px;
+    position: relative;
+    background-color: #BBB;
+    margin: 20px auto;
+    border-radius: 20px;
+    border: 1px solid #ffffff;
+
+    // Menú desplegable del selector de color
+    .drop_color{
+        position: absolute;
+        display: none;
+        width: 330px;
+        height: 40px;
+        border: 1px solid #424242;
+        margin-left: 75px;
+        border-radius: 5px;
+        background-color: #222;
+
+        .color_button{
+            width: 30px;
+            height: 30px;
+            margin: 5px;
+            background-color: white;
+            border-radius: 20px;
+            float:left;
+        }
+
+        .color_button:hover{
+            opacity:sidebar_button_hover_opacity;
+        }
+    }
+
+}
+
+.sidebar_button_color:hover{
+    opacity:sidebar_button_hover_opacity;
+}
+
+
+.sidebar_weight_button{
+    height: 40px;
+    width: 40px;
+    margin: 20px auto;
+    position: relative;
+    background-color: #333;
+    border-radius: 20px;
+    border: 1px solid #ffffff;
+
+    // Menu Desplegable del ancho del trazos
+    .drop_weight{
+        position: absolute;
+        display:none;
+        width: 170px;
+        height: 40px;
+        border: 1px solid #424242;
+        margin-left: 75px;
+        border-radius: 5px;
+        background-color: #222;
+
+        .weight_button_01{
+            width: 10px;
+            height: 10px;
+            margin: 15px 10px;
+            background-color: white;
+            border-radius: 20px;
+            float:left;
+        }
+
+        .weight_button_02{
+            width: 20px;
+            height: 20px;
+            margin: 10px 10px;
+            background-color: white;
+            border-radius: 20px;
+            float:left;
+        }
+
+        .weight_button_03{
+            width: 30px;
+            height: 30px;
+            margin: 5px 10px;
+            background-color: white;
+            border-radius: 20px;
+            float:left;
+        }
+
+        .weight_button_04{
+            width: 35px;
+            height: 35px;
+            margin: 2px 5px;
+            background-color: white;
+            border-radius: 20px;
+            float:left;
+        }
+
+        .weight_button01:hover,.weight_button_02:hover,.weight_button_03:hover,.weight_button_04:hover{
+            opacity:sidebar_button_hover_opacity;
+        }
+
+
+    }
+}
+
+.sidebar_weight_button:hover{
+    opacity:sidebar_button_hover_opacity;
+}
+
+
+// Boton normal
+.sidebar_button{
+    height: 40px;
+    margin-bottom: 20px;
+    margin: 10px;
+    position:relative;
+
+    img{
+        width: 40px;
+        height: 40px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        margin: auto;
+    }
+
+}
+
+.sidebar_button:hover{
+    opacity:sidebar_button_hover_opacity;
+}
+
+// Boton de cambiar de capa
+.sidebar_button_layer{
+    margin: 10px;
+    img{
+        width: 40px;
+        height: 50px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        margin: auto;
+    }
+}
+
+.sidebar_button_layer:hover{
+    opacity:sidebar_button_hover_opacity;
+}
+
+// Separador del sidebar
+.sidebar_separator{
+    width: 100%;
+    border: 1px solid sidebar_separator_color;
+}
+
+
+
+/*
+
+Pointers
+
+*/
+
+// Ambito de los punteros
+#pointers{
+    position:relative;
+    top:0;
+    left:0;
+}
+
+// El puntero en si (dibujado con Fontawesome)
+.pointer{
+    position:absolute;
+    color:pointer_color;
+    width:10px;
+    height:10px;
+}
+
+
+
+/*
+
+Info
+
+*/
+
+#connected_users{
+    position: fixed;
+    font-size: 0.4em;
+    color: #7B7B7B;
+    font-family: Helvetica;
+    text-transform: uppercase;
+}
