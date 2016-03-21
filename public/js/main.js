@@ -172,6 +172,48 @@ function mousePressed() {
 
 /*
 
+touchStarted() - P5.js
+
+Captura el touch de mobile
+
+*/
+
+
+function touchStarted() {
+
+    var startGestureTime = 0;
+    var t0 = startGestureTime = millis();
+
+    // Creamos el currGesture (este es el que se dibuja desde p5.js)
+    currGesture = new StrokeGesture(t0, dissapearing, fixed, lastGesture);
+
+    // Creamos el nuevo ribbon
+    ribbon = new Ribbon();
+    ribbon.init();
+
+    // Agregamos el punto al ribbon
+    ribbon.addPoint(currGesture, currColor, currAlpha, touchX, touchY);
+
+    // Objeto que se emite
+    var movement = {
+        'e': "PRESS",
+        'x': touchX,
+        'y': touchY,
+        'color': currColor,
+        'id': id
+    }
+    // Emitimos el evento a los demas clientes.
+    socket.emit("externalMouseEvent", movement);
+
+    return false;
+
+}
+
+
+
+
+/*
+
 mouseDragged() - P5.js
 
 Captura el mouseDragged dentro del canvas de P5.js
@@ -192,6 +234,30 @@ function mouseDragged() {
         ribbon.addPoint(currGesture, currColor, currAlpha, mouseX, mouseY);
     }
 }
+
+/*
+
+touchMoved() - P5.js
+
+Captura el touch.
+
+*/
+
+function touchMoved() {
+    if (currGesture) {
+        var movement = {
+            'e': "DRAGGED",
+            'x': touchX,
+            'y': touchY,
+            'color': currColor,
+            'id': id
+        }
+        socket.emit("externalMouseEvent", movement);
+
+        ribbon.addPoint(currGesture, currColor, currAlpha, touchX, touchY);
+    }
+}
+
 
 /*
 
@@ -218,6 +284,41 @@ function mouseReleased() {
             'e': "RELEASED",
             'x': mouseX,
             'y': mouseY,
+            'color': currColor,
+            'id': id
+        }
+        socket.emit("externalMouseEvent", movement);
+
+        lastGesture = currGesture;
+        currGesture = null;
+    }
+}
+
+/*
+
+mouseReleased() - P5.js
+
+Captura el touch.
+
+*/
+
+function touchEnded() {
+    if (currGesture) {
+
+        // Agregamos el último punto
+        ribbon.addPoint(currGesture, currColor, currAlpha, touchX, touchY);
+        currGesture.setLooping(looping);
+        currGesture.setEndTime(millis());
+
+        // Pusheamos el gesture a la capa
+        if (currGesture.visible) {
+            layers[currLayer].push(currGesture);
+        }
+
+        var movement = {
+            'e': "RELEASED",
+            'x': touchX,
+            'y': touchY,
             'color': currColor,
             'id': id
         }
