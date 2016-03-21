@@ -1,6 +1,6 @@
 // Socket.io
 var socket = io();
-var id = Math.round($.now() * Math.random());
+var id = Math.round($.now() * Math.random()); // Temporal ID Generator
 
 // El DOM termina de cargar.
 $(document).ready(function() {
@@ -21,6 +21,7 @@ $(document).ready(function() {
     // Setea el color cuando clickea
     $(".color_button").click(function(){
         currColor = STROKE_COLORS[$(this).index()];
+        $(".sidebar_button_color").css('background-color', $(this).data('color'));
     });
 
     // Menú desplegable de color
