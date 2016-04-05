@@ -1,4 +1,4 @@
-var RIBBON_WIDTH = 0.8; // Average ribbon width
+var RIBBON_WIDTH = 0.4; // Average ribbon width
 var SMOOTH_COEFF = 0.7; // Smoothing coefficient used to ease the jumps in the tracking data.
 var RIBBON_DETAIL = 5;
 var MIN_POS_CHANGE = 2;
@@ -16,6 +16,12 @@ var MAX_GROUP_TIME = 5;     // Maximum between two consecutive strokes to be con
 var LOOP_MULTIPLIER = 1;    // How many times slower the loop is with respect to the original stroke
 var DELETE_FACTOR = 0.9;
 
+var RIBBON_WIDTHS = [
+    0.1,
+    0.4,
+    0.8,
+    1.2
+]
 
 var STROKE_COLORS = [
   [0, 0, 0],

@@ -31,7 +31,7 @@ function Ribbon() {
   this.Sid2Point1 = null;
 }
 
-Ribbon.prototype.init = function() {
+Ribbon.prototype.init = function(p_ribbon_width) {
   this.ribbonDetail = RIBBON_DETAIL;
   this.nVertPerStretch = 0;
   for (var ui = 1; ui <= 10; ui ++) {
@@ -39,10 +39,11 @@ Ribbon.prototype.init = function() {
       this.nVertPerStretch += 4;
     }
   }
+  console.log("Iniciado con: "+ p_ribbon_width);
   this.lspline = new BSpline(true);
   this.rspline = new BSpline(true);
   // println(this.lspline);
-  this.ribbonsWidth = 0.7 * RIBBON_WIDTH + 1.3 * RIBBON_WIDTH * Math.random();
+  this.ribbonsWidth = 0.7 * p_ribbon_width + 1.3 * p_ribbon_width * Math.random();
 }
 
 Ribbon.prototype.addPoint = function(gesture, col, alp, x, y) {

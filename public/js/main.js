@@ -7,20 +7,21 @@ $(document).ready(function() {
 
     var doc = $(document);
     var win = $(window);
-    var connections = $('#connections');
     var clients = {};
     var pointers = {};
     var prev = {};
     var lastEmit = $.now();
 
-    // Seteo el color en base al data-color
+    // Seteo el color en base al data-color de cada uno
     $(".color_button").each(function(index){
         $(this).css('background-color', $(this).data('color'));
     });
 
     // Setea el color cuando clickea
     $(".color_button").click(function(){
+        // Esta es una variable local que esta en andiamo.js
         currColor = STROKE_COLORS[$(this).index()];
+        // Cambio el color de la UI
         $(".sidebar_button_color").css('background-color', $(this).data('color'));
     });
 
@@ -36,6 +37,30 @@ $(document).ready(function() {
         $(".drop_weight").stop().fadeIn(200);
     },function(){
         $(".drop_weight").stop().fadeOut(200);
+    });
+
+    $(".weight_button_01").click(function(){
+        RIBBON_WIDTH = RIBBON_WIDTHS[0];
+        $(".weight_point").removeClass('weight_point_tam01 weight_point_tam02 weight_point_tam03 weight_point_tam04');
+        $(".weight_point").addClass('weight_point_tam01');
+    });
+
+    $(".weight_button_02").click(function(){
+        RIBBON_WIDTH = RIBBON_WIDTHS[1];
+        $(".weight_point").removeClass('weight_point_tam01 weight_point_tam02 weight_point_tam03 weight_point_tam04');
+        $(".weight_point").addClass('weight_point_tam02');
+    });
+
+    $(".weight_button_03").click(function(){
+        RIBBON_WIDTH = RIBBON_WIDTHS[2];
+        $(".weight_point").removeClass('weight_point_tam01 weight_point_tam02 weight_point_tam03 weight_point_tam04');
+        $(".weight_point").addClass('weight_point_tam03');
+    });
+
+    $(".weight_button_04").click(function(){
+        RIBBON_WIDTH = RIBBON_WIDTHS[3];
+        $(".weight_point").removeClass('weight_point_tam01 weight_point_tam02 weight_point_tam03 weight_point_tam04');
+        $(".weight_point").addClass('weight_point_tam04');
     });
 
     /*
@@ -119,7 +144,7 @@ $(document).ready(function() {
     socket.on('connections', connectionHandler);
     socket.on('user_disconnected',connectionHandler);
 
-    // Borramos las conexiones viejas
+    // Borramos las conexiones viejas (cada 5000ms)
     setInterval(function() {
         for (var i in clients) {
             if ($.now() - clients[i].updated > 5000) {
@@ -152,7 +177,7 @@ function mousePressed() {
 
     // Creamos el nuevo ribbon
     ribbon = new Ribbon();
-    ribbon.init();
+    ribbon.init(RIBBON_WIDTH);
 
     // Agregamos el punto al ribbon
     ribbon.addPoint(currGesture, currColor, currAlpha, mouseX, mouseY);
@@ -163,6 +188,7 @@ function mousePressed() {
         'x': mouseX,
         'y': mouseY,
         'color': currColor,
+        'stroke_weight':RIBBON_WIDTH,
         'id': id
     }
     // Emitimos el evento a los demas clientes.
@@ -189,7 +215,7 @@ function touchStarted() {
 
     // Creamos el nuevo ribbon
     ribbon = new Ribbon();
-    ribbon.init();
+    ribbon.init(RIBBON_WIDTH);
 
     // Agregamos el punto al ribbon
     ribbon.addPoint(currGesture, currColor, currAlpha, touchX, touchY);
@@ -200,6 +226,7 @@ function touchStarted() {
         'x': touchX,
         'y': touchY,
         'color': currColor,
+        'stroke_weight':RIBBON_WIDTH,
         'id': id
     }
     // Emitimos el evento a los demas clientes.
@@ -227,6 +254,7 @@ function mouseDragged() {
             'x': mouseX,
             'y': mouseY,
             'color': currColor,
+            'stroke_weight':RIBBON_WIDTH,
             'id': id
         }
         socket.emit("externalMouseEvent", movement);
@@ -250,6 +278,7 @@ function touchMoved() {
             'x': touchX,
             'y': touchY,
             'color': currColor,
+            'stroke_weight':RIBBON_WIDTH,
             'id': id
         }
         socket.emit("externalMouseEvent", movement);
@@ -285,6 +314,7 @@ function mouseReleased() {
             'x': mouseX,
             'y': mouseY,
             'color': currColor,
+            'stroke_weight':RIBBON_WIDTH,
             'id': id
         }
         socket.emit("externalMouseEvent", movement);
@@ -320,6 +350,7 @@ function touchEnded() {
             'x': touchX,
             'y': touchY,
             'color': currColor,
+            'stroke_weight':RIBBON_WIDTH,
             'id': id
         }
         socket.emit("externalMouseEvent", movement);
@@ -355,7 +386,7 @@ socket.on('externalMouseEvent', function(data){
         // Agregamos un ribbon
         otherRibbons.put(data.id,new Ribbon());
         // Inicializamos el ribbon
-        otherRibbons.get(data.id).init();
+        otherRibbons.get(data.id).init(data.stroke_weight);
         // Le agregamos este punto
         otherRibbons.get(data.id).addPoint(otherGestures.get(data.id), data.color, currAlpha, data.x, data.y);
 
