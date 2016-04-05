@@ -3,17 +3,31 @@ var express = require('express');
 var app = express();
 var server = require('http').createServer(app);
 var io = require('socket.io')(server);
-
+var Hashids = require("hashids"),
+	hashids = new Hashids("this is my salt",0, "0123456789abcdef");
 var connections = 0;
+
+// Lo uso para generar ids de boards
+var boards = 0;
 
 // Importo la carpeta public para poder routear assets
 // estaticos.
 app.use(express.static(__dirname + '/public'));
 
-// Main route
+
+// Main route (Si la persona entra sin un ID)
 app.get('/', function(req, res) {
+    boards++;
+    var board_id = hashids.encode(boards,boards);
+    res.redirect('/board/'+board_id);
+});
+
+
+app.get('/board/:board_id',function(req,res){
     res.sendFile(__dirname + '/index.html');
 });
+
+
 
 // Conexión
 io.on('connection', function(socket) {

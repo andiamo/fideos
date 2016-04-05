@@ -39,7 +39,6 @@ Ribbon.prototype.init = function(p_ribbon_width) {
       this.nVertPerStretch += 4;
     }
   }
-  console.log("Iniciado con: "+ p_ribbon_width);
   this.lspline = new BSpline(true);
   this.rspline = new BSpline(true);
   // println(this.lspline);

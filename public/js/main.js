@@ -72,7 +72,7 @@ $(document).ready(function() {
     */
 
     function connectionHandler(data) {
-        $("#connected_users").text("Users: "+data.connections);
+        //$("#connected_users").text("Users: "+data.connections);
     }
 
     /*
