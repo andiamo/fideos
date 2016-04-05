@@ -24,16 +24,12 @@ app.get('/', function(req, res) {
 
 
 app.get('/board/:board_id',function(req,res){
-
-
-
     res.sendFile(__dirname + '/index.html');
 });
 
 
 // Conexión
 io.on('connection', function(socket) {
-
 
     // Recibo desde el cliente el room_id
     var room_id = socket.handshake.query.room_id;
@@ -55,12 +51,12 @@ io.on('connection', function(socket) {
 
     // Movimiento del puntero
     socket.on('mousemove', function(data) {
-        socket.broadcast.emit('move', data);
+        socket.broadcast.to(room_id).emit('move', data);
     });
 
     // Movimiento de los trazos
     socket.on('externalMouseEvent',function(data){
-        socket.broadcast.emit('externalMouseEvent',data);
+        socket.broadcast.to(room_id).emit('externalMouseEvent',data);
     });
 
     // Desconexion de un cliente

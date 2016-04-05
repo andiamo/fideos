@@ -4,13 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Trazos</title>
-    <!-- <link rel="stylesheet" href="css/style.css"> -->
     <link rel="stylesheet" href="../css/result.css">
     <!-- jQuery -->
     <script src="../js/jquery.min.js"></script>
     <!-- p5.js -->
     <script src="../js/p5.min.js"></script>
-    <script src="../js/p5.dom.js"></script>
+    <!-- <script src="../js/p5.dom.js"></script> -->
     <!-- andiamo  -->
     <script src="../js/andiamo/parameters.js"></script>
     <script src="../js/andiamo/splines.js"></script>
@@ -22,7 +21,14 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 </head>
 <body>
+    <div id="share_dialog">
+        <h1>Invitar al tablero</h1>
 
+        <p>Copiar este link:</p>
+        <input type="text" class="shareDialogInput"></input><br>
+        <a href="" class="shareLinkMailto">O invitar via email.</a><br>
+        <button class="close_button">Cerrar</button>
+    </div>
     <!-- Sidebar -->
     <div id="sidebar">
         <div class="sidebar_button_color" id="color">
@@ -54,7 +60,8 @@
         <!-- <div class="sidebar_separator"></div> -->
         <!-- <div class="sidebar_button"><img src="../img/button_04.svg" alt=""></div> -->
         <div class="sidebar_separator"></div>
-        <div class="sidebar_button"><img src="../img/button_05.svg" alt=""></div>
+        <div class="sidebar_button share_button"><img src="../img/button_05.svg" alt=""></div>
+
     </div>
 
     <!-- Aca mostramos los otros punteros -->

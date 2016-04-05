@@ -1,11 +1,14 @@
 var room_id = window.location.pathname.split("/")[2];
 // Socket.io
 var socket = io({query: 'room_id='+room_id});
-//var socket = io.connect('', {query: 'name=something'});
 var id = Math.round($.now() * Math.random()); // Temporal ID Generator
+
 
 // El DOM termina de cargar.
 $(document).ready(function() {
+
+
+
 
     var doc = $(document);
     var win = $(window);
@@ -65,6 +68,25 @@ $(document).ready(function() {
         $(".weight_point").addClass('weight_point_tam04');
     });
 
+    // Share button
+    $(".share_button").click(function(){
+        $("#share_dialog").fadeIn();
+    })
+
+    // Share dialog
+    $(".shareDialogInput").val(window.location.href);
+    $(".shareDialogInput").focus();
+    $(".close_button").click(function(){
+        $("#share_dialog").fadeOut();
+    })
+
+    $(".shareLinkMailto").on('click', function (event) {
+        event.preventDefault();
+        var email = "abc@abc.com";
+        var subject = 'Invitación al tablero';
+        var emailBody = 'Ingresa a este tablero: '+window.location.href;
+        window.location = 'mailto:' + email + '?subject=' + subject + '&body=' +   emailBody;
+    });
     /*
 
     connectionHandler()
@@ -170,7 +192,6 @@ Captura el mousePressed dentro del canvas de P5.js.
 */
 
 function mousePressed() {
-
     var startGestureTime = 0;
     var t0 = startGestureTime = millis();
 
@@ -195,6 +216,8 @@ function mousePressed() {
     }
     // Emitimos el evento a los demas clientes.
     socket.emit("externalMouseEvent", movement);
+
+    return false;
 
 }
 
@@ -263,6 +286,8 @@ function mouseDragged() {
 
         ribbon.addPoint(currGesture, currColor, currAlpha, mouseX, mouseY);
     }
+
+    return false;
 }
 
 /*

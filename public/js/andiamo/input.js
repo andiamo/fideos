@@ -1,42 +1,42 @@
-
-var startGestureTime = 0;
-
-function mousePressed() {
-  var t0 = startGestureTime = millis();
-
-  var connected = false;
-  if (lastGesture && grouping && t0 - lastGesture.t1 < 1000 * MAX_GROUP_TIME) {
-    t0 = lastGesture.t0;
-    connected = true;
-  }
-
-  currGesture = new StrokeGesture(t0, dissapearing, fixed, lastGesture);
-
-  if (connected) {
-    lastGesture.next = currGesture;
-  }
-
-  ribbon.addPoint(currGesture, currColor, currAlpha, mouseX, mouseY);
-}
-
-function mouseDragged() {
-  if (currGesture) {
-    ribbon.addPoint(currGesture, currColor, currAlpha, mouseX, mouseY);
-  }
-}
-
-function mouseReleased() {
-  if (currGesture) {
-    ribbon.addPoint(currGesture, currColor, currAlpha, mouseX, mouseY);
-    currGesture.setLooping(looping);
-    currGesture.setEndTime(millis());
-    if (currGesture.visible) {
-      layers[currLayer].push(currGesture);
-    }
-    lastGesture = currGesture;
-    currGesture = null;
-  }
-}
+// 
+// var startGestureTime = 0;
+//
+// function mousePressed() {
+//   var t0 = startGestureTime = millis();
+//
+//   var connected = false;
+//   if (lastGesture && grouping && t0 - lastGesture.t1 < 1000 * MAX_GROUP_TIME) {
+//     t0 = lastGesture.t0;
+//     connected = true;
+//   }
+//
+//   currGesture = new StrokeGesture(t0, dissapearing, fixed, lastGesture);
+//
+//   if (connected) {
+//     lastGesture.next = currGesture;
+//   }
+//
+//   ribbon.addPoint(currGesture, currColor, currAlpha, mouseX, mouseY);
+// }
+//
+// function mouseDragged() {
+//   if (currGesture) {
+//     ribbon.addPoint(currGesture, currColor, currAlpha, mouseX, mouseY);
+//   }
+// }
+//
+// function mouseReleased() {
+//   if (currGesture) {
+//     ribbon.addPoint(currGesture, currColor, currAlpha, mouseX, mouseY);
+//     currGesture.setLooping(looping);
+//     currGesture.setEndTime(millis());
+//     if (currGesture.visible) {
+//       layers[currLayer].push(currGesture);
+//     }
+//     lastGesture = currGesture;
+//     currGesture = null;
+//   }
+// }
 
 // function keyPressed() {
 //   println(keyCode);
