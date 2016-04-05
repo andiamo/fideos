@@ -1,5 +1,7 @@
+var room_id = window.location.pathname.split("/")[2];
 // Socket.io
-var socket = io();
+var socket = io({query: 'room_id='+room_id});
+//var socket = io.connect('', {query: 'name=something'});
 var id = Math.round($.now() * Math.random()); // Temporal ID Generator
 
 // El DOM termina de cargar.

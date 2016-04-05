@@ -4,7 +4,7 @@ var app = express();
 var server = require('http').createServer(app);
 var io = require('socket.io')(server);
 var Hashids = require("hashids"),
-	hashids = new Hashids("this is my salt",0, "0123456789abcdef");
+hashids = new Hashids("this is my salt",0, "0123456789abcdef");
 var connections = 0;
 
 // Lo uso para generar ids de boards
@@ -24,13 +24,20 @@ app.get('/', function(req, res) {
 
 
 app.get('/board/:board_id',function(req,res){
+
+
+
     res.sendFile(__dirname + '/index.html');
 });
 
 
-
 // Conexión
 io.on('connection', function(socket) {
+
+
+    // Recibo desde el cliente el room_id
+    var room_id = socket.handshake.query.room_id;
+    socket.join(room_id);
 
     // Suma una conexion
     connections++;
