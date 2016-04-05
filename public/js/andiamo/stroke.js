@@ -1,11 +1,11 @@
 function StrokeQuad(t) {
-  this.t = t;  
+  this.t = t;
   this.x = [0, 0, 0, 0];
   this.y = [0, 0, 0, 0];
   this.u = [0, 0, 0, 0];
   this.v = [0, 0, 0, 0];
   this.r = [0, 0, 0, 0];
-  this.g = [0, 0, 0, 0];  
+  this.g = [0, 0, 0, 0];
   this.b = [0, 0, 0, 0];
   this.a = [0, 0, 0, 0];
   this.a0 = [0, 0, 0, 0];
@@ -42,7 +42,7 @@ StrokeQuad.prototype.update = function(ff, all) {
     } else {
       this.a[i] = 0;
     }
-  } 
+  }
 }
 
 StrokeQuad.prototype.draw = function(ascale) {
@@ -54,23 +54,23 @@ StrokeQuad.prototype.draw = function(ascale) {
       vertex(this.x[i], this.y[i]);
     }
     endShape(CLOSE);
-  }  
+  }
 }
 
 function StrokeGesture(t0, dissapearing, fixed, prev) {
   this.prev = prev;
   this.next = null;
   this.quads = [];
-    
+
   this.t0 = t0;
   this.t1 = t0;
-  this.lastUpdate = t0;   
+  this.lastUpdate = t0;
 
-  this.looping = false;    
+  this.looping = false;
   this.fadeOutFact = 1;
   this.fadeOutFact0 = 1;
   this.alphaScale = 1;
-    
+
   this.starting = true;
   this.visible = true;
   this.loopTime = -1;
@@ -81,7 +81,7 @@ function StrokeGesture(t0, dissapearing, fixed, prev) {
 }
 
 StrokeGesture.prototype.clear = function() {
-  this.quads = [];  
+  this.quads = [];
 }
 
 StrokeGesture.prototype.isStarting = function() {
@@ -117,14 +117,14 @@ StrokeGesture.prototype.setEndTime = function(t1) {
   this.t1 = t1;
   if (this.fixed) {
     this.fadeOutFact = 1;
-  } else {    
+  } else {
     var millisPerFrame =  1000.0 / frameRate();
     var dt = this.t1 - this.t0;
     var nframes = Math.floor(LOOP_MULTIPLIER * dt / millisPerFrame);
-    this.fadeOutFact = Math.exp(Math.log(INVISIBLE_ALPHA / 255.0) / nframes); 
+    this.fadeOutFact = Math.exp(Math.log(INVISIBLE_ALPHA / 255.0) / nframes);
     this.fadeOutFact0 = this.fadeOutFact;
   }
-} 
+}
 
 StrokeGesture.prototype.addQuad = function(quad) {
   this.quads.push(quad);
@@ -135,7 +135,7 @@ StrokeGesture.prototype.update = function(t) {
   this.qcount = 0;
   for (var i = 0; i < this.quads.length; i++) {
     var quad = this.quads[i]
-    if (this.loopTime == -1 || quad.t - this.t0 <= this.loopTime) {  
+    if (this.loopTime == -1 || quad.t - this.t0 <= this.loopTime) {
       quad.update(this.fadeOutFact, this.qcount >= this.quads.length);
       this.qcount++;
       if (quad.visible) {
@@ -150,16 +150,16 @@ StrokeGesture.prototype.update = function(t) {
     }
     if (this.isDrawn()) {
       // start/restart loop.
-      if (!this.dissapearing) this.fadeOutFact = 1;      
+      if (!this.dissapearing) this.fadeOutFact = 1;
       for (var i = 0; i < this.quads.length; i++) {
         var quad = this.quads[i]
         quad.restoreAlpha();
-      }      
+      }
       this.loopTime = 0;
     }
     if (this.t1 - this.t0 < this.loopTime) {
       this.fadeOutFact = this.fadeOutFact0;
-    }    
+    }
   }
 
   this.lastUpdate = t;
@@ -170,7 +170,7 @@ StrokeGesture.prototype.isDrawn = function() {
 }
 
 StrokeGesture.prototype.draw = function() {
-  if (this.visible) {    
+  if (this.visible) {
     // if (USE_TEXTURES) {
     //   pg.texture(textures.get(tex));
     // }
