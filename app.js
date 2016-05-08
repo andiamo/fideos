@@ -59,6 +59,10 @@ io.on('connection', function(socket) {
         socket.broadcast.to(room_id).emit('externalMouseEvent',data);
     });
 
+    socket.on('deleteEvent', function(data) {
+        socket.broadcast.to(room_id).emit('deleteEvent', data);
+    });
+
     // Desconexion de un cliente
     socket.on('disconnect', function() {
         connections--;
