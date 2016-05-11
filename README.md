@@ -3,7 +3,7 @@ Version de desarrollo de Trazos.
 
 # Montar servidor
 
-Para montar el servidor es necesario tener instalado [Node.js](https://nodejs.org/en/).
+Para montar el servidor localmente es necesario tener instalado [Node.js](https://nodejs.org/en/).
 
 ```
 npm install
