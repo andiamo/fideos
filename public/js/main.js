@@ -433,7 +433,8 @@ socket.on('externalMouseEvent', function(data){
         // Inicializamos el ribbon
         otherRibbons.get(data.id).init(data.stroke_weight);
         // Le agregamos este punto
-        otherRibbons.get(data.id).addPoint(otherGestures.get(data.id)[otherGestures.get(data.id).length-1], data.color, currAlpha, data.x, data.y);
+        var other = otherGestures.get(data.id);
+        otherRibbons.get(data.id).addPoint(other[other.length-1], data.color, currAlpha, data.x, data.y);
 
     }
 
@@ -443,7 +444,8 @@ socket.on('externalMouseEvent', function(data){
 
     if (data.e === "DRAGGED") {
         // Agregamos el punto
-        otherRibbons.get(data.id).addPoint(otherGestures.get(data.id)[otherGestures.get(data.id).length-1], data.color, currAlpha, data.x, data.y);
+        var other = otherGestures.get(data.id);
+        otherRibbons.get(data.id).addPoint(other[other.length-1], data.color, currAlpha, data.x, data.y);
     }
 
     /*
@@ -453,10 +455,11 @@ socket.on('externalMouseEvent', function(data){
     if (data.e === "RELEASED"){
 
         // Seteamos el ultimo punto
-        otherRibbons.get(data.id).addPoint(otherGestures.get(data.id)[otherGestures.get(data.id).length-1], data.color, currAlpha, data.x, data.y);
+        var other = otherGestures.get(data.id);
+        otherRibbons.get(data.id).addPoint(other[other.length-1], data.color, currAlpha, data.x, data.y);
         // Seteamos el looping
-        otherGestures.get(data.id)[otherGestures.get(data.id).length-1].setLooping(true);
-        otherGestures.get(data.id)[otherGestures.get(data.id).length-1].setEndTime(millis());
+        other[other.length-1].setLooping(true);
+        other[other.length-1].setEndTime(millis());
         // Lo agregamos a la capa local
         //layers[currLayer].push(otherGestures.get(data.id));
         // Borramos este gesture
