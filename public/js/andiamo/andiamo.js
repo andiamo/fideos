@@ -12,7 +12,7 @@ var currColor = [255, 255, 255];
 var currAlpha = 150;
 
 // Hashmaps para los trazos externos
-var otherGestures = new HashMap();
+var otherGestures = new MultiMap();
 var otherRibbons = new HashMap();
 
 function setup() {
@@ -49,6 +49,7 @@ function draw() {
       gesture.draw();
     }
   }
+
   if (currGesture) {
     currGesture.update(t);
     currGesture.draw();
