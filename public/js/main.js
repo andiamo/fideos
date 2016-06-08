@@ -101,7 +101,7 @@ $(document).ready(function() {
 
     $(".shareLinkMailto").on('click', function (event) {
         event.preventDefault();
-        var email = "abc@abc.com";
+        var email = "";
         var subject = 'Invitación al tablero';
         var emailBody = 'Ingresa a este tablero: '+window.location.href;
         window.location = 'mailto:' + email + '?subject=' + subject + '&body=' +   emailBody;
@@ -402,7 +402,7 @@ Captura el touch.
 
 function touchEnded() {
     if (share_dialog_open) return;
-    
+
     if (currGesture) {
 
         // Agregamos el último punto
