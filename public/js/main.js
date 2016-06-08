@@ -3,6 +3,8 @@ var room_id = window.location.pathname.split("/")[2];
 var socket = io({query: 'room_id='+room_id});
 var id = Math.round($.now() * Math.random()); // Temporal ID Generator
 
+var share_dialog_open = false;
+
 
 // El DOM termina de cargar.
 $(document).ready(function() {
@@ -81,13 +83,20 @@ $(document).ready(function() {
     // Share button
     $(".share_button").click(function(){
         $("#share_dialog").fadeIn();
+
+        share_dialog_open = true;
+
+        $(".shareDialogInput").focus();
+        $(".shareDialogInput").select();
+
     })
 
     // Share dialog
     $(".shareDialogInput").val(window.location.href);
-    $(".shareDialogInput").focus();
     $(".close_button").click(function(){
         $("#share_dialog").fadeOut();
+
+        share_dialog_open = false;
     })
 
     $(".shareLinkMailto").on('click', function (event) {
@@ -209,7 +218,10 @@ Captura el mousePressed dentro del canvas de P5.js.
 
 */
 
+
 function mousePressed() {
+    if (share_dialog_open) return;
+
     var startGestureTime = 0;
     var t0 = startGestureTime = millis();
 
@@ -240,6 +252,7 @@ function mousePressed() {
 
 }
 
+
 /*
 
 touchStarted() - P5.js
@@ -250,6 +263,7 @@ Captura el touch de mobile
 
 
 function touchStarted() {
+    if (share_dialog_open) return;
 
     var startGestureTime = 0;
     var t0 = startGestureTime = millis();
@@ -291,7 +305,10 @@ Captura el mouseDragged dentro del canvas de P5.js
 
 */
 
+
 function mouseDragged() {
+    if (share_dialog_open) return;
+
     if (currGesture) {
         var movement = {
             'e': "DRAGGED",
@@ -309,6 +326,7 @@ function mouseDragged() {
     return false;
 }
 
+
 /*
 
 touchMoved() - P5.js
@@ -318,6 +336,8 @@ Captura el touch.
 */
 
 function touchMoved() {
+    if (share_dialog_open) return;
+
     if (currGesture) {
         var movement = {
             'e': "DRAGGED",
@@ -343,6 +363,8 @@ Captura el mouseReleased dentro del canvas de P5.js
 */
 
 function mouseReleased() {
+    if (share_dialog_open) return;
+
     if (currGesture) {
 
         // Agregamos el último punto
@@ -379,6 +401,8 @@ Captura el touch.
 */
 
 function touchEnded() {
+    if (share_dialog_open) return;
+    
     if (currGesture) {
 
         // Agregamos el último punto
