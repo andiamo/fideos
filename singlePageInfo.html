@@ -1,0 +1,159 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Trazos</title>
+    <link rel="stylesheet" href="css/result.css">
+    <link rel="stylesheet" href="css/singlePageInfo.css">
+    <link rel="stylesheet" href="css/jquery.fullPage.css">
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Mono:700,300' rel='stylesheet' type='text/css'>
+</head>
+<body>
+    <header>
+        <a href="#" class="boton dibujar">¡A dibujar!</a>
+        <nav>
+            <a href="#introducción">Quiénes somos</a>
+            <a href="#quienes-somos">De dónde venimos</a>
+            <a href="#donde-venimos">A donde vamos</a>
+            <a href="#contactanos">Contáctanos</a>
+        </nav>
+    </header>
+    <div id="fullpage">
+        <section data-anchor="introducción" id="intro">
+            <img class="logo" src="img/trazos-logo.png" alt="Logo de trazos" />
+            <h2>es una plataforma web para dibujo colectivo</h2>
+            <div class="texto">
+                <p>
+                    Una herramienta que busca, a través del trabajo colaborativo y el dibujo de
+                    trazos digitales animados en un tiempo simultáneo, propiciar experiencias
+                    artísticas y educativas novedosas, atractivas por su carácter lúdico, con amplias
+                    posibilidades para trabajar contenidos en el ámbito escolar, y que a su
+                    vez entienda la educación artística en un sentido amplio, que abarca la apropiación
+                    cotidiana de los lenguajes expresivos
+                </p>
+                <p>
+                    Trazos.club es un proyecto de software libre. La plataforma responde a la
+                    necesidad de generar una solución tecnológica mediante sistemas de colaboración
+                    en tiempo real, a través de los nuevos estándares para la web 2.0
+                </p>
+            </div>
+            <a href="#donde-venimos">
+                <img src="img/botonAbajo.png" alt="siguiente sección" />
+            </a>
+        </section>
+        <section data-anchor="quienes-somos" id="quienesSomos">
+            <h2>QUIÉNES SOMOS</h2>
+            <div class="colLeft">
+                <h1>Trazos.club</h1>
+                <p>
+                    es un proyecto<br />
+                    ideado por
+                    <a href="#">Andrés Colubri</a>
+                    &amp;
+                    <a href="#">Marcela Rapallo</a>
+                </p>
+                <a href="#contactanos" id="btnContactar" class="boton">
+                    Contactar
+                </a>
+            </div>
+            <div class="colRight">
+                <p>
+                    Este primer prototipo de trazos.club es el resultado de que el
+                    proyecto fue seleccionado por el
+                    <a href="#">Programa Universidad, Diseño y
+                    Desarrollo Productivo del Ministerio de Educación de la Nación</a>
+                    , como proyecto de desarrollo de la UNA
+                    (Universidad Nacional de las Artes de Argentina).
+                </p>
+                <p>
+                    <strong>Trabajamos junto a:</strong>
+                    <ul>
+                        <li><a href="#">Nahuel Coppero</a> programación</li>
+                        <li><a href="#">Manuel Gache </a> diseño</li>
+                        <li><a href="#">Gabriel Gendin</a> director del proyecto en la UNA</li>
+                    </ul>
+                </p>
+                <p>
+                    Contamos con la colaboración de un equipo interdisciplinario de
+                    estudiantes y profesores de las diferentes unidades académicas de la
+                    UNA.
+                    <ul>
+                        <li>Asesoran el proyecto también Tamara Varela, Giorgio Gore, y Martin Thiesen.</li>
+                        <li class="green">Y, felizmente, contamos con el apoyo del <a href="#">Club Cultural Matienzo</a>.</li>
+                    </ul>
+                </p>
+            </div>
+            <div class="clear"></div>
+        </section>
+        <section data-anchor="donde-venimos" id="dondeVenimos">
+            <div class="columna">
+                <img src="img/deDondeVenimos.png" alt="De donde venimos" />
+                <h2>¿De dónde venimos?</h2>
+                <p>
+                    <ul>
+                        <li>
+                            Trabajo conjunto de Andrés Colubri y Marcela
+                            Rapallo en el desarrollo de herramientas para
+                            dibujo en vivo y obras teatrales y performáticas
+                            con las plataformas Moldeo y Andiamo
+                        </li>
+                        <li>
+                            Trabajo de Andrés Colubri en el desarrollo de
+                            Processing
+                        </li>
+                        <li>
+                            Proyectos pedagógicos de Marcela Rapallo centrados
+                            en el dibujo en escena y el dibujo colectivo.
+                        </li>
+                    </ul>
+                </p>
+            </div>
+            <div class="columna">
+                <img src="img/aDondeVamos.png" alt="A donde vamos" />
+                <h2>¿A dónde vamos?</h2>
+                <p>
+                    <strong>Trazos.club</strong>
+                    apunta a ser accesible para un público
+                    amplio, abrir nuevas formas de experimentación
+                    artística, y funcionar como una herramienta de
+                    aprendizaje del dibujo.
+                </p>
+                <p>
+                    A este primer prototipo se irán sumando diferentes
+                    propuestas de actividades que servirán como
+                    invitaciones al juego y al ejercicio del dibujo.
+                </p>
+                <p>
+                    La plataforma
+                    <strong>Trazos.club</strong>
+                    tomará forma también a
+                    través de la gente que la utilice.
+                </p>
+            </div>
+        </section>
+        <section data-anchor="contactanos" id="contacto">
+            <h2>Contanos tu experiencia</h2>
+
+            <form method="post" action="/sendMail">
+                <fieldset>
+                    <input type="text" placeholder="Nombre" name="nombre" />
+                    <input type="text" placeholder="Email" name="email" class="email" />
+                    <input type="text" placeholder="Asunto" name="asunto" />
+
+                    <textarea name="mensaje" placeholder="Mensaje"></textarea>
+                    <button id="btnEnviar" type="button" class="boton">Enviar</button>
+                </fieldset>
+            </form>
+
+            <footer>
+            </footer>
+        </section>
+
+    </div>
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/jquery.fullPage.min.js" charset="utf-8"></script>
+    <script src="js/singlePageInfo.js" charset="utf-8"></script>
+</body>
+</html>

@@ -1,0 +1,270 @@
+body {
+    color : white;
+    font-family: 'Roboto Mono';
+    font-weight: 300;
+}
+
+.clear {
+    clear: both;
+}
+
+a {
+    outline: 0;
+}
+
+.boton:hover {
+    text-decoration: underline;
+}
+.boton {
+    color: black !important;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: bold;
+    background-color: #00ff00;
+    display: inline-block !important;
+    padding: 0.2em 3em;
+    border-radius: 33px;
+    margin-top: 2em;
+}
+
+header {
+    /*border-bottom: 1px solid #00FF00;*/
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    /*padding: 1em 0;*/
+    padding: 0.7em 0;
+    z-index: 10;
+
+    transition: opacity 0.6s, visibility 0.6s;
+}
+header.hide {
+    opacity: 0;
+    visibility: hidden;
+}
+header a.dibujar {
+    margin-left: 3%;
+    float: left;
+    margin-top: 0;
+    line-height: 2.8em;
+    padding: 0 2em;
+    font-size: 0.7em;
+}
+header nav {
+    float: right;
+    line-height: 2.2em;
+}
+header nav a {
+    display: inline-block;
+    margin-right: 2em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: #00FF00;
+    font-size: 0.8em;
+}
+header nav a.active {
+    text-decoration: underline;
+}
+
+section#intro {
+    text-align: center;
+    background-image: url("../img/fondo-intro.png");
+    background-size: cover;
+    background-repeat: no-repeat
+    padding-top: 3em;
+}
+section#intro .logo {
+    width: 15%;
+}
+section#intro h2 {
+    font-size: 26px;
+    color: #00ff00;
+    font-weight: 300;
+}
+section#intro .texto {
+    font-size: 15px;
+    color: #babcbe;
+    width: 50%;
+    margin: 0 auto;
+}
+section#intro a img {
+    width: 3%;
+}
+
+section#quienesSomos {
+    background-color: white;
+    color: #231f20;
+    padding-top: 2.5em;
+}
+section#quienesSomos h1 {
+    color: #231f20;
+    font-size: 2.2em;
+    margin: 0;
+    padding: 0;
+}
+section#quienesSomos h2 {
+    color: #00ff00;
+    margin-top: 0;
+    margin-left: 41%;
+    font-size: 1.4em;
+}
+section#quienesSomos a {
+    color: #00FF00;
+}
+
+section#quienesSomos p {
+    font-weight: 300;
+    color: #231f20;
+    font-size: 2.4em;
+    margin: 0;
+    padding: 0;
+}
+
+section#quienesSomos .colRight,
+section#quienesSomos .colLeft
+{
+    margin-top: 4em;
+    margin-bottom: 3em;
+}
+
+section#quienesSomos .colRight {
+    float: left;
+    width: 46%;
+}
+section#quienesSomos .colRight p strong {
+    font-weight: bold;
+    margin-top: 2em;
+    display: block;
+}
+section#quienesSomos .colRight p {
+    font-size: 0.9em;
+}
+section#quienesSomos .colRight ul {
+    padding: 0 1em;
+    margin: 0;
+    margin-bottom: 1.5em;
+    margin-top: 0.3em;
+}
+section#quienesSomos .colRight ul li {
+    font-size: 0.9em;
+}
+
+section#quienesSomos .colLeft {
+    width: 30%;
+    text-align: right;
+    margin-right: 4%;
+    float: left;
+    padding-left: 7%;
+    text-align: right;
+    line-height: 42px;
+    margin-top: 3.4em;
+}
+
+section#quienesSomos .colLeft a:hover {
+
+}
+section#quienesSomos .colLeft a {
+    display: block;
+}
+
+
+section#dondeVenimos {
+    background-image: url("../img/fondo-3.png");
+    background-size: cover;
+    background-repeat: no-repeat
+}
+
+section#dondeVenimos strong {
+    font-weight: bold;
+}
+
+section#dondeVenimos .columna {
+    float: left;
+    width: 35%;
+    text-align: center;
+    padding: 0 7%;
+}
+
+section#dondeVenimos img {
+    width: 32%;
+    margin-bottom: 2.5em;
+}
+
+section#dondeVenimos h2 {
+    font-weight: 300;
+    color: #00FF00;
+    font-size: 1.7em;
+}
+
+section#dondeVenimos p,
+section#dondeVenimos ul li {
+    font-size: 0.9em;
+}
+
+section#dondeVenimos ul li {
+    margin-bottom: 1em;
+}
+
+section#dondeVenimos ul {
+
+}
+
+section#contacto {
+    background-color: white;
+}
+section#contacto > div {
+    vertical-align: baseline;
+}
+section#contacto h2 {
+    background-color: #00FF00;
+    text-align: center;
+    padding: 2.5em 0;
+    margin: 0;
+    color: black;
+    font-weight: 300;
+    font-size: 1.8em;
+}
+
+section#contacto input {
+    background: none;
+    border: none;
+    border-bottom: 1px solid gray;
+    width: 30%;
+    font-family: inherit;
+    line-height: 4em;
+}
+
+section#contacto input.email {
+    margin: 0 3.9%;
+}
+
+section#contacto textarea {
+    display: block;
+    width: 100%;
+    background: none;
+    border: none;
+    border-bottom: 1px solid gray;
+    resize: none;
+    margin: 9em 0 4em;
+}
+
+section#contacto button {
+    border: none;
+    line-height: 3em;
+    padding: 0 3%;
+    cursor: pointer;
+}
+section#contacto fieldset {
+    border: 0;
+    padding: 3em 5em;
+}
+
+footer {
+    background-color: black;
+    height: 3em;
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    width: 100%;
+}
