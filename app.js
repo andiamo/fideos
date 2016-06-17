@@ -22,6 +22,16 @@ app.get('/', function(req, res) {
     res.redirect('/board/'+board_id);
 });
 
+// Página de informacion (singlePageInfo)
+app.get('/info', function(req, res) {
+    res.sendFile(__dirname + '/singlePageInfo.html');
+});
+
+// Aca debería mandar un mail (capaz habría que tener cuidado con los spambots)
+app.get('/sendMail', function(req, res) {
+    res.send("ok");
+});
+
 
 app.get('/board/:board_id',function(req,res){
     res.sendFile(__dirname + '/index.html');
