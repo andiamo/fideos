@@ -8,10 +8,7 @@ var share_dialog_open = false;
 
 // El DOM termina de cargar.
 $(document).ready(function() {
-
-
-
-
+    
     var doc = $(document);
     var win = $(window);
     var clients = {};

@@ -3,6 +3,7 @@ var express = require('express');
 var app = express();
 var server = require('http').createServer(app);
 var io = require('socket.io')(server);
+var fs = require("fs");
 var Hashids = require("hashids"),
 hashids = new Hashids("this is my salt",0, "0123456789abcdef");
 var connections = 0;
@@ -14,12 +15,24 @@ var boards = 0;
 // estaticos.
 app.use(express.static(__dirname + '/public'));
 
+//Dado que el sidebar se carga en más de una página hago un sólo archivo y lo incluyo
+var SIDEBAR_INCLUDE = "{SIDEBAR}";
+function includeSidebarAndSend(html, res) {
+    fs.readFile('./sidebar.inc.html', function (err, sidebarHTML) {
+        html = html.toString();
+        sidebarHTML = sidebarHTML.toString();
 
-// Main route (Si la persona entra sin un ID)
+        var resultHTML = html.replace(SIDEBAR_INCLUDE,sidebarHTML);
+        res.send(resultHTML);
+    });
+}
+
+// Main route, muestra la página de inicio
 app.get('/', function(req, res) {
-    boards++;
-    var board_id = hashids.encode(boards,boards);
-    res.redirect('/board/'+board_id);
+    fs.readFile('./index.html', function (err, indexHTML) {
+        if (err) throw err;
+        includeSidebarAndSend(indexHTML, res);
+    });
 });
 
 // Página de informacion (singlePageInfo)
@@ -32,9 +45,18 @@ app.get('/sendMail', function(req, res) {
     res.send("ok");
 });
 
+// Crea un nuevo board y redirige
+app.get('/board/', function(req, res) {
+    boards++;
+    var board_id = hashids.encode(boards,boards);
+    res.redirect('/board/'+board_id);
+});
 
 app.get('/board/:board_id',function(req,res){
-    res.sendFile(__dirname + '/index.html');
+    fs.readFile('./board.html', function (err, html) {
+        if (err) throw err;
+        includeSidebarAndSend(html, res);
+    });
 });
 
 
