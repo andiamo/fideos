@@ -4,9 +4,9 @@ $( function() {
         // anchors : [ "intro", "quienesSomos", "dondeVenimos", "contacto" ],
         afterLoad : function(anchorLink, index) {
             $("nav a").removeClass("active");
-            $("nav a").eq(index - 1).addClass("active");
-
-
+            if ( index >= 2 ) {
+                $("nav a").eq(index - 2).addClass("active");
+            }
         },
         onLeave: function(index, nextIndex, direction) {
             if ( nextIndex == 4 ) {
