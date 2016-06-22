@@ -1,0 +1,53 @@
+body {
+    color : white;
+    font-family: 'Roboto Mono';
+    font-weight: 300;
+}
+
+#modalIndex {
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.6);
+    width: 100%;
+    padding-top: 3em;
+}
+
+#modalIndex .logo {
+    width: 22%;
+    margin: 4% 0 4% -3%;
+}
+
+#modalIndex .wrapper {
+    width: 80%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+#modalIndex #canvas {
+    text-align: left;
+}
+#modalIndex canvas {
+    position: absolute;
+}
+
+.boton:hover {
+    text-decoration: underline;
+}
+.boton {
+    color: black !important;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: bold;
+    background-color: #00ff00;
+    display: inline-block !important;
+    padding: 0.9em 0;
+    border-radius: 33px;
+    margin-top: 2em;
+    width: 19%;
+}
+.boton.invertido {
+    background-color: black !important;
+    color: #00ff00 !important;
+    font-size: 0.8em;
+    border: 1px solid #00FF00;
+    padding: 1.2em 0;
+}

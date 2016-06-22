@@ -1,0 +1,50 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Trazos</title>
+    <link rel="stylesheet" href="../css/result.css">
+    <!-- jQuery -->
+    <script src="../js/jquery.min.js"></script>
+    <!-- p5.js -->
+    <script src="../js/p5.min.js"></script>
+    <!-- <script src="../js/p5.dom.js"></script> -->
+    <!-- andiamo  -->
+    <script src="../js/andiamo/parameters.js"></script>
+    <script src="../js/andiamo/splines.js"></script>
+    <script src="../js/andiamo/stroke.js"></script>
+    <script src="../js/andiamo/ribbons.js"></script>
+    <script src="../js/andiamo/hashmap.js"></script>
+    <script src="../js/andiamo/multimap.js"></script>
+    <script src="../js/andiamo/andiamo.js"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+</head>
+<body>
+    <div id="share_dialog">
+        <h1>Invitar al tablero</h1>
+
+        <p>Copiar este link:</p>
+        <input type="text" class="shareDialogInput"></input><br>
+        <a href="" class="shareLinkMailto">O invitar via email.</a><br>
+        <button class="close_button">Cerrar</button>
+    </div>
+    {SIDEBAR}
+
+    <!-- Aca mostramos los otros punteros -->
+    <div id="pointers"></div>
+
+    <!-- <div id="connected_users"></div> -->
+
+    <!-- Canvas de andiamo  -->
+    <div id="andiamo"></div>
+
+    <!-- Socket IO -->
+    <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+
+    <!-- Cliente -->
+    <script src="../js/main.js"></script>
+
+</body>
+</html>

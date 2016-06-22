@@ -4,80 +4,24 @@
 <head>
     <meta charset="UTF-8">
     <title>Trazos</title>
-    <link rel="stylesheet" href="../css/result.css">
-    <!-- jQuery -->
-    <script src="../js/jquery.min.js"></script>
-    <!-- p5.js -->
-    <script src="../js/p5.min.js"></script>
-    <!-- <script src="../js/p5.dom.js"></script> -->
-    <!-- andiamo  -->
-    <script src="../js/andiamo/parameters.js"></script>
-    <script src="../js/andiamo/splines.js"></script>
-    <script src="../js/andiamo/stroke.js"></script>
-    <script src="../js/andiamo/ribbons.js"></script>
-    <script src="../js/andiamo/hashmap.js"></script>
-    <script src="../js/andiamo/multimap.js"></script>
-    <script src="../js/andiamo/andiamo.js"></script>
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/result.css">
+    <link rel="stylesheet" href="css/index.css">
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Mono:700,300' rel='stylesheet' type='text/css'>
 </head>
 <body>
-    <div id="share_dialog">
-        <h1>Invitar al tablero</h1>
-
-        <p>Copiar este link:</p>
-        <input type="text" class="shareDialogInput"></input><br>
-        <a href="" class="shareLinkMailto">O invitar via email.</a><br>
-        <button class="close_button">Cerrar</button>
-    </div>
-    <!-- Sidebar -->
-    <div id="sidebar">
-        <div class="sidebar_button_color" id="color">
-            <div class="drop_color">
-                <div class="color_button" data-color="#000000"></div>
-                <div class="color_button" data-color="#ffffff"></div>
-                <div class="color_button" data-color="#ff0000"></div>
-                <div class="color_button" data-color="#ff4800"></div>
-                <div class="color_button" data-color="#fff200"></div>
-                <div class="color_button" data-color="#00ff6d"></div>
-                <div class="color_button" data-color="#0049ff"></div>
-                <div class="color_button" data-color="#AE00ff"></div>
-            </div>
+    {SIDEBAR}
+    <div id="modalIndex">
+        <div class="wrapper">
+            <div id="canvas"><!-- Acá irá el canvas --></div>
+            <img class="logo" src="img/trazos-logo.png" /><br />
+            <a class="boton" href="/board">¡A dibujar!</a><br />
+            <a class="boton invertido" href="/info">¿Qué es trazos.club?</a>
         </div>
-        <div class="sidebar_weight_button" id="weight">
-            <div class="weight_point weight_point_tam02"></div>
-            <div class="drop_weight">
-                <div class="weight_button_01"></div>
-                <div class="weight_button_02"></div>
-                <div class="weight_button_03"></div>
-                <div class="weight_button_04"></div>
-            </div>
-        </div>
-        <!-- <div class="sidebar_button"><img src="../img/button_01.svg" alt=""></div> -->
-        <!-- <div class="sidebar_button"><img src="../img/button_02.svg" alt=""></div> -->
-        <!-- <div class="sidebar_separator"></div> -->
-        <!-- <div class="sidebar_button"><img src="../img/button_03.svg" alt=""></div> -->
-        <!-- <div class="sidebar_button_layer"><img src="../img/button_layer_01.svg" alt=""></div> -->
-        <div class="sidebar_separator"></div>
-        <div class="sidebar_button delete_button"><img src="../img/button_04.svg" alt=""></div>
-        <div class="sidebar_separator"></div>
-        <div class="sidebar_button share_button"><img src="../img/button_05.svg" alt=""></div>
-
     </div>
 
-    <!-- Aca mostramos los otros punteros -->
-    <div id="pointers"></div>
-
-    <!-- <div id="connected_users"></div> -->
-
-    <!-- Canvas de andiamo  -->
-    <div id="andiamo"></div>
-
-    <!-- Socket IO -->
-    <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
-
-    <!-- Cliente -->
-    <script src="../js/main.js"></script>
-
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/p5.min.js"></script>
+    <script src="../js/index.js"></script>
+    <script src="../js/sketchIndex.js"></script>
 </body>
 </html>
