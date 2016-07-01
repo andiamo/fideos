@@ -1,3 +1,4 @@
+// out: ../css/style.css, sourcemap: true, compress: false
 /*
 
 VARIABLES
@@ -51,7 +52,7 @@ SIDEBAR
     background-color: #BBB;
     margin: 20px auto;
     border-radius: 20px;
-    border: 1px solid #ffffff;
+    // border: 1px solid #ffffff;
 
     // Menú desplegable del selector de color
     .drop_color{
@@ -90,9 +91,10 @@ SIDEBAR
     width: 40px;
     margin: 20px auto;
     position: relative;
-    background-color: #333;
+    // background-color: #333;
     border-radius: 20px;
-    border: 1px solid #ffffff;
+    border: 1px solid #404041;
+    // cursor: pointer;
 
 
     .weight_point{
@@ -204,24 +206,145 @@ SIDEBAR
 
 // Boton normal
 .sidebar_button{
-    height: 40px;
     margin-bottom: 20px;
-    margin: 10px;
     position:relative;
+    cursor: pointer;
+
+    .wrapper {
+        margin: 0 auto;
+        width: 45px;
+        height: 45px;
+        border: 1px solid #404041;
+        border-radius: 40px;
+        position: relative;
+    }
+
+    .wrapper.wrapperCapa {
+        border: none;
+        border-radius: 0;
+    }
+
+    .wrapperCapa {
+        img {
+            position: absolute;
+
+            &:nth-child(1) {
+                top: -10%;
+                z-index: 10;
+            }
+            &:nth-child(2) {
+                top: 15%;
+                z-index: 9;
+            }
+            &:nth-child(3) {
+                top: 40%;
+                z-index: 8;
+            }
+            &:nth-child(4) {
+                top: 65%;
+                z-index: 7;
+            }
+        }
+    }
+
+    #loop.wrapper.inactive {
+        border: 1px solid #00FF00;
+    }
+
+    .wrapperSimple:hover {
+        background-color: #114412;
+    }
+
+    .wrapperVertical {
+        &.down {
+            background: linear-gradient(0deg, #114412 50%, rgba(0,0,0,0) 50%);
+        }
+        &.up {
+            background: linear-gradient(0deg, rgba(0,0,0,0) 50%, #114412 50%);
+        }
+
+        .clickUp, .clickDown {
+            width: 45px;
+            height: 22.5px;
+            position: absolute;
+            border-radius: 45px 45px 0 0;
+
+            &:hover {
+                background: url("../img/flecha_arr.svg");
+                background-repeat: no-repeat;
+                background-size: 12px;
+                background-position: top center;
+            }
+        }
+        .clickDown {
+            bottom: 0;
+            border-radius: 0 0 45px 45px;
+
+            &:hover {
+                background: url("../img/flecha_ab.svg");
+                background-repeat: no-repeat;
+                background-size: 12px;
+                background-position: bottom center;
+            }
+        }
+    }
+    .wrapperHorizontal {
+        &.down {
+            background: linear-gradient(90deg, #114412 50%, rgba(0,0,0,0) 50%);
+        }
+        &.up {
+            background: linear-gradient(90deg, rgba(0,0,0,0) 50%, #114412 50%);
+        }
+
+        .clickLeft, .clickRight {
+            width: 22.5px;
+            height: 45px;
+            position: absolute;
+            border-radius: 45px 0 0 45px;
+            // background: url("../img/flecha_iz.svg");
+
+            &:hover {
+                background: url("../img/flecha_iz.svg");
+                background-repeat: no-repeat;
+                background-size: 16px;
+                background-position: center left;
+            }
+        }
+        .clickRight {
+            right: 0;
+            border-radius: 0 45px 45px 0;
+
+            &:hover {
+                background: url("../img/flecha_de.svg");
+                background-repeat: no-repeat;
+                background-size: 16px;
+                background-position: center right;
+            }
+
+        }
+    }
 
     img{
-        width: 40px;
-        height: 40px;
+        width: 45px;
         display: block;
-        margin-left: auto;
-        margin-right: auto;
-        margin: auto;
+        margin: 0 auto;
+    }
+
+    &.delete_button img {
+        width: 28px;
+        margin-top: 8px;
+        margin-left: 9px;
+    }
+    &.share_button img {
+        width: 38px;
+        margin-left: 10px;
+        margin-top: -1px;
     }
 
 }
 
 .sidebar_button:hover{
-    opacity:sidebar_button_hover_opacity;
+    // opacity:sidebar_button_hover_opacity;
 }
 
 // Boton de cambiar de capa
@@ -245,6 +368,7 @@ SIDEBAR
 .sidebar_separator{
     width: 100%;
     border: 1px solid sidebar_separator_color;
+    margin-bottom: 1em;
 }
 
 

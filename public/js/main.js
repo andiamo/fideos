@@ -8,7 +8,7 @@ var share_dialog_open = false;
 
 // El DOM termina de cargar.
 $(document).ready(function() {
-    
+
     var doc = $(document);
     var win = $(window);
     var clients = {};
@@ -77,8 +77,94 @@ $(document).ready(function() {
         socket.emit("deleteEvent", id);
     });
 
+    // Botones divididos
+    $(".sidebar_button .clickUp, .sidebar_button .clickRight").on("mouseover", function() {
+        $(this).parent().addClass("up");
+    })
+    $(".sidebar_button .clickDown, .sidebar_button .clickLeft").on("mouseover", function() {
+        $(this).parent().addClass("down");
+    })
+    $(".sidebar_button .clickUp, .sidebar_button .clickRight").on("mouseleave", function() {
+        $(this).parent().removeClass("up");
+    })
+    $(".sidebar_button .clickDown, .sidebar_button .clickLeft").on("mouseleave", function() {
+        $(this).parent().removeClass("down");
+    })
+    $(".sidebar_button .wrapperDual").on("click", function() {
+        if ( $(this).hasClass("down") ) {
+            var state = Number( $(this).attr("data-state") );
+            if ( state > 1 ) {
+                state--;
+                $(this).attr("data-state", state);
+
+                var $img =  $(this).children("img");
+                var name = $(this).attr("id");
+                $img.attr("src", "../img/" + name + "_" + state + ".svg");
+            }
+        }
+        if ( $(this).hasClass("up") ) {
+            var state = Number( $(this).attr("data-state") );
+            var maxState = Number( $(this).attr("data-max-state") );
+            if ( state < maxState ) {
+                state++;
+                $(this).attr("data-state", state);
+
+                var $img =  $(this).children("img");
+                var name = $(this).attr("id");
+                $img.attr("src", "../img/" + name + "_" + state + ".svg");
+            }
+        }
+    });
+    //Boton loop
+    $(".sidebar_button #loop").click(function() {
+        if ( !$(this).hasClass("inactive") ) {
+            $(this).addClass("inactive");
+            var $img =  $(this).children("img");
+            $img.attr("src", "../img/girar_2.svg");
+        } else {
+            $(this).removeClass("inactive");
+            var $img =  $(this).children("img");
+            $img.attr("src", "../img/girar_1.svg");
+        }
+    });
+    // Botones de capa
+    $(".wrapperCapa img").on("mouseover", function() {
+        if ( !$(this).hasClass("active") ) {
+            $(this).attr("src", "../img/capa_hover.svg");
+        }
+    });
+    $(".wrapperCapa img").on("mouseleave", function() {
+        if ( !$(this).hasClass("active") ) {
+            $(this).attr("src", "../img/capa.svg");
+        }
+    });
+    $(".wrapperCapa img").on("click", function() {
+        var numeroCapa = this.className.split(" ")[1];
+
+        $(".wrapperCapa img").each(function() {
+            $(this).attr("src","../img/capa.svg");
+            $(this).removeClass("active");
+        });
+        $(this).attr("src","../img/capa_active.svg");
+        $(this).addClass("active");
+    });
+    // Botones delete
+    $(".delete_button img").on("mousedown", function() {
+        $(this).attr("src", "../img/tacho_click.svg");
+    });
+    $(".delete_button img").on("mouseup", function() {
+        setTimeout( function() {
+            $(".delete_button img").attr("src", "../img/tacho.svg");
+        }, 600);
+    });
+
     // Share button
     $(".share_button").click(function(){
+        $(".share_button img").attr("src","../img/share_click.svg")
+        setTimeout( function() {
+            $(".share_button img").attr("src", "../img/share.svg");
+        }, 400);
+
         $("#share_dialog").fadeIn();
 
         share_dialog_open = true;
