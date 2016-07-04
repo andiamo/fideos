@@ -91,8 +91,9 @@ $(document).ready(function() {
         $(this).parent().removeClass("down");
     })
     $(".sidebar_button .wrapperDual").on("click", function() {
+        var state = Number( $(this).attr("data-state") );
+
         if ( $(this).hasClass("down") ) {
-            var state = Number( $(this).attr("data-state") );
             if ( state > 1 ) {
                 state--;
                 $(this).attr("data-state", state);
@@ -103,7 +104,6 @@ $(document).ready(function() {
             }
         }
         if ( $(this).hasClass("up") ) {
-            var state = Number( $(this).attr("data-state") );
             var maxState = Number( $(this).attr("data-max-state") );
             if ( state < maxState ) {
                 state++;
@@ -112,6 +112,23 @@ $(document).ready(function() {
                 var $img =  $(this).children("img");
                 var name = $(this).attr("id");
                 $img.attr("src", "../img/" + name + "_" + state + ".svg");
+
+            }
+        }
+
+        if ( name == "velocidad" ) {
+            LOOP_MULTIPLIER = map(state, 1, 9,5,0) ;
+            console.log("Velocidad: " + LOOP_MULTIPLIER);
+        }
+        if ( name == "mirar" ) {
+            var ascale = map(state, 1,7,0,1);
+            console.log("Alpha: " + ascale);
+
+            for (var i = 0; i < layers[currLayer].length; i++) {
+                var gesture = layers[currLayer][i];
+                // var ascale = gesture.getAlphaScale();
+                // ascale = constrain(ascale - 0.05, 0, 1);
+                gesture.setAlphaScale(ascale);
             }
         }
     });
@@ -121,10 +138,14 @@ $(document).ready(function() {
             $(this).addClass("inactive");
             var $img =  $(this).children("img");
             $img.attr("src", "../img/girar_2.svg");
+
+            looping = false;
         } else {
             $(this).removeClass("inactive");
             var $img =  $(this).children("img");
             $img.attr("src", "../img/girar_1.svg");
+
+            looping = true;
         }
     });
     // Botones de capa
@@ -139,7 +160,7 @@ $(document).ready(function() {
         }
     });
     $(".wrapperCapa img").on("click", function() {
-        var numeroCapa = this.className.split(" ")[1];
+        var numeroCapa = this.className.split(" ")[1].substring(4,5);
 
         $(".wrapperCapa img").each(function() {
             $(this).attr("src","../img/capa.svg");
@@ -147,8 +168,10 @@ $(document).ready(function() {
         });
         $(this).attr("src","../img/capa_active.svg");
         $(this).addClass("active");
+
+        currLayer = Number(numeroCapa) - 1;
     });
-    // Botones delete
+    // Boton delete
     $(".delete_button img").on("mousedown", function() {
         $(this).attr("src", "../img/tacho_click.svg");
     });
