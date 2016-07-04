@@ -4,8 +4,18 @@ $( function() {
         // anchors : [ "intro", "quienesSomos", "dondeVenimos", "contacto" ],
         afterLoad : function(anchorLink, index) {
             $("nav a").removeClass("active");
-            if ( index >= 2 ) {
-                $("nav a").eq(index - 2).addClass("active");
+
+            switch ( index ) {
+                case 2:
+                    $("nav a").eq(0).addClass("active");
+                    break;
+                case 3: // de donde venimos y a donde vamos deben activarse los dos
+                    $("nav a").eq(1).addClass("active");
+                    $("nav a").eq(2).addClass("active");
+                    break;
+                case 4:
+                    $("nav a").eq(3).addClass("active");
+                    break;
             }
         },
         onLeave: function(index, nextIndex, direction) {
