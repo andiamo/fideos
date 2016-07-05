@@ -89,7 +89,12 @@ $(document).ready(function() {
         $(".shareDialogInput").focus();
         $(".shareDialogInput").select();
 
-    })
+    });
+
+    $(".save_button").click(function() {
+        console.log("save button clicked");
+        socket.emit("saveEvent", id);
+    });
 
     // Share dialog
     $(".shareDialogInput").val(window.location.href);

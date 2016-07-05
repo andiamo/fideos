@@ -1,4 +1,5 @@
 // Dependencias
+var fs = require('fs');
 var express = require('express');
 var app = express();
 var server = require('http').createServer(app);
@@ -61,6 +62,15 @@ io.on('connection', function(socket) {
 
     socket.on('deleteEvent', function(data) {
         socket.broadcast.to(room_id).emit('deleteEvent', data);
+    });
+
+
+    socket.on('saveEvent', function(data) {
+        console.log("save button pressed");
+fs.writeFile('helloworld.txt', 'save button pressed', function (err) {
+  if (err) return console.log(err);
+  console.log('Hello World > helloworld.txt');
+});
     });
 
     // Desconexion de un cliente
