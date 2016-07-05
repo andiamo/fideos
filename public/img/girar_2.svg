@@ -15,7 +15,7 @@
    id="svg4666"
    version="1.1"
    inkscape:version="0.91 r"
-   sodipodi:docname="girar_1.svg">
+   sodipodi:docname="girar_2.svg">
   <defs
      id="defs4668">
     <clipPath
@@ -34,9 +34,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="2.8"
-     inkscape:cx="73.437085"
-     inkscape:cy="1.3141197"
+     inkscape:zoom="5.6"
+     inkscape:cx="39.837757"
+     inkscape:cy="58.157652"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -57,7 +57,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -67,30 +67,39 @@
      id="layer1"
      transform="translate(583.125,-417.80863)">
     <g
-       id="g54"
-       transform="matrix(1.25,0,0,-1.25,-508.31112,498.36225)">
+       id="g650"
+       transform="matrix(1.2500001,0,0,-1.2500001,-508.3111,498.36226)">
       <path
          d="m 0,0 c 2.754,-1.909 6.098,-3.028 9.703,-3.028 9.418,0 17.053,7.635 17.053,17.053 0,9.417 -7.635,17.053 -17.053,17.053 -9.417,0 -16.45,-11.429 -19.054,-17.053 -3.198,-6.907 -9.637,-17.053 -19.054,-17.053 -9.418,0 -17.053,7.635 -17.053,17.053 0,9.417 7.635,17.053 17.053,17.053 3.769,0 7.251,-1.223 10.074,-3.293"
-         style="fill:none;stroke:#00ff00;stroke-width:7;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
-         id="path56"
+         style="fill:none;stroke:#404041;stroke-width:7;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
+         id="path652"
          inkscape:connector-curvature="0" />
     </g>
     <g
-       id="g58"
-       transform="matrix(1.25,0,0,-1.25,-505.95825,509.11413)">
+       id="g654"
+       transform="matrix(1.2500001,0,0,-1.2500001,-505.9582,509.11413)">
       <path
          d="M 0,0 -9.415,12.13 5.91,13.077 0,0 Z"
-         style="fill:#00ff00;fill-opacity:1;fill-rule:nonzero;stroke:none"
-         id="path60"
+         style="fill:#404041;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         id="path656"
          inkscape:connector-curvature="0" />
     </g>
     <g
-       id="g62"
-       transform="matrix(1.25,0,0,-1.25,-533.83762,452.75313)">
+       id="g658"
+       transform="matrix(1.2500001,0,0,-1.2500001,-533.8376,452.75313)">
       <path
          d="M 0,0 9.444,-12.107 -5.878,-13.09 0,0 Z"
-         style="fill:#00ff00;fill-opacity:1;fill-rule:nonzero;stroke:none"
-         id="path64"
+         style="fill:#404041;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         id="path660"
+         inkscape:connector-curvature="0" />
+    </g>
+    <g
+       id="g662"
+       transform="matrix(1.2500001,0,0,-1.2500001,-580.8416,480.93426)">
+      <path
+         d="M 0,0 97.344,0"
+         style="fill:none;stroke:#00ff00;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
+         id="path664"
          inkscape:connector-curvature="0" />
     </g>
   </g>

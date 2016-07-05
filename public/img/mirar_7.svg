@@ -15,26 +15,9 @@
    id="svg3801"
    version="1.1"
    inkscape:version="0.91 r"
-   sodipodi:docname="mirar_7.svg">
+   sodipodi:docname="mirar_1.svg">
   <defs
-     id="defs3803">
-    <clipPath
-       clipPathUnits="userSpaceOnUse"
-       id="clipPath542">
-      <path
-         d="m 1006.973,201.488 c 0,-27.063 21.938,-49 49,-49 l 0,0 c 27.063,0 49,21.937 49,49 l 0,0 c 0,27.062 -21.937,48.999 -49,48.999 l 0,0 c -27.062,0 -49,-21.937 -49,-48.999"
-         id="path544"
-         inkscape:connector-curvature="0" />
-    </clipPath>
-    <clipPath
-       clipPathUnits="userSpaceOnUse"
-       id="clipPath578">
-      <path
-         d="m 1129.618,201.488 c 0,-27.063 21.937,-49 48.999,-49 l 0,0 c 27.063,0 49.001,21.937 49.001,49 l 0,0 c 0,27.062 -21.938,48.999 -49.001,48.999 l 0,0 c -27.062,0 -48.999,-21.937 -48.999,-48.999"
-         id="path580"
-         inkscape:connector-curvature="0" />
-    </clipPath>
-  </defs>
+     id="defs3803" />
   <sodipodi:namedview
      id="base"
      pagecolor="#ffffff"
@@ -43,7 +26,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.979899"
-     inkscape:cx="56.679791"
+     inkscape:cx="57.184868"
      inkscape:cy="85.607855"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
@@ -75,12 +58,21 @@
      id="layer1"
      transform="translate(397.41071,-580.66578)">
     <g
-       id="g594"
-       transform="matrix(1.2500001,0,0,-1.2500001,-393.03321,643.79078)">
+       id="g514"
+       transform="matrix(1.25,0,0,-1.25,-334.28934,628.16691)">
       <path
-         d="M 0,0 93.996,0"
+         d="m 0,0 c -6.902,0 -12.498,-5.597 -12.498,-12.5 0,-6.903 5.596,-12.497 12.498,-12.497 6.905,0 12.502,5.594 12.502,12.497 C 12.502,-5.597 6.905,0 0,0"
+         style="fill:#00ff00;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         id="path516"
+         inkscape:connector-curvature="0" />
+    </g>
+    <g
+       id="g518"
+       transform="matrix(1.25,0,0,-1.25,-389.34121,643.41778)">
+      <path
+         d="M 0,0 C 0,0 10.617,32.76 43.922,32.76 77.227,32.76 87.845,0 87.845,0 87.845,0 77.228,-32.76 43.923,-32.76 10.617,-32.76 0,0 0,0 Z"
          style="fill:none;stroke:#00ff00;stroke-width:7;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
-         id="path596"
+         id="path520"
          inkscape:connector-curvature="0" />
     </g>
   </g>

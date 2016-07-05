@@ -13,7 +13,7 @@ var FIXED_STROKE_AT_INIT = false; // The strokes don't fade out if true.
 
 var INVISIBLE_ALPHA = 1;    // Alpha at which a stroke is considered invisible
 var MAX_GROUP_TIME = 5;     // Maximum between two consecutive strokes to be considered within the same loop
-var LOOP_MULTIPLIER = 1;    // How many times slower the loop is with respect to the original stroke
+var LOOP_MULTIPLIER = 2.5;    // How many times slower the loop is with respect to the original stroke
 var DELETE_FACTOR = 0.9;
 
 var RIBBON_WIDTHS = [

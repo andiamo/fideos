@@ -15,7 +15,7 @@
    id="svg3801"
    version="1.1"
    inkscape:version="0.91 r"
-   sodipodi:docname="mirar_7.svg">
+   sodipodi:docname="mirar_5.svg">
   <defs
      id="defs3803">
     <clipPath
@@ -24,14 +24,6 @@
       <path
          d="m 1006.973,201.488 c 0,-27.063 21.938,-49 49,-49 l 0,0 c 27.063,0 49,21.937 49,49 l 0,0 c 0,27.062 -21.937,48.999 -49,48.999 l 0,0 c -27.062,0 -49,-21.937 -49,-48.999"
          id="path544"
-         inkscape:connector-curvature="0" />
-    </clipPath>
-    <clipPath
-       clipPathUnits="userSpaceOnUse"
-       id="clipPath578">
-      <path
-         d="m 1129.618,201.488 c 0,-27.063 21.937,-49 48.999,-49 l 0,0 c 27.063,0 49.001,21.937 49.001,49 l 0,0 c 0,27.062 -21.938,48.999 -49.001,48.999 l 0,0 c -27.062,0 -48.999,-21.937 -48.999,-48.999"
-         id="path580"
          inkscape:connector-curvature="0" />
     </clipPath>
   </defs>
@@ -75,13 +67,30 @@
      id="layer1"
      transform="translate(397.41071,-580.66578)">
     <g
-       id="g594"
-       transform="matrix(1.2500001,0,0,-1.2500001,-393.03321,643.79078)">
+       id="g522"
+       transform="matrix(1.2500001,0,0,-1.2500001,-334.28758,628.16765)">
       <path
-         d="M 0,0 93.996,0"
-         style="fill:none;stroke:#00ff00;stroke-width:7;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
-         id="path596"
+         d="m 0,0 c -6.903,0 -12.498,-5.597 -12.498,-12.5 0,-6.903 5.595,-12.497 12.498,-12.497 6.904,0 12.501,5.594 12.501,12.497 C 12.501,-5.597 6.904,0 0,0"
+         style="fill:#00ff00;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         id="path524"
          inkscape:connector-curvature="0" />
+    </g>
+    <g
+       transform="matrix(1.2500001,0,0,-1.2500001,-1654.0987,896.02317)"
+       id="g538">
+      <g
+         id="g540"
+         clip-path="url(#clipPath542)">
+        <g
+           id="g546"
+           transform="translate(1015.9309,201.7859)">
+          <path
+             d="M 0,0 C 0,0 20.087,-11.906 39.92,-11.906 59.753,-11.906 79.839,0 79.839,0 79.839,0 59.753,11.906 39.92,11.906 20.087,11.906 0,0 0,0 Z"
+             style="fill:none;stroke:#00ff00;stroke-width:7;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
+             id="path548"
+             inkscape:connector-curvature="0" />
+        </g>
+      </g>
     </g>
   </g>
 </svg>

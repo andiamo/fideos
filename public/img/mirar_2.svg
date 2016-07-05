@@ -15,7 +15,7 @@
    id="svg3801"
    version="1.1"
    inkscape:version="0.91 r"
-   sodipodi:docname="mirar_7.svg">
+   sodipodi:docname="mirar_6.svg">
   <defs
      id="defs3803">
     <clipPath
@@ -74,14 +74,27 @@
      inkscape:groupmode="layer"
      id="layer1"
      transform="translate(397.41071,-580.66578)">
+    <path
+       d="m -334.28758,628.16765 c -8.62875,0 -15.6225,6.99625 -15.6225,15.625 0,8.62875 6.99375,15.62125 15.6225,15.62125 8.63,0 15.62625,-6.9925 15.62625,-15.62125 0,-8.62875 -6.99625,-15.625 -15.62625,-15.625"
+       style="fill:#00ff00;fill-opacity:1;fill-rule:nonzero;stroke:none"
+       id="path560"
+       inkscape:connector-curvature="0" />
     <g
-       id="g594"
-       transform="matrix(1.2500001,0,0,-1.2500001,-393.03321,643.79078)">
-      <path
-         d="M 0,0 93.996,0"
-         style="fill:none;stroke:#00ff00;stroke-width:7;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
-         id="path596"
-         inkscape:connector-curvature="0" />
+       transform="matrix(1.2500001,0,0,-1.2500001,-1807.406,896.02317)"
+       id="g574">
+      <g
+         id="g576"
+         clip-path="url(#clipPath578)">
+        <g
+           id="g582"
+           transform="translate(1140.5769,201.7859)">
+          <path
+             d="M 0,0 C 0,0 18.085,-6.903 37.919,-6.903 57.752,-6.903 75.838,0 75.838,0 75.838,0 57.752,6.903 37.919,6.903 18.085,6.903 0,0 0,0 Z"
+             style="fill:none;stroke:#00ff00;stroke-width:7;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
+             id="path584"
+             inkscape:connector-curvature="0" />
+        </g>
+      </g>
     </g>
   </g>
 </svg>
