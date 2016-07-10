@@ -75,7 +75,11 @@ $(document).ready(function() {
             layers[i][j].fadeOutFact = DELETE_FACTOR;
         }
         // }
-        socket.emit("deleteEvent", id);
+        var del = {
+          'layer': currLayer,
+          'id': id
+        }        
+        socket.emit("deleteEvent", del);
     });
 
     // Botones divididos
@@ -300,9 +304,15 @@ $(document).ready(function() {
     socket.on('deleteEvent', deleteHandler);
 
     function deleteHandler(data) {
-        for (var idx in otherGestures.get(data)) {
-            otherGestures.get(data)[idx].looping = false;
-            otherGestures.get(data)[idx].fadeOutFact = DELETE_FACTOR;
+        var layer = data.layer;
+        var id = data.id;
+        var gestures = otherGestures.get(id);
+        for (var idx in gestures) {
+            var g = gestures[idx];
+            if (g.layer == layer) {
+                g.looping = false;
+                g.fadeOutFact = DELETE_FACTOR;
+            }
         }
     }
 
@@ -337,7 +347,7 @@ function mousePressed() {
     var t0 = startGestureTime = millis();
 
     // Creamos el currGesture (este es el que se dibuja desde p5.js)
-    currGesture = new StrokeGesture(t0, dissapearing, fixed, lastGesture);
+    currGesture = new StrokeGesture(t0, dissapearing, fixed, lastGesture, currLayer);
 
     // Creamos el nuevo ribbon
     ribbon = new Ribbon();
@@ -353,7 +363,8 @@ function mousePressed() {
         'y': mouseY,
         'color': currColor,
         'stroke_weight':RIBBON_WIDTH,
-        'id': id
+        'layer': currLayer,
+        'id': id        
     }
 
     // Emitimos el evento a los demas clientes.
@@ -380,7 +391,7 @@ function touchStarted() {
     var t0 = startGestureTime = millis();
 
     // Creamos el currGesture (este es el que se dibuja desde p5.js)
-    currGesture = new StrokeGesture(t0, dissapearing, fixed, lastGesture);
+    currGesture = new StrokeGesture(t0, dissapearing, fixed, lastGesture, currLayer);
 
     // Creamos el nuevo ribbon
     ribbon = new Ribbon();
@@ -396,6 +407,7 @@ function touchStarted() {
         'y': touchY,
         'color': currColor,
         'stroke_weight':RIBBON_WIDTH,
+        'layer': currLayer,
         'id': id
     }
     // Emitimos el evento a los demas clientes.
@@ -562,7 +574,7 @@ socket.on('externalMouseEvent', function(data){
         var grouping = true;
 
         // Agregamos este gesture a la lista de gestures
-        otherGestures.put(data.id, new StrokeGesture(t0, dissapearing, fixed, lastGesture));
+        otherGestures.put(data.id, new StrokeGesture(t0, dissapearing, fixed, lastGesture, data.layer));
         // Agregamos un ribbon
         otherRibbons.put(data.id, new Ribbon());
         // Inicializamos el ribbon

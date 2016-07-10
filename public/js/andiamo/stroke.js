@@ -60,7 +60,7 @@ StrokeQuad.prototype.draw = function(ascale) {
   }
 }
 
-function StrokeGesture(t0, dissapearing, fixed, prev) {
+function StrokeGesture(t0, dissapearing, fixed, prev, layer) {
   this.prev = prev;
   this.next = null;
   this.quads = [];
@@ -81,6 +81,8 @@ function StrokeGesture(t0, dissapearing, fixed, prev) {
 
   this.dissapearing = dissapearing;
   this.fixed = fixed;
+
+  this.layer = layer;
 }
 
 StrokeGesture.prototype.clear = function() {
