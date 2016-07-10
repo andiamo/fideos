@@ -68,12 +68,13 @@ $(document).ready(function() {
     });
 
     $(".delete_button").click(function() {
-        for (var i = 0; i < layers.length; i++) {
-            for (var j = layers[i].length - 1; j >= 0; j--) {
-                layers[i][j].looping = false;
-                layers[i][j].fadeOutFact = DELETE_FACTOR;
-            }
+        // for (var i = 0; i < layers.length; i++) {
+        var i = currLayer;    
+        for (var j = layers[i].length - 1; j >= 0; j--) {
+            layers[i][j].looping = false;
+            layers[i][j].fadeOutFact = DELETE_FACTOR;
         }
+        // }
         socket.emit("deleteEvent", id);
     });
 
@@ -133,7 +134,7 @@ $(document).ready(function() {
                 gesture.setAlphaScale(ascale);
             }
 */
-            
+
         }
     });
     //Boton loop
