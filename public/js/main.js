@@ -123,13 +123,17 @@ $(document).ready(function() {
         if ( name == "mirar" ) {
             var ascale = map(state, 1,7,0,1);
             console.log("Alpha: " + ascale);
+            currAlpha = 255 * ascale;
 
+/*
             for (var i = 0; i < layers[currLayer].length; i++) {
                 var gesture = layers[currLayer][i];
                 // var ascale = gesture.getAlphaScale();
                 // ascale = constrain(ascale - 0.05, 0, 1);
                 gesture.setAlphaScale(ascale);
             }
+*/
+            
         }
     });
     //Boton loop

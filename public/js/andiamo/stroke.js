@@ -52,7 +52,7 @@ StrokeQuad.prototype.draw = function(ascale) {
     for (var i = 2; i < 4; i++) {
 
       // fill(this.r[i], this.g[i], this.b[i], this.a[i] * ascale);
-      fill(this.r[i], this.g[i], this.b[i], 150);
+      fill(this.r[i], this.g[i], this.b[i], this.a[i] * ascale);
       vertex(this.x[i], this.y[i]);
     }
 
