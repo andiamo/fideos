@@ -206,6 +206,10 @@ section#dondeVenimos ul li {
     margin-bottom: 1em;
 }
 
+section#dondeVenimos ul li a {
+    color: #00FF00;
+}
+
 section#dondeVenimos ul {
 
 }
@@ -247,6 +251,7 @@ section#contacto textarea {
     border-bottom: 1px solid gray;
     resize: none;
     margin: 9em 0 4em;
+    font-family: inherit;
 }
 
 section#contacto button {
@@ -254,6 +259,16 @@ section#contacto button {
     line-height: 3em;
     padding: 0 3%;
     cursor: pointer;
+
+    transition: padding 0.3s, background-color 0.3s;
+}
+section#contacto button.enviado {
+    padding: 0;
+    background-color: rgba(0,0,0,0);
+}
+section#contacto button.enviado:hover {
+    text-decoration: none;
+    cursor: default;
 }
 section#contacto fieldset {
     border: 0;
@@ -262,9 +277,18 @@ section#contacto fieldset {
 
 footer {
     background-color: black;
-    height: 3em;
     position: absolute;
     bottom: 0px;
     left: 0px;
+    padding: 0.9em 0;
+    text-align: right;
     width: 100%;
+}
+footer img {
+    width: 28px;
+    margin-left: 0.2em;
+}
+
+footer .flecha {
+    margin: 0 1em;
 }

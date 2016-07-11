@@ -57,7 +57,7 @@ function draw() {
         var r = noise(x * noiseScale, y * noiseScale);
         x = sin(angle) * orbit * 1.5 + (70 * r);
         y = cos(angle) * orbit + (50 * r);
-        text(pala, x, y);    
+        text(pala, x, y);
         angle += speed;
         if (abs(angle) >= TWO_PI) {
             angle = 0;
@@ -70,5 +70,8 @@ function windowResized() {
     var canvasHeight = $("#modalIndex .logo").height() + 0.2 * 0.8 * windowHeight;
     resizeCanvas(0.8*windowWidth, canvasHeight);
     w = width;
-    h = height;  
+    h = height;
+
+    //De esta manera orbita alrededor del logo
+    orbit = $("#modalIndex .logo").width() * 0.75;
 }
