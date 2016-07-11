@@ -47,17 +47,20 @@ StrokeQuad.prototype.update = function(ff, all) {
 
 StrokeQuad.prototype.draw = function(ascale) {
   if (this.visible) {
-    beginShape(QUADS);
-    for (var i = 0; i < 4; i++) {
-      noStroke();
-      fill(this.r[i], this.g[i], this.b[i], this.a[i] * ascale );
+    // beginShape(QUADS);
+
+    for (var i = 2; i < 4; i++) {
+
+      // fill(this.r[i], this.g[i], this.b[i], this.a[i] * ascale);
+      fill(this.r[i], this.g[i], this.b[i], this.a[i] * ascale);
       vertex(this.x[i], this.y[i]);
     }
-    endShape(CLOSE);
+
+    // endShape(CLOSE);
   }
 }
 
-function StrokeGesture(t0, dissapearing, fixed, prev) {
+function StrokeGesture(t0, dissapearing, fixed, prev, layer) {
   this.prev = prev;
   this.next = null;
   this.quads = [];
@@ -78,6 +81,8 @@ function StrokeGesture(t0, dissapearing, fixed, prev) {
 
   this.dissapearing = dissapearing;
   this.fixed = fixed;
+
+  this.layer = layer;
 }
 
 StrokeGesture.prototype.clear = function() {
@@ -174,11 +179,15 @@ StrokeGesture.prototype.draw = function() {
     // if (USE_TEXTURES) {
     //   pg.texture(textures.get(tex));
     // }
+    // beginShape(QUADS);
+    beginShape(QUAD_STRIP);    
+    noStroke();
     for (var i = 0; i < this.quads.length; i++) {
       var quad = this.quads[i]
       if (this.loopTime == -1 || quad.t - this.t0 <= this.loopTime) {
         quad.draw(this.alphaScale);
       }
     }
+    endShape();
   }
 }
