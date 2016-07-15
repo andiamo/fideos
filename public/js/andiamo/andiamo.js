@@ -15,6 +15,8 @@ var currAlpha = 255;
 var otherGestures = new MultiMap();
 var otherRibbons = new HashMap();
 
+var ctx;
+
 function setup() {
   var w = 0, h = 0;
   if(typeof(window.innerWidth) == 'number') {
@@ -36,6 +38,7 @@ function setup() {
   canvas = createCanvas(w-5, h-5);
   canvas.parent('andiamo');
   startup();
+  ctx = this.drawingContext;
 }
 
 function draw() {
