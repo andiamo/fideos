@@ -41,7 +41,7 @@ app.get('/info', function(req, res) {
 });
 
 // Aca debería mandar un mail (capaz habría que tener cuidado con los spambots)
-app.get('/sendMail', function(req, res) {
+app.post('/sendMail', function(req, res) {
     res.send("ok");
 });
 

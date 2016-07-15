@@ -28,14 +28,15 @@ $( function() {
     });
 
     $("#btnEnviar").click(function() {
-        // var url = $("form").attr("action");
-        // $(this).attr("enabled", false);
-        // $(this).text("enviando...");
-        //
-        // $.post(url, $("form").serialize(), function() {
-        //     alert("cool");
-        //     $(this).text("Enviado!");
-        // });
-        alert("funciona");
+        var url = $("form").attr("action");
+        $this = $(this);
+        $this.attr("disabled", true);
+        $this.text("enviando...");
+
+        $.post(url, $("form").serialize(), function() {
+            $this.text("Enviado! Muchas gracias.");
+            $this.addClass("enviado");
+        });
+        // alert("funciona");
     });
 });
