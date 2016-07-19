@@ -9,6 +9,7 @@ var palabras = ['dibujo', 'en vivo', 'colectivo', 'en línea', 'para tod@s', 'en
 var sizes =    [      24,        18,          24,         18,           24,           18,               24,        18];
 var angles =   [       0,         0,           0,          0,            0,            0,                0,         0];
 var speeds =   [       0,         0,           0,          0,            0,            0,                0,         0];
+var nscale =   [       0,         0,           0,          0,            0,            0,                0,         0];
 
 // var angle = 90;
 // var speed = 0.01;
@@ -35,8 +36,10 @@ function setup() {
     fill(0, 102, 0);
 
     for (var i = 0; i < palabras.length; i++) {
+        sizes[i] = int(random(18, 24))
         angles[i] = random(TWO_PI);
         speeds[i] = (random() > 0.5 ? +1 : -1) * random(0.003, 0.006);
+        nscale[i] = random(0.001, 0.01);
     }
 
     textAlign(CENTER);
@@ -56,9 +59,12 @@ function draw() {
 
         var x = sin(angle) * orbit * 1.5;
         var y = cos(angle) * orbit;
-        var r = noise(x * noiseScale, y * noiseScale);
-        x = sin(angle) * orbit * 1.5 + (70 * r);
-        y = cos(angle) * orbit + (50 * r);
+        
+        var r = map(noise(x * nscale[i], y * nscale[i]), 0, 1, orbit * 0.85, orbit * 1.15);
+
+        x = sin(angle) * r * 1.5;
+        y = cos(angle) * r;
+
         text(pala, x, y);
         angle += speed;
         if (abs(angle) >= TWO_PI) {
