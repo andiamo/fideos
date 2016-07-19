@@ -10,6 +10,7 @@ body {
     width: 100%;
     padding-top: 3em;
     z-index: 10;
+    box-sizing: border-box;
 }
 
 #modalIndex .logo {

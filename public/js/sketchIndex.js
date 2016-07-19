@@ -23,6 +23,8 @@ function setup() {
     h = height;
 
 
+    $("#modalIndex").css("height", windowHeight);
+
     //De esta manera orbita alrededor del logo
     orbit = $("#modalIndex .logo").width() * 0.75;
 
@@ -74,4 +76,6 @@ function windowResized() {
 
     //De esta manera orbita alrededor del logo
     orbit = $("#modalIndex .logo").width() * 0.75;
+
+    $("#modalIndex").css("height", windowHeight);
 }
