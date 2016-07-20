@@ -93,7 +93,7 @@ $(document).ready(function() {
 
     $(".save_button").click(function() {
         console.log("save button clicked");
-        socket.emit("saveEvent", id);
+        socket.emit("saveEvent", layers);
     });
 
     // Share dialog

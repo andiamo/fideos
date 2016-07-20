@@ -66,11 +66,10 @@ io.on('connection', function(socket) {
 
 
     socket.on('saveEvent', function(data) {
-        console.log("save button pressed");
-fs.writeFile('helloworld.txt', 'save button pressed', function (err) {
-  if (err) return console.log(err);
-  console.log('Hello World > helloworld.txt');
-});
+        fs.writeFile('layers.json', JSON.stringify(data), function (err) {
+            if (err) return console.log(err);
+            console.log('layers > layers.json');
+        });
     });
 
     // Desconexion de un cliente
