@@ -24,7 +24,7 @@ function setup() {
     h = height;
 
 
-    $("#modalIndex").css("height", windowHeight);
+    $("#modalIndex, #sidebar").css("height", windowHeight);
 
     //De esta manera orbita alrededor del logo
     orbit = $("#modalIndex .logo").width() * 0.75;
@@ -59,7 +59,7 @@ function draw() {
 
         var x = sin(angle) * orbit * 1.5;
         var y = cos(angle) * orbit;
-        
+
         var r = map(noise(x * nscale[i], y * nscale[i]), 0, 1, orbit * 0.85, orbit * 1.15);
 
         x = sin(angle) * r * 1.5;
@@ -83,5 +83,5 @@ function windowResized() {
     //De esta manera orbita alrededor del logo
     orbit = $("#modalIndex .logo").width() * 0.75;
 
-    $("#modalIndex").css("height", windowHeight);
+    $("#modalIndex, #sidebar").css("height", windowHeight);
 }

@@ -28,6 +28,17 @@ SIDEBAR
   position: absolute;
   height: 100%;
 }
+#btnHome {
+  display: block;
+  background-color: #0f0f0f;
+  text-align: center;
+  height: 32px;
+  border-bottom: 1px solid #404041;
+  line-height: 32px;
+}
+#btnHome img {
+  width: 15px;
+}
 .sidebar_button_color {
   height: 40px;
   width: 40px;
@@ -292,7 +303,7 @@ SIDEBAR
   opacity: 0.8;
 }
 .sidebar_separator {
-  width: 100%;
+  width: 97%;
   border: 1px solid #046904;
   margin-bottom: 1em;
 }
