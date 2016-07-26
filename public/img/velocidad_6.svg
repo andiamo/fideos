@@ -15,7 +15,7 @@
    id="svg3801"
    version="1.1"
    inkscape:version="0.91 r"
-   sodipodi:docname="velocidad_6.svg">
+   sodipodi:docname="velocidad_5.svg">
   <defs
      id="defs3803">
     <clipPath
@@ -50,9 +50,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="3.959798"
-     inkscape:cx="86.314018"
-     inkscape:cy="78.592385"
+     inkscape:zoom="5.6"
+     inkscape:cx="78.813343"
+     inkscape:cy="95.744802"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -174,9 +174,9 @@
     </g>
     <g
        id="g602"
-       transform="matrix(-0.030886,1.2496185,1.2496185,0.030886,-332.58515,642.96845)"
-       inkscape:transform-center-x="-6.6990481"
-       inkscape:transform-center-y="-14.203653">
+       transform="matrix(0.59824914,1.097542,1.097542,-0.59824914,-334.41992,642.48272)"
+       inkscape:transform-center-x="0.034613422"
+       inkscape:transform-center-y="-17.045788">
       <path
          d="M 0,0 C 0.817,1.477 2.683,2.014 4.155,1.2 5.635,0.381 6.169,-1.483 5.352,-2.96 4.533,-4.44 2.673,-4.976 1.192,-4.157 -0.279,-3.343 -0.819,-1.48 0,0 M 10.707,-5.921 C 13.155,-1.494 11.546,4.1 7.114,6.551 3.634,8.475 -0.555,7.858 -3.378,5.365 l -21.908,12.116 c -1.48,0.819 -3.337,0.281 -4.156,-1.199 -0.818,-1.48 -0.286,-3.339 1.194,-4.158 L -6.341,0.009 c -0.61,-3.717 1.094,-7.592 4.574,-9.517 4.432,-2.451 10.024,-0.842 12.474,3.587"
          style="fill:#00ff00;fill-opacity:1;fill-rule:nonzero;stroke:none"

@@ -14,8 +14,8 @@
    viewBox="0 0 126.25 126.24999"
    id="svg3801"
    version="1.1"
-   inkscape:version="0.91 r"
-   sodipodi:docname="velocidad_1.svg">
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="velocidad_0.svg">
   <defs
      id="defs3803">
     <clipPath
@@ -50,9 +50,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="5.6"
-     inkscape:cx="77.920486"
-     inkscape:cy="47.709088"
+     inkscape:zoom="7.9195959"
+     inkscape:cx="92.923005"
+     inkscape:cy="49.97492"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -60,11 +60,11 @@
      fit-margin-left="0"
      fit-margin-right="0"
      fit-margin-bottom="0"
-     inkscape:window-width="1916"
-     inkscape:window-height="1049"
-     inkscape:window-x="0"
-     inkscape:window-y="25"
-     inkscape:window-maximized="1" />
+     inkscape:window-width="1440"
+     inkscape:window-height="851"
+     inkscape:window-x="1593"
+     inkscape:window-y="45"
+     inkscape:window-maximized="0" />
   <metadata
      id="metadata3806">
     <rdf:RDF>
@@ -73,7 +73,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -174,9 +174,9 @@
     </g>
     <g
        id="g602"
-       transform="matrix(0.64417948,-1.0712298,-1.0712298,-0.64417948,-337.56481,648.01191)"
-       inkscape:transform-center-x="14.22888"
-       inkscape:transform-center-y="6.6554512">
+       transform="matrix(-0.6041162,-1.0943236,-1.0943236,0.6041162,-334.37767,649.81342)"
+       inkscape:transform-center-x="-0.033792142"
+       inkscape:transform-center-y="17.045991">
       <path
          d="M 0,0 C 0.817,1.477 2.683,2.014 4.155,1.2 5.635,0.381 6.169,-1.483 5.352,-2.96 4.533,-4.44 2.673,-4.976 1.192,-4.157 -0.279,-3.343 -0.819,-1.48 0,0 M 10.707,-5.921 C 13.155,-1.494 11.546,4.1 7.114,6.551 3.634,8.475 -0.555,7.858 -3.378,5.365 l -21.908,12.116 c -1.48,0.819 -3.337,0.281 -4.156,-1.199 -0.818,-1.48 -0.286,-3.339 1.194,-4.158 L -6.341,0.009 c -0.61,-3.717 1.094,-7.592 4.574,-9.517 4.432,-2.451 10.024,-0.842 12.474,3.587"
          style="fill:#00ff00;fill-opacity:1;fill-rule:nonzero;stroke:none"

@@ -122,8 +122,13 @@ $(document).ready(function() {
         }
 
         if ( name == "velocidad" ) {
-            LOOP_MULTIPLIER = map(state, 1, 9,5,0) ;
-            console.log("Velocidad: " + LOOP_MULTIPLIER);
+            if (state == 1) {
+                fixed = true;
+            } else {
+                fixed = false;
+                LOOP_MULTIPLIER = map(state, 2, 10, 5,0) ;
+                console.log("Velocidad: " + LOOP_MULTIPLIER);
+            }
         }
         if ( name == "mirar" ) {
             var ascale = map(state, 1,7,0,1);
