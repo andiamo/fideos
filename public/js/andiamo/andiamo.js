@@ -8,7 +8,7 @@ var looping = false;
 var fixed = false;
 var dissapearing = false;
 var grouping = false;
-var currColor = [255, 255, 255];
+var currColor = [175, 0, 255]; //[255, 255, 255];
 var currAlpha = 255;
 
 // Hashmaps para los trazos externos
