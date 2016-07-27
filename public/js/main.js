@@ -135,7 +135,7 @@ $(document).ready(function() {
             console.log("Alpha: " + ascale);
             // currAlpha = 255 * ascale;
 
-
+            alphaScale[currLayer] = ascale
             for (var i = 0; i < layers[currLayer].length; i++) {
                 var gesture = layers[currLayer][i];
                 // var ascale = gesture.getAlphaScale();
@@ -183,7 +183,19 @@ $(document).ready(function() {
         $(this).attr("src","../img/capa_active.svg");
         $(this).addClass("active");
 
+        var currLayer0 = currLayer;
         currLayer = Number(numeroCapa) - 1;
+        if (currLayer0 != currLayer) {
+            ascale = alphaScale[currLayer];
+            var state = int(map(ascale, 0, 1, 1,7));
+            
+            // $(".sidebar_button .wrapperVertical img").each(function() {
+            //     $(this).attr("src", "../img/mirar_" + state + ".svg");
+            // });
+
+            $(".sidebar_button .wrapperVertical img").attr("src", "../img/mirar_" + state + ".svg");
+            $(".sidebar_button .wrapperVertical").attr("data-state", state);
+        }
     });
     // Boton delete
     $(".delete_button img").on("mousedown", function() {

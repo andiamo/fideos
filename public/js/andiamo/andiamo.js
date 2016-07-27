@@ -10,6 +10,7 @@ var dissapearing = false;
 var grouping = false;
 var currColor = [175, 0, 255]; //[255, 255, 255];
 var currAlpha = 255;
+var alphaScale = [];
 
 // Hashmaps para los trazos externos
 var otherGestures = new MultiMap();
@@ -45,17 +46,18 @@ function draw() {
   background(0);
 
   var t = millis();
-  for (var i = 0; i < layers.length; i++) {
+  for (var i = layers.length - 1; 0 <= i; i--) {
+
+    if (currGesture && currLayer == i) {
+      currGesture.update(t);
+      currGesture.draw();
+    }
+
     for (var j = 0; j < layers[i].length; j++) {
       var gesture = layers[i][j]
       gesture.update(t);
       gesture.draw();
     }
-  }
-
-  if (currGesture) {
-    currGesture.update(t);
-    currGesture.draw();
   }
 
   // Dibujar los trazos externos
@@ -77,6 +79,7 @@ function startup() {
   for (var i = 0; i < 4; i++) {
     layers[i] = [];
   }
+  alphaScale = [1, 1, 1, 1]
 
   currLayer = 0;
 }
