@@ -381,6 +381,7 @@ function mousePressed() {
         'color': currColor,
         'stroke_weight':RIBBON_WIDTH,
         'layer': currLayer,
+        'fixed':fixed,
         'id': id        
     }
 
@@ -425,6 +426,7 @@ function touchStarted() {
         'color': currColor,
         'stroke_weight':RIBBON_WIDTH,
         'layer': currLayer,
+        'fixed':fixed,
         'id': id
     }
     // Emitimos el evento a los demas clientes.
@@ -591,7 +593,7 @@ socket.on('externalMouseEvent', function(data){
         var grouping = true;
 
         // Agregamos este gesture a la lista de gestures
-        otherGestures.put(data.id, new StrokeGesture(t0, dissapearing, fixed, lastGesture, data.layer));
+        otherGestures.put(data.id, new StrokeGesture(t0, dissapearing, data.fixed, lastGesture, data.layer));
         // Agregamos un ribbon
         otherRibbons.put(data.id, new Ribbon());
         // Inicializamos el ribbon

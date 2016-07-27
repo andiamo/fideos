@@ -47,17 +47,15 @@ function draw() {
 
   var t = millis();
   for (var i = layers.length - 1; 0 <= i; i--) {
-
-    if (currGesture && currLayer == i) {
-      currGesture.update(t);
-      currGesture.draw();
-    }
-
     for (var j = 0; j < layers[i].length; j++) {
       var gesture = layers[i][j]
       gesture.update(t);
       gesture.draw();
     }
+    if (currGesture && currLayer == i) {
+      currGesture.update(t);
+      currGesture.draw();
+    }    
   }
 
   // Dibujar los trazos externos
