@@ -323,13 +323,13 @@ $(document).ready(function() {
     function deleteHandler(data) {
         var layer = data.layer;
         var id = data.id;
-        var gestures = otherGestures.get(id);
+        var gestures = otherGestures[layer].get(id);
         for (var idx in gestures) {
             var g = gestures[idx];
-            if (g.layer == layer) {
+            // if (g.layer == layer) {
                 g.looping = false;
                 g.fadeOutFact = DELETE_FACTOR;
-            }
+            // }
         }
     }
 
@@ -458,6 +458,7 @@ function mouseDragged() {
             'y': mouseY,
             'color': currColor,
             'stroke_weight':RIBBON_WIDTH,
+            'layer': currLayer,
             'id': id
         }
         socket.emit("externalMouseEvent", movement);
@@ -487,6 +488,7 @@ function touchMoved() {
             'y': touchY,
             'color': currColor,
             'stroke_weight':RIBBON_WIDTH,
+            'layer': currLayer,
             'id': id
         }
         socket.emit("externalMouseEvent", movement);
@@ -525,6 +527,7 @@ function mouseReleased() {
             'y': mouseY,
             'color': currColor,
             'stroke_weight':RIBBON_WIDTH,
+            'layer': currLayer,
             'id': id
         }
         socket.emit("externalMouseEvent", movement);
@@ -563,6 +566,7 @@ function touchEnded() {
             'y': touchY,
             'color': currColor,
             'stroke_weight':RIBBON_WIDTH,
+            'layer': currLayer,
             'id': id
         }
         socket.emit("externalMouseEvent", movement);
@@ -591,15 +595,16 @@ socket.on('externalMouseEvent', function(data){
         var t0 = startGestureTime = millis();
         var lastGesture = null;
         var grouping = true;
+        var layer = data.layer;
 
         // Agregamos este gesture a la lista de gestures
-        otherGestures.put(data.id, new StrokeGesture(t0, dissapearing, data.fixed, lastGesture, data.layer));
+        otherGestures[layer].put(data.id, new StrokeGesture(t0, dissapearing, data.fixed, lastGesture, layer));
         // Agregamos un ribbon
         otherRibbons.put(data.id, new Ribbon());
         // Inicializamos el ribbon
         otherRibbons.get(data.id).init(data.stroke_weight);
         // Le agregamos este punto
-        var other = otherGestures.get(data.id);
+        var other = otherGestures[layer].get(data.id);
         otherRibbons.get(data.id).addPoint(other[other.length-1], data.color, currAlpha, data.x, data.y);
 
     }
@@ -609,8 +614,9 @@ socket.on('externalMouseEvent', function(data){
     */
 
     if (data.e === "DRAGGED") {
+        var layer = data.layer;
         // Agregamos el punto
-        var other = otherGestures.get(data.id);
+        var other = otherGestures[layer].get(data.id);
         otherRibbons.get(data.id).addPoint(other[other.length-1], data.color, currAlpha, data.x, data.y);
     }
 
@@ -619,9 +625,10 @@ socket.on('externalMouseEvent', function(data){
     */
 
     if (data.e === "RELEASED"){
+        var layer = data.layer;
 
         // Seteamos el ultimo punto
-        var other = otherGestures.get(data.id);
+        var other = otherGestures[layer].get(data.id);
         otherRibbons.get(data.id).addPoint(other[other.length-1], data.color, currAlpha, data.x, data.y);
         // Seteamos el looping
         other[other.length-1].setLooping(true);
