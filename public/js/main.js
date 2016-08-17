@@ -8,6 +8,7 @@ var share_dialog_open = false;
 
 // El DOM termina de cargar.
 $(document).ready(function() {
+
     var doc = $(document);
     var win = $(window);
     var clients = {};
@@ -127,8 +128,28 @@ $(document).ready(function() {
                 fixed = false;
                 LOOP_MULTIPLIER = map(state, 2, 10, 5,0) ;
                 console.log("Velocidad: " + LOOP_MULTIPLIER);
+<<<<<<< HEAD
             }
         }
+        if ( name == "mirar" ) {
+            var ascale = map(state, 1,7,0,1);
+            console.log("Alpha: " + ascale);
+            // currAlpha = 255 * ascale;
+
+            alphaScale[currLayer] = ascale
+            for (var i = 0; i < layers[currLayer].length; i++) {
+                var gesture = layers[currLayer][i];
+                // var ascale = gesture.getAlphaScale();
+                // ascale = constrain(ascale - 0.05, 0, 1);
+                gesture.setAlphaScale(ascale);
+=======
+>>>>>>> 2e233ca2df70204072ec55302e7355b0d5737709
+            }
+
+
+        }
+<<<<<<< HEAD
+=======
         if ( name == "mirar" ) {
             var ascale = map(state, 1,7,0,1);
             console.log("Alpha: " + ascale);
@@ -144,6 +165,7 @@ $(document).ready(function() {
 
 
         }
+>>>>>>> 2e233ca2df70204072ec55302e7355b0d5737709
     });
     //Boton loop
     $(".sidebar_button #loop").click(function() {
