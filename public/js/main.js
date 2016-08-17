@@ -8,7 +8,6 @@ var share_dialog_open = false;
 
 // El DOM termina de cargar.
 $(document).ready(function() {
-    
     var doc = $(document);
     var win = $(window);
     var clients = {};
@@ -68,17 +67,152 @@ $(document).ready(function() {
     });
 
     $(".delete_button").click(function() {
-        for (var i = 0; i < layers.length; i++) {
-            for (var j = layers[i].length - 1; j >= 0; j--) {
-                layers[i][j].looping = false;
-                layers[i][j].fadeOutFact = DELETE_FACTOR;
+        // for (var i = 0; i < layers.length; i++) {
+        var i = currLayer;    
+        for (var j = layers[i].length - 1; j >= 0; j--) {
+            layers[i][j].looping = false;
+            layers[i][j].fadeOutFact = DELETE_FACTOR;
+        }
+        // }
+        var del = {
+          'layer': currLayer,
+          'id': id
+        }        
+        socket.emit("deleteEvent", del);
+    });
+
+    // Botones divididos
+    $(".sidebar_button .clickUp, .sidebar_button .clickRight").on("mouseover", function() {
+        $(this).parent().addClass("up");
+    })
+    $(".sidebar_button .clickDown, .sidebar_button .clickLeft").on("mouseover", function() {
+        $(this).parent().addClass("down");
+    })
+    $(".sidebar_button .clickUp, .sidebar_button .clickRight").on("mouseleave", function() {
+        $(this).parent().removeClass("up");
+    })
+    $(".sidebar_button .clickDown, .sidebar_button .clickLeft").on("mouseleave", function() {
+        $(this).parent().removeClass("down");
+    })
+    $(".sidebar_button .wrapperDual").on("click", function() {
+        var state = Number( $(this).attr("data-state") );
+
+        if ( $(this).hasClass("down") ) {
+            if ( state > 1 ) {
+                state--;
+                $(this).attr("data-state", state);
+
+                var $img =  $(this).children("img");
+                var name = $(this).attr("id");
+                $img.attr("src", "../img/" + name + "_" + state + ".svg");
             }
         }
-        socket.emit("deleteEvent", id);
+        if ( $(this).hasClass("up") ) {
+            var maxState = Number( $(this).attr("data-max-state") );
+            if ( state < maxState ) {
+                state++;
+                $(this).attr("data-state", state);
+
+                var $img =  $(this).children("img");
+                var name = $(this).attr("id");
+                $img.attr("src", "../img/" + name + "_" + state + ".svg");
+
+            }
+        }
+
+        if ( name == "velocidad" ) {
+            if (state == 1) {
+                fixed = true;
+            } else {
+                fixed = false;
+                LOOP_MULTIPLIER = map(state, 2, 10, 5,0) ;
+                console.log("Velocidad: " + LOOP_MULTIPLIER);
+            }
+        }
+        if ( name == "mirar" ) {
+            var ascale = map(state, 1,7,0,1);
+            console.log("Alpha: " + ascale);
+            // currAlpha = 255 * ascale;
+
+            alphaScale[currLayer] = ascale
+            for (var i = 0; i < layers[currLayer].length; i++) {
+                var gesture = layers[currLayer][i];
+                // var ascale = gesture.getAlphaScale();
+                // ascale = constrain(ascale - 0.05, 0, 1);
+                gesture.setAlphaScale(ascale);
+            }
+
+
+        }
+    });
+    //Boton loop
+    $(".sidebar_button #loop").click(function() {
+        if ( !$(this).hasClass("inactive") ) {
+            $(this).addClass("inactive");
+            var $img =  $(this).children("img");
+            $img.attr("src", "../img/girar_2.svg");
+
+            looping = false;
+        } else {
+            $(this).removeClass("inactive");
+            var $img =  $(this).children("img");
+            $img.attr("src", "../img/girar_1.svg");
+
+            looping = true;
+        }
+    });
+    // Botones de capa
+    $(".wrapperCapa img").on("mouseover", function() {
+        if ( !$(this).hasClass("active") ) {
+            $(this).attr("src", "../img/capa_hover.svg");
+        }
+    });
+    $(".wrapperCapa img").on("mouseleave", function() {
+        if ( !$(this).hasClass("active") ) {
+            $(this).attr("src", "../img/capa.svg");
+        }
+    });
+    $(".wrapperCapa img").on("click", function() {
+        var numeroCapa = this.className.split(" ")[1].substring(4,5);
+
+        $(".wrapperCapa img").each(function() {
+            $(this).attr("src","../img/capa.svg");
+            $(this).removeClass("active");
+        });
+        $(this).attr("src","../img/capa_active.svg");
+        $(this).addClass("active");
+
+        var currLayer0 = currLayer;
+        currLayer = Number(numeroCapa) - 1;
+        if (currLayer0 != currLayer) {
+            ascale = alphaScale[currLayer];
+            var state = int(map(ascale, 0, 1, 1,7));
+            
+            // $(".sidebar_button .wrapperVertical img").each(function() {
+            //     $(this).attr("src", "../img/mirar_" + state + ".svg");
+            // });
+
+            $(".sidebar_button .wrapperVertical img").attr("src", "../img/mirar_" + state + ".svg");
+            $(".sidebar_button .wrapperVertical").attr("data-state", state);
+        }
+    });
+    // Boton delete
+    $(".delete_button img").on("mousedown", function() {
+        $(this).attr("src", "../img/tacho_click.svg");
+    });
+    $(".delete_button img").on("mouseup", function() {
+        setTimeout( function() {
+            $(".delete_button img").attr("src", "../img/tacho.svg");
+        }, 600);
     });
 
     // Share button
     $(".share_button").click(function(){
+        $(".share_button img").attr("src","../img/share_click.svg")
+        setTimeout( function() {
+            $(".share_button img").attr("src", "../img/share.svg");
+        }, 400);
+
         $("#share_dialog").fadeIn();
 
         share_dialog_open = true;
@@ -193,9 +327,15 @@ $(document).ready(function() {
     socket.on('deleteEvent', deleteHandler);
 
     function deleteHandler(data) {
-        for (var idx in otherGestures.get(data)) {
-            otherGestures.get(data)[idx].looping = false;
-            otherGestures.get(data)[idx].fadeOutFact = DELETE_FACTOR;
+        var layer = data.layer;
+        var id = data.id;
+        var gestures = otherGestures[layer].get(id);
+        for (var idx in gestures) {
+            var g = gestures[idx];
+            // if (g.layer == layer) {
+                g.looping = false;
+                g.fadeOutFact = DELETE_FACTOR;
+            // }
         }
     }
 
@@ -230,7 +370,7 @@ function mousePressed() {
     var t0 = startGestureTime = millis();
 
     // Creamos el currGesture (este es el que se dibuja desde p5.js)
-    currGesture = new StrokeGesture(t0, dissapearing, fixed, lastGesture);
+    currGesture = new StrokeGesture(t0, dissapearing, fixed, lastGesture, currLayer);
 
     // Creamos el nuevo ribbon
     ribbon = new Ribbon();
@@ -246,7 +386,9 @@ function mousePressed() {
         'y': mouseY,
         'color': currColor,
         'stroke_weight':RIBBON_WIDTH,
-        'id': id
+        'layer': currLayer,
+        'fixed':fixed,
+        'id': id        
     }
 
     // Emitimos el evento a los demas clientes.
@@ -273,7 +415,7 @@ function touchStarted() {
     var t0 = startGestureTime = millis();
 
     // Creamos el currGesture (este es el que se dibuja desde p5.js)
-    currGesture = new StrokeGesture(t0, dissapearing, fixed, lastGesture);
+    currGesture = new StrokeGesture(t0, dissapearing, fixed, lastGesture, currLayer);
 
     // Creamos el nuevo ribbon
     ribbon = new Ribbon();
@@ -289,6 +431,8 @@ function touchStarted() {
         'y': touchY,
         'color': currColor,
         'stroke_weight':RIBBON_WIDTH,
+        'layer': currLayer,
+        'fixed':fixed,
         'id': id
     }
     // Emitimos el evento a los demas clientes.
@@ -320,6 +464,7 @@ function mouseDragged() {
             'y': mouseY,
             'color': currColor,
             'stroke_weight':RIBBON_WIDTH,
+            'layer': currLayer,
             'id': id
         }
         socket.emit("externalMouseEvent", movement);
@@ -349,6 +494,7 @@ function touchMoved() {
             'y': touchY,
             'color': currColor,
             'stroke_weight':RIBBON_WIDTH,
+            'layer': currLayer,
             'id': id
         }
         socket.emit("externalMouseEvent", movement);
@@ -387,6 +533,7 @@ function mouseReleased() {
             'y': mouseY,
             'color': currColor,
             'stroke_weight':RIBBON_WIDTH,
+            'layer': currLayer,
             'id': id
         }
         socket.emit("externalMouseEvent", movement);
@@ -425,6 +572,7 @@ function touchEnded() {
             'y': touchY,
             'color': currColor,
             'stroke_weight':RIBBON_WIDTH,
+            'layer': currLayer,
             'id': id
         }
         socket.emit("externalMouseEvent", movement);
@@ -453,15 +601,17 @@ socket.on('externalMouseEvent', function(data){
         var t0 = startGestureTime = millis();
         var lastGesture = null;
         var grouping = true;
+        var layer = data.layer;
 
         // Agregamos este gesture a la lista de gestures
-        otherGestures.put(data.id, new StrokeGesture(t0, dissapearing, fixed, lastGesture));
+        otherGestures[layer].put(data.id, new StrokeGesture(t0, dissapearing, data.fixed, lastGesture, layer));
         // Agregamos un ribbon
         otherRibbons.put(data.id, new Ribbon());
         // Inicializamos el ribbon
         otherRibbons.get(data.id).init(data.stroke_weight);
         // Le agregamos este punto
-        otherRibbons.get(data.id).addPoint(otherGestures.get(data.id)[otherGestures.get(data.id).length-1], data.color, currAlpha, data.x, data.y);
+        var other = otherGestures[layer].get(data.id);
+        otherRibbons.get(data.id).addPoint(other[other.length-1], data.color, currAlpha, data.x, data.y);
 
     }
 
@@ -470,8 +620,10 @@ socket.on('externalMouseEvent', function(data){
     */
 
     if (data.e === "DRAGGED") {
+        var layer = data.layer;
         // Agregamos el punto
-        otherRibbons.get(data.id).addPoint(otherGestures.get(data.id)[otherGestures.get(data.id).length-1], data.color, currAlpha, data.x, data.y);
+        var other = otherGestures[layer].get(data.id);
+        otherRibbons.get(data.id).addPoint(other[other.length-1], data.color, currAlpha, data.x, data.y);
     }
 
     /*
@@ -479,12 +631,14 @@ socket.on('externalMouseEvent', function(data){
     */
 
     if (data.e === "RELEASED"){
+        var layer = data.layer;
 
         // Seteamos el ultimo punto
-        otherRibbons.get(data.id).addPoint(otherGestures.get(data.id)[otherGestures.get(data.id).length-1], data.color, currAlpha, data.x, data.y);
+        var other = otherGestures[layer].get(data.id);
+        otherRibbons.get(data.id).addPoint(other[other.length-1], data.color, currAlpha, data.x, data.y);
         // Seteamos el looping
-        otherGestures.get(data.id)[otherGestures.get(data.id).length-1].setLooping(true);
-        otherGestures.get(data.id)[otherGestures.get(data.id).length-1].setEndTime(millis());
+        other[other.length-1].setLooping(true);
+        other[other.length-1].setEndTime(millis());
         // Lo agregamos a la capa local
         //layers[currLayer].push(otherGestures.get(data.id));
         // Borramos este gesture

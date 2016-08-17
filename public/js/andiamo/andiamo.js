@@ -8,12 +8,15 @@ var looping = false;
 var fixed = false;
 var dissapearing = false;
 var grouping = false;
-var currColor = [255, 255, 255];
-var currAlpha = 150;
+var currColor = [175, 0, 255]; //[255, 255, 255];
+var currAlpha = 255;
+var alphaScale = [];
 
 // Hashmaps para los trazos externos
-var otherGestures = new MultiMap();
-var otherRibbons = new HashMap();
+var otherGestures = [];
+var otherRibbons = null;
+
+var ctx;
 
 function setup() {
   var w = 0, h = 0;
@@ -36,33 +39,36 @@ function setup() {
   canvas = createCanvas(w-5, h-5);
   canvas.parent('andiamo');
   startup();
+  ctx = this.drawingContext;
 }
 
 function draw() {
   background(0);
 
   var t = millis();
-  for (var i = 0; i < layers.length; i++) {
+  for (var i = layers.length - 1; 0 <= i; i--) {
+    
+    // Dibujar los trazos externos
+    var other = otherGestures[i];
+    for (var j = 0; j < other.values().length; j++) {
+      other.values()[j].update(t);
+      other.values()[j].draw();
+    }
+
+
     for (var j = 0; j < layers[i].length; j++) {
       var gesture = layers[i][j]
       gesture.update(t);
       gesture.draw();
     }
+    if (currGesture && currLayer == i) {
+      currGesture.update(t);
+      currGesture.draw();
+    }    
   }
 
-  if (currGesture) {
-    currGesture.update(t);
-    currGesture.draw();
-  }
-
-  // Dibujar los trazos externos
-  for (var i = 0; i < otherGestures.values().length; i++) {
-      otherGestures.values()[i].update(t);
-      otherGestures.values()[i].draw();
-  }
 
   cleanup();
-
 }
 
 function startup() {
@@ -70,10 +76,15 @@ function startup() {
   fixed = FIXED_STROKE_AT_INIT;
   dissapearing = DISSAPEARING_AT_INIT;
   grouping = false;
+  
   layers = [null, null, null, null];
+  otherGestures = [null, null, null, null];
+  otherRibbons = new HashMap();
   for (var i = 0; i < 4; i++) {
     layers[i] = [];
+    otherGestures[i] = new MultiMap();
   }
+  alphaScale = [1, 1, 1, 1]
 
   currLayer = 0;
 }
