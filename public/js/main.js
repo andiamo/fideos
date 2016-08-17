@@ -128,7 +128,6 @@ $(document).ready(function() {
                 fixed = false;
                 LOOP_MULTIPLIER = map(state, 2, 10, 5,0) ;
                 console.log("Velocidad: " + LOOP_MULTIPLIER);
-<<<<<<< HEAD
             }
         }
         if ( name == "mirar" ) {
@@ -142,14 +141,34 @@ $(document).ready(function() {
                 // var ascale = gesture.getAlphaScale();
                 // ascale = constrain(ascale - 0.05, 0, 1);
                 gesture.setAlphaScale(ascale);
-=======
->>>>>>> 2e233ca2df70204072ec55302e7355b0d5737709
             }
 
 
         }
-<<<<<<< HEAD
-=======
+            }
+        }
+        if ( $(this).hasClass("up") ) {
+            var maxState = Number( $(this).attr("data-max-state") );
+            if ( state < maxState ) {
+                state++;
+                $(this).attr("data-state", state);
+
+                var $img =  $(this).children("img");
+                var name = $(this).attr("id");
+                $img.attr("src", "../img/" + name + "_" + state + ".svg");
+
+            }
+        }
+
+        if ( name == "velocidad" ) {
+            if (state == 1) {
+                fixed = true;
+            } else {
+                fixed = false;
+                LOOP_MULTIPLIER = map(state, 2, 10, 5,0) ;
+                console.log("Velocidad: " + LOOP_MULTIPLIER);
+            }
+        }
         if ( name == "mirar" ) {
             var ascale = map(state, 1,7,0,1);
             console.log("Alpha: " + ascale);
@@ -165,7 +184,6 @@ $(document).ready(function() {
 
 
         }
->>>>>>> 2e233ca2df70204072ec55302e7355b0d5737709
     });
     //Boton loop
     $(".sidebar_button #loop").click(function() {
