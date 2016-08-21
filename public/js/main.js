@@ -262,13 +262,6 @@ $(document).ready(function() {
 
     });
 
-    $(".save_button").click(function() {
-        data = {};
-        data.layers = layers;
-        data.room_id = room_id;
-        socket.emit("saveEvent", data);
-    });
-
     // Share dialog
     $(".shareDialogInput").val(window.location.href);
     $(".close_button").click(function(){

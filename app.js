@@ -1,10 +1,10 @@
 // Dependencias
 var fs = require('fs');
 var express = require('express');
+var nodegit = require('nodegit');
 var app = express();
 var server = require('http').createServer(app);
 var io = require('socket.io')(server);
-var fs = require("fs");
 var Hashids = require("hashids"),
 hashids = new Hashids("this is my salt",0, "0123456789abcdef");
 var connections = 0;
@@ -61,13 +61,8 @@ app.get('/board/:board_id',function(req,res){
 });
 
 
-var layersDir = 'layers';
 // Conexión
 io.on('connection', function(socket) {
-
-        if (!fs.existsSync(layersDir)) {
-            fs.mkdirSync(layersDir);
-        }
 
     // Recibo desde el cliente el room_id
     var room_id = socket.handshake.query.room_id;
@@ -101,11 +96,6 @@ io.on('connection', function(socket) {
         socket.broadcast.to(room_id).emit('deleteEvent', data);
     });
 
-    socket.on('saveEvent', function(data) {
-        fs.writeFile(layersDir + '/' + data.room_id + '.json', JSON.stringify(data.layers), function (err) {
-            if (err) return console.log(err);
-        });
-    });
 
     // Desconexion de un cliente
     socket.on('disconnect', function() {
