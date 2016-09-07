@@ -528,6 +528,7 @@ function mouseReleased() {
             'color': currColor,
             'stroke_weight':RIBBON_WIDTH,
             'layer': currLayer,
+            'looping': looping,
             'id': id
         }
         socket.emit("externalMouseEvent", movement);
@@ -567,6 +568,7 @@ function touchEnded() {
             'color': currColor,
             'stroke_weight':RIBBON_WIDTH,
             'layer': currLayer,
+            'looping': looping,
             'id': id
         }
         socket.emit("externalMouseEvent", movement);
@@ -631,7 +633,7 @@ socket.on('externalMouseEvent', function(data){
         var other = otherGestures[layer].get(data.id);
         otherRibbons.get(data.id).addPoint(other[other.length-1], data.color, currAlpha, data.x, data.y);
         // Seteamos el looping
-        other[other.length-1].setLooping(true);
+        other[other.length-1].setLooping(data.looping);
         other[other.length-1].setEndTime(millis());
         // Lo agregamos a la capa local
         //layers[currLayer].push(otherGestures.get(data.id));
