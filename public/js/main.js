@@ -223,6 +223,22 @@ $(document).ready(function() {
 
     })
 
+    // Share social media
+    $(".share_social_button").click(function(){
+        $(".share_social_button img").attr("src","../img/share_click.svg")
+        setTimeout( function() {
+            $(".share_social_button img").attr("src", "../img/share.svg");
+        }, 400);
+
+        $("#share_dialog").fadeIn();
+
+        share_dialog_open = true;
+
+        $(".shareDialogInput").focus();
+        $(".shareDialogInput").select();
+
+    })
+
     // Share dialog
     $(".shareDialogInput").val(window.location.href);
     $(".close_button").click(function(){
