@@ -230,12 +230,55 @@ $(document).ready(function() {
             $(".share_social_button img").attr("src", "../img/share.svg");
         }, 400);
 
-        $("#share_dialog").fadeIn();
 
-        share_dialog_open = true;
+        saveFrames("out", "png", 3, 10, function(data) {
+        
+          var images = []
+          for (var i = 0; i < data.length; i++) {
+            images.push(data[i].imageData);
+          }
+          println(images);
+       
+          gifshot.createGIF({'images': images},function(obj) {
+            if(!obj.error) {
+              var image = obj.image;
+            
+              println("success :)");
+              println(image);
+              
+              /*
+              $.ajax({
+                type: 'POST',
+                url: 'http://upload.giphy.com/v1/gifs',
+                data: {
+                  username: "trazostest",
+                  api_key: "dc6zaTOxFJmzC",
+//                 file: image,
+                   source_image_url: "https://media.giphy.com/media/3oz8xQuNk06SCLq5t6/giphy.gif",
+                  tags: "trazos,test"
+                },
+                success: function(obj){println("yea, uploaded gif!");println(obj);},
+                error: function(obj){println("no luck...");println(obj);}
+              });  
+            */
+            
+            } else {
+              println("error :(");
+            }          
 
-        $(".shareDialogInput").focus();
-        $(".shareDialogInput").select();
+          });
+        });
+
+
+
+
+
+        // $("#share_dialog").fadeIn();
+
+        // share_dialog_open = true;
+
+        // $(".shareDialogInput").focus();
+        // $(".shareDialogInput").select();
 
     })
 
