@@ -224,7 +224,7 @@ $(document).ready(function() {
     })
 
     // Share social media
-    $(".share_social_button").click(function(){
+    $(".share_social_button").click(function(){        
         $(".share_social_button img").attr("src","../img/share_click.svg")
         setTimeout( function() {
             $(".share_social_button img").attr("src", "../img/share.svg");
@@ -237,15 +237,29 @@ $(document).ready(function() {
           for (var i = 0; i < data.length; i++) {
             images.push(data[i].imageData);
           }
-          println(images);
        
           gifshot.createGIF({'images': images},function(obj) {
             if(!obj.error) {
               var image = obj.image;
             
               println("success :)");
-              println(image);
-              
+              $.ajax({
+                    type: "POST",
+                    url: 'http://localhost:3000/files',
+                    data: image,
+                    success: function(data) {
+                        console.log('lala');
+                        var imageUrl = 'http://localhost:3000/' + data.filename;
+                        console.log(imageUrl);
+                        $(".shareDialogInput").val(imageUrl);
+                        $("#share_dialog").fadeIn();
+                        share_dialog_open = true;
+                        $(".shareDialogInput").focus();
+                        $(".shareDialogInput").select();
+                    },
+                    error: function(obj){println("no luck...");println(obj);},
+                    dataType: 'json'
+              });
               /*
               $.ajax({
                 type: 'POST',
@@ -268,22 +282,9 @@ $(document).ready(function() {
 
           });
         });
-
-
-
-
-
-        // $("#share_dialog").fadeIn();
-
-        // share_dialog_open = true;
-
-        // $(".shareDialogInput").focus();
-        // $(".shareDialogInput").select();
-
     })
 
     // Share dialog
-    $(".shareDialogInput").val(window.location.href);
     $(".close_button").click(function(){
         $("#share_dialog").fadeOut();
 
