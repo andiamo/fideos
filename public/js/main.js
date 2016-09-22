@@ -238,6 +238,9 @@ $(document).ready(function() {
             images.push(data[i].imageData);
           }
        
+          const urlSplit = window.location.href.split('/');
+          const hostAndPort = urlSplit[0] + '//' + urlSplit[2] + '/';
+
           gifshot.createGIF({'images': images},function(obj) {
             if(!obj.error) {
               var image = obj.image;
@@ -245,11 +248,11 @@ $(document).ready(function() {
               println("success :)");
               $.ajax({
                     type: "POST",
-                    url: 'http://localhost:3000/files',
+                    url: hostAndPort + 'files',
                     data: image,
                     success: function(data) {
                         console.log('lala');
-                        var imageUrl = 'http://localhost:3000/' + data.filename;
+                        var imageUrl = hostAndPort + data.filename;
                         console.log(imageUrl);
                         $(".shareDialogInput").val(imageUrl);
                         $("#share_dialog").fadeIn();
