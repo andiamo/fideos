@@ -241,7 +241,13 @@ $(document).ready(function() {
           const urlSplit = window.location.href.split('/');
           const hostAndPort = urlSplit[0] + '//' + urlSplit[2] + '/';
 
-          gifshot.createGIF({'images': images},function(obj) {
+          var r = canvas.width / canvas.height;
+          var gifw = 500;
+          var gifh = Math.round(gifw / r);
+
+
+          gifshot.createGIF({'images': images, 
+                             'gifWidth': gifw, 'gifHeight': gifh}, function(obj) {
             if(!obj.error) {
               var image = obj.image;
             
