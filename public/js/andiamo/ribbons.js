@@ -45,7 +45,7 @@ Ribbon.prototype.init = function(p_ribbon_width) {
   this.ribbonsWidth = 0.7 * p_ribbon_width + 1.3 * p_ribbon_width * Math.random();
 }
 
-Ribbon.prototype.addPoint = function(gesture, col, alp, x, y) {
+Ribbon.prototype.addPoint = function(gesture, time, col, alp, x, y) {
   this.pX = x;
   this.pY = y;
 
@@ -124,7 +124,7 @@ Ribbon.prototype.addPoint = function(gesture, col, alp, x, y) {
   this.addControlPoint(this.lspline, this.newX, this.newY, this.newZ, nor, +this.newVel);
   this.addControlPoint(this.rspline, this.newX, this.newY, this.newZ, nor, -this.newVel);
 
-  this.drawRibbonStretch(gesture, col, alp, this.lspline, this.rspline);
+  this.drawRibbonStretch(gesture, time, col, alp, this.lspline, this.rspline);
 }
 
 Ribbon.prototype.addControlPoint = function(spline, newX, newY, newZ, nor, vel) {
@@ -142,7 +142,7 @@ Ribbon.prototype.addControlPoint = function(spline, newX, newY, newZ, nor, vel) 
   return false;
 }
 
-Ribbon.prototype.drawRibbonStretch = function(gesture, col, alp, spline1, spline2) {
+Ribbon.prototype.drawRibbonStretch = function(gesture, time, col, alp, spline1, spline2) {
   var ti;
   var t;
   var x, y, z;
@@ -168,7 +168,7 @@ Ribbon.prototype.drawRibbonStretch = function(gesture, col, alp, spline1, spline
       spline1.feval(t, this.Sid1Point1);
       spline2.feval(t, this.Sid2Point1);
 
-      var quad = new StrokeQuad(millis());
+      var quad = new StrokeQuad(time);
       var r = col[0];
       var g = col[1];
       var b = col[2];

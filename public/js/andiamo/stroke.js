@@ -75,10 +75,6 @@ function StrokeGesture(t0, dissapearing, fixed, prev, layer) {
   this.next = null;
   this.quads = [];
 
-  this.t0 = t0;
-  this.t1 = t0;
-  this.lastUpdate = t0;
-
   this.looping = false;
   this.fadeOutFact = 1;
   this.fadeOutFact0 = 1;
@@ -93,6 +89,12 @@ function StrokeGesture(t0, dissapearing, fixed, prev, layer) {
   this.fixed = fixed;
 
   this.layer = layer;
+}
+
+StrokeGesture.prototype.setStartTime = function(t0) {
+  this.t0 = t0;
+  this.t1 = t0;
+  this.lastUpdate = t0;  
 }
 
 StrokeGesture.prototype.clear = function() {
