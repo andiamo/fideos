@@ -425,6 +425,7 @@ function mousePressed() {
         'e': "PRESS",
         'x': mouseX,
         'y': mouseY,
+        't': t0,
         'color': currColor,
         'stroke_weight':RIBBON_WIDTH,
         'layer': currLayer,
@@ -470,6 +471,7 @@ function touchStarted() {
         'e': "PRESS",
         'x': touchX,
         'y': touchY,
+        't': t0,        
         'color': currColor,
         'stroke_weight':RIBBON_WIDTH,
         'layer': currLayer,
@@ -572,7 +574,6 @@ function mouseReleased() {
         ribbon.addPoint(currGesture, t1, currColor, currAlpha, mouseX, mouseY);
         currGesture.setLooping(looping);
         currGesture.setEndTime(t1);
-        println("Done with gesture " + t0 + " " + t1 + " " + looping);
 
         // Pusheamos el gesture a la capa
         if (currGesture.visible) {
@@ -664,14 +665,16 @@ socket.on('externalMouseEvent', function(data){
         var newGesture = new StrokeGesture(dissapearing, data.fixed, lastGesture, layer);
         newGesture.setStartTime(t0);
         otherGestures[layer].put(data.id, newGesture);
+
         // Agregamos un ribbon
-        otherRibbons.put(data.id, new Ribbon());
+        var newRibbon = new Ribbon();
         // Inicializamos el ribbon
-        otherRibbons.get(data.id).init(data.stroke_weight);
+        newRibbon.init(data.stroke_weight);
+        otherRibbons.put(data.id, newRibbon);
+        
         // Le agregamos este punto
         var other = otherGestures[layer].get(data.id);
-        otherRibbons.get(data.id).addPoint(other[other.length-1], t0, data.color, currAlpha, data.x, data.y);
-
+        newRibbon.addPoint(other[other.length-1], t0, data.color, currAlpha, data.x, data.y);
     }
 
     /*
@@ -681,33 +684,36 @@ socket.on('externalMouseEvent', function(data){
     if (data.e === "DRAGGED") {
         var layer = data.layer;
         var other = otherGestures[layer].get(data.id);
-        var otherGesture = otherRibbons.get(data.id);
+        var otherGesture = other[other.length-1];
+        var otherRibbon = otherRibbons.get(data.id);
 
         // Agregamos el punto
         var t0 = otherGesture.getStartTime();
         var t = t0 + data.t;
-        t = millis()
-        otherGesture.addPoint(other[other.length-1], t, data.color, currAlpha, data.x, data.y);
+        println("Adding point " + t0 + + " " + data.t);
+        otherRibbon.addPoint(otherGesture, t, data.color, currAlpha, data.x, data.y);
     }
 
     /*
     MOUSE RELEASED
     */
 
-    if (data.e === "RELEASED"){
+    if (data.e === "RELEASED") {
         var layer = data.layer;
         var other = otherGestures[layer].get(data.id);
-        var otherGesture = otherRibbons.get(data.id);
+        var otherGesture = other[other.length-1];
+        var otherRibbon = otherRibbons.get(data.id);
 
         // Seteamos el ultimo punto
         var t0 = otherGesture.getStartTime();
         var t1 = t0 + data.t; 
-        t1 = mills();
+        // t1 = mills();
+        println("Ending gesture " + t0 + + " " + t1);
 
-        otherGesture.addPoint(other[other.length-1], t1, data.color, currAlpha, data.x, data.y);
+        otherRibbon.addPoint(otherGesture, t1, data.color, currAlpha, data.x, data.y);
         // Seteamos el looping
-        other[other.length-1].setLooping(data.looping);
-        other[other.length-1].setEndTime(t1);
+        otherGesture.setLooping(data.looping);
+        otherGesture.setEndTime(t1);
     }
 
 
