@@ -571,7 +571,8 @@ function mouseReleased() {
         var t0 = currGesture.getStartTime();
         ribbon.addPoint(currGesture, t1, currColor, currAlpha, mouseX, mouseY);
         currGesture.setLooping(looping);
-        currGesture.setEndTime(millis());
+        currGesture.setEndTime(t1);
+        println("Done with gesture " + t0 + " " + t1 + " " + looping);
 
         // Pusheamos el gesture a la capa
         if (currGesture.visible) {

@@ -70,10 +70,14 @@ StrokeQuad.prototype.draw = function(ascale) {
   }
 }
 
-function StrokeGesture(t0, dissapearing, fixed, prev, layer) {
+function StrokeGesture(dissapearing, fixed, prev, layer) {
   this.prev = prev;
   this.next = null;
   this.quads = [];
+
+  this.t0 = 0;
+  this.t1 = 0;
+  this.lastUpdate = 0;
 
   this.looping = false;
   this.fadeOutFact = 1;
@@ -94,7 +98,7 @@ function StrokeGesture(t0, dissapearing, fixed, prev, layer) {
 StrokeGesture.prototype.setStartTime = function(t0) {
   this.t0 = t0;
   this.t1 = t0;
-  this.lastUpdate = t0;  
+  this.lastUpdate = t0;
 }
 
 StrokeGesture.prototype.getStartTime = function() {
