@@ -225,9 +225,9 @@ $(document).ready(function() {
 
     // Share social media
     $(".share_social_button").click(function(){        
-        $(".share_social_button img").attr("src","../img/share_click.svg")
+        $(".share_social_button img").attr("src","../img/social_click.svg")
         setTimeout( function() {
-            $(".share_social_button img").attr("src", "../img/share.svg");
+            $(".share_social_button img").attr("src", "../img/social.svg");
         }, 400);
 
 
