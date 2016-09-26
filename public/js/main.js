@@ -257,14 +257,8 @@ $(document).ready(function() {
                     url: hostAndPort + 'files',
                     data: image,
                     success: function(data) {
-                        console.log('lala');
-                        var imageUrl = hostAndPort + data.filename;
-                        console.log(imageUrl);
-                        $(".shareDialogInput").val(imageUrl);
-                        $("#share_dialog").fadeIn();
-                        share_dialog_open = true;
-                        $(".shareDialogInput").focus();
-                        $(".shareDialogInput").select();
+                        console.log('Exported gif: ' + hostAndPort + data.filename);
+                        window.alert('Exported!');
                     },
                     error: function(obj){println("no luck...");println(obj);},
                     dataType: 'json'

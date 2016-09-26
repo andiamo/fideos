@@ -31,7 +31,6 @@ function includeSidebarAndSend(html, res) {
 }
 
 function saveImage(rawData) {
-    var fs = require('fs');
     var regex = /^data:.+\/(.+);base64,(.*)$/;
 
     var matches = rawData.match(regex);
@@ -43,7 +42,9 @@ function saveImage(rawData) {
     const pubUserImgDir = publicDir + '/' + usrImgDir;
     var filename = usrImgDir + '/' + uuid.v4() + '.' + ext;
     mkdirp(pubUserImgDir, function(err) {});
-    fs.writeFileSync(publicDir + '/' + filename, buffer);
+    fs.writeFile(publicDir + '/' + filename, buffer, function(err) {
+        if (err) throw err;
+    });
     return filename;
 }
 
