@@ -407,18 +407,18 @@ Captura el mousePressed dentro del canvas de P5.js.
 function mousePressed() {
     if (share_dialog_open) return;
 
-    var startGestureTime = 0;
-    var t0 = startGestureTime = millis();
+    var t0 = millis();
 
     // Creamos el currGesture (este es el que se dibuja desde p5.js)
-    currGesture = new StrokeGesture(t0, dissapearing, fixed, lastGesture, currLayer);
+    currGesture = new StrokeGesture(dissapearing, fixed, lastGesture, currLayer);
+    currGesture.setStartTime(t0);
 
     // Creamos el nuevo ribbon
     ribbon = new Ribbon();
     ribbon.init(RIBBON_WIDTH);
 
     // Agregamos el punto al ribbon
-    ribbon.addPoint(currGesture, currColor, currAlpha, mouseX, mouseY);
+    ribbon.addPoint(currGesture, t0, currColor, currAlpha, mouseX, mouseY);
 
     // Objeto que se emite
     var movement = {
@@ -452,18 +452,18 @@ Captura el touch de mobile
 function touchStarted() {
     if (share_dialog_open) return;
 
-    var startGestureTime = 0;
-    var t0 = startGestureTime = millis();
+    var t0 = millis();
 
     // Creamos el currGesture (este es el que se dibuja desde p5.js)
     currGesture = new StrokeGesture(t0, dissapearing, fixed, lastGesture, currLayer);
+    currGesture.setStartTime(t0);
 
     // Creamos el nuevo ribbon
     ribbon = new Ribbon();
     ribbon.init(RIBBON_WIDTH);
 
     // Agregamos el punto al ribbon
-    ribbon.addPoint(currGesture, currColor, currAlpha, touchX, touchY);
+    ribbon.addPoint(currGesture, t0, currColor, currAlpha, touchX, touchY);
 
     // Objeto que se emite
     var movement = {
@@ -499,10 +499,14 @@ function mouseDragged() {
     if (share_dialog_open) return;
 
     if (currGesture) {
+        var t = millis();
+        var t0 = currGesture.getStartTime();
+
         var movement = {
             'e': "DRAGGED",
             'x': mouseX,
             'y': mouseY,
+            't': t - t0,
             'color': currColor,
             'stroke_weight':RIBBON_WIDTH,
             'layer': currLayer,
@@ -510,7 +514,7 @@ function mouseDragged() {
         }
         socket.emit("externalMouseEvent", movement);
 
-        ribbon.addPoint(currGesture, currColor, currAlpha, mouseX, mouseY);
+        ribbon.addPoint(currGesture, t, currColor, currAlpha, mouseX, mouseY);
     }
 
     return false;
@@ -529,10 +533,14 @@ function touchMoved() {
     if (share_dialog_open) return;
 
     if (currGesture) {
+        var t = millis();
+        var t0 = currGesture.getStartTime();
+
         var movement = {
             'e': "DRAGGED",
             'x': touchX,
             'y': touchY,
+            't': t - t0,
             'color': currColor,
             'stroke_weight':RIBBON_WIDTH,
             'layer': currLayer,
@@ -540,7 +548,7 @@ function touchMoved() {
         }
         socket.emit("externalMouseEvent", movement);
 
-        ribbon.addPoint(currGesture, currColor, currAlpha, touchX, touchY);
+        ribbon.addPoint(currGesture, t, currColor, currAlpha, touchX, touchY);
     }
 }
 
@@ -559,7 +567,9 @@ function mouseReleased() {
     if (currGesture) {
 
         // Agregamos el último punto
-        ribbon.addPoint(currGesture, currColor, currAlpha, mouseX, mouseY);
+        var t1 = millis();
+        var t0 = currGesture.getStartTime();
+        ribbon.addPoint(currGesture, t1, currColor, currAlpha, mouseX, mouseY);
         currGesture.setLooping(looping);
         currGesture.setEndTime(millis());
 
@@ -572,6 +582,7 @@ function mouseReleased() {
             'e': "RELEASED",
             'x': mouseX,
             'y': mouseY,
+            't': t1 - t0,
             'color': currColor,
             'stroke_weight':RIBBON_WIDTH,
             'layer': currLayer,
@@ -599,9 +610,11 @@ function touchEnded() {
     if (currGesture) {
 
         // Agregamos el último punto
-        ribbon.addPoint(currGesture, currColor, currAlpha, touchX, touchY);
+        var t1 = millis();
+        var t0 = currGesture.getStartTime();
+        ribbon.addPoint(currGesture, t1, currColor, currAlpha, touchX, touchY);
         currGesture.setLooping(looping);
-        currGesture.setEndTime(millis());
+        currGesture.setEndTime(t1);
 
         // Pusheamos el gesture a la capa
         if (currGesture.visible) {
@@ -612,6 +625,7 @@ function touchEnded() {
             'e': "RELEASED",
             'x': touchX,
             'y': touchY,
+            't': t1 - t0,            
             'color': currColor,
             'stroke_weight':RIBBON_WIDTH,
             'layer': currLayer,
@@ -640,21 +654,22 @@ socket.on('externalMouseEvent', function(data){
     if (data.e === "PRESS") {
 
         // Variables
-        var startGestureTime = 0;
-        var t0 = startGestureTime = millis();
+        var t0 = millis();
         var lastGesture = null;
         var grouping = true;
         var layer = data.layer;
 
         // Agregamos este gesture a la lista de gestures
-        otherGestures[layer].put(data.id, new StrokeGesture(t0, dissapearing, data.fixed, lastGesture, layer));
+        var newGesture = new StrokeGesture(dissapearing, data.fixed, lastGesture, layer);
+        newGesture.setStartTime(t0);
+        otherGestures[layer].put(data.id, newGesture);
         // Agregamos un ribbon
         otherRibbons.put(data.id, new Ribbon());
         // Inicializamos el ribbon
         otherRibbons.get(data.id).init(data.stroke_weight);
         // Le agregamos este punto
         var other = otherGestures[layer].get(data.id);
-        otherRibbons.get(data.id).addPoint(other[other.length-1], data.color, currAlpha, data.x, data.y);
+        otherRibbons.get(data.id).addPoint(other[other.length-1], t0, data.color, currAlpha, data.x, data.y);
 
     }
 
@@ -665,8 +680,9 @@ socket.on('externalMouseEvent', function(data){
     if (data.e === "DRAGGED") {
         var layer = data.layer;
         // Agregamos el punto
+        var t = millis();
         var other = otherGestures[layer].get(data.id);
-        otherRibbons.get(data.id).addPoint(other[other.length-1], data.color, currAlpha, data.x, data.y);
+        otherRibbons.get(data.id).addPoint(other[other.length-1], t, data.color, currAlpha, data.x, data.y);
     }
 
     /*
@@ -677,8 +693,9 @@ socket.on('externalMouseEvent', function(data){
         var layer = data.layer;
 
         // Seteamos el ultimo punto
+        var t1 = millis();
         var other = otherGestures[layer].get(data.id);
-        otherRibbons.get(data.id).addPoint(other[other.length-1], data.color, currAlpha, data.x, data.y);
+        otherRibbons.get(data.id).addPoint(other[other.length-1], t1, data.color, currAlpha, data.x, data.y);
         // Seteamos el looping
         other[other.length-1].setLooping(data.looping);
         other[other.length-1].setEndTime(millis());
