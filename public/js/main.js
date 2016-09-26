@@ -231,7 +231,7 @@ $(document).ready(function() {
         }, 400);
 
 
-        saveFrames("out", "png", 3, 10, function(data) {
+        saveFrames("out", "png", 5, 10, function(data) {
         
           var images = []
           for (var i = 0; i < data.length; i++) {
@@ -268,23 +268,7 @@ $(document).ready(function() {
                     },
                     error: function(obj){println("no luck...");println(obj);},
                     dataType: 'json'
-              });
-              /*
-              $.ajax({
-                type: 'POST',
-                url: 'http://upload.giphy.com/v1/gifs',
-                data: {
-                  username: "trazostest",
-                  api_key: "dc6zaTOxFJmzC",
-//                 file: image,
-                   source_image_url: "https://media.giphy.com/media/3oz8xQuNk06SCLq5t6/giphy.gif",
-                  tags: "trazos,test"
-                },
-                success: function(obj){println("yea, uploaded gif!");println(obj);},
-                error: function(obj){println("no luck...");println(obj);}
-              });  
-            */
-            
+              });          
             } else {
               println("error :(");
             }          

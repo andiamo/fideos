@@ -81,6 +81,7 @@ app.get('/board/:board_id',function(req,res){
 
 app.post('/files', function(req, res) {
     const extract = function (err, data) {
+        if (!data) return
         res.setHeader('Content-Type', 'application/json');
         const filePath = saveImage(data);
         res.send(JSON.stringify({ filename: filePath}));
