@@ -97,6 +97,10 @@ StrokeGesture.prototype.setStartTime = function(t0) {
   this.lastUpdate = t0;  
 }
 
+StrokeGesture.prototype.getStartTime = function() {
+  return this.t0;
+}
+
 StrokeGesture.prototype.clear = function() {
   this.quads = [];
 }

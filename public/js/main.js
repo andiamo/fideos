@@ -505,10 +505,14 @@ function mouseDragged() {
     if (share_dialog_open) return;
 
     if (currGesture) {
+        var t = millis();
+        var t0 = currGesture.getStartTime();
+
         var movement = {
             'e': "DRAGGED",
             'x': mouseX,
             'y': mouseY,
+            't': t - t0,
             'color': currColor,
             'stroke_weight':RIBBON_WIDTH,
             'layer': currLayer,
@@ -516,7 +520,7 @@ function mouseDragged() {
         }
         socket.emit("externalMouseEvent", movement);
 
-        ribbon.addPoint(currGesture, millis(), currColor, currAlpha, mouseX, mouseY);
+        ribbon.addPoint(currGesture, t, currColor, currAlpha, mouseX, mouseY);
     }
 
     return false;
@@ -535,10 +539,14 @@ function touchMoved() {
     if (share_dialog_open) return;
 
     if (currGesture) {
+        var t = millis();
+        var t0 = currGesture.getStartTime();
+
         var movement = {
             'e': "DRAGGED",
             'x': touchX,
             'y': touchY,
+            't': t - t0,
             'color': currColor,
             'stroke_weight':RIBBON_WIDTH,
             'layer': currLayer,
@@ -546,7 +554,7 @@ function touchMoved() {
         }
         socket.emit("externalMouseEvent", movement);
 
-        ribbon.addPoint(currGesture, millis(), currColor, currAlpha, touchX, touchY);
+        ribbon.addPoint(currGesture, t, currColor, currAlpha, touchX, touchY);
     }
 }
 
@@ -566,6 +574,7 @@ function mouseReleased() {
 
         // Agregamos el último punto
         var t1 = millis();
+        var t0 = currGesture.getStartTime();
         ribbon.addPoint(currGesture, t1, currColor, currAlpha, mouseX, mouseY);
         currGesture.setLooping(looping);
         currGesture.setEndTime(millis());
@@ -579,6 +588,7 @@ function mouseReleased() {
             'e': "RELEASED",
             'x': mouseX,
             'y': mouseY,
+            't': t1 - t0,
             'color': currColor,
             'stroke_weight':RIBBON_WIDTH,
             'layer': currLayer,
@@ -607,6 +617,7 @@ function touchEnded() {
 
         // Agregamos el último punto
         var t1 = millis();
+        var t0 = currGesture.getStartTime();
         ribbon.addPoint(currGesture, t1, currColor, currAlpha, touchX, touchY);
         currGesture.setLooping(looping);
         currGesture.setEndTime(t1);
@@ -620,6 +631,7 @@ function touchEnded() {
             'e': "RELEASED",
             'x': touchX,
             'y': touchY,
+            't': t1 - t0,            
             'color': currColor,
             'stroke_weight':RIBBON_WIDTH,
             'layer': currLayer,

@@ -91,7 +91,6 @@ Ribbon.prototype.addPoint = function(gesture, time, col, alp, x, y) {
     this.nControl = 4;
   }
 
-//  twist[i] = TWO_PI * cos(TWO_PI * millis() / (1000.0 * twistPeriod[i]) + twistPhase[i]);
   this.oldX = this.newX;
   this.oldY = this.newY;
   this.oldZ = this.newZ;
