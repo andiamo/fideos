@@ -461,7 +461,7 @@ function touchStarted() {
     var t0 = millis();
 
     // Creamos el currGesture (este es el que se dibuja desde p5.js)
-    currGesture = new StrokeGesture(t0, dissapearing, fixed, lastGesture, currLayer);
+    currGesture = new StrokeGesture(dissapearing, fixed, lastGesture, currLayer);
     currGesture.setStartTime(t0);
 
     // Creamos el nuevo ribbon
@@ -685,10 +685,14 @@ socket.on('externalMouseEvent', function(data){
 
     if (data.e === "DRAGGED") {
         var layer = data.layer;
-        // Agregamos el punto
-        var t = millis();
         var other = otherGestures[layer].get(data.id);
-        otherRibbons.get(data.id).addPoint(other[other.length-1], t, data.color, currAlpha, data.x, data.y);
+        var otherGesture = otherRibbons.get(data.id);
+
+        // Agregamos el punto
+        var t0 = otherGesture.getStartTime();
+        var t = t0 + data.t;
+        t = millis()
+        otherGesture.addPoint(other[other.length-1], t, data.color, currAlpha, data.x, data.y);
     }
 
     /*
@@ -697,19 +701,18 @@ socket.on('externalMouseEvent', function(data){
 
     if (data.e === "RELEASED"){
         var layer = data.layer;
+        var other = otherGestures[layer].get(data.id);
+        var otherGesture = otherRibbons.get(data.id);
 
         // Seteamos el ultimo punto
-        var t1 = millis();
-        var other = otherGestures[layer].get(data.id);
-        otherRibbons.get(data.id).addPoint(other[other.length-1], t1, data.color, currAlpha, data.x, data.y);
+        var t0 = otherGesture.getStartTime();
+        var t1 = t0 + data.t; 
+        t1 = mills();
+
+        otherGesture.addPoint(other[other.length-1], t1, data.color, currAlpha, data.x, data.y);
         // Seteamos el looping
         other[other.length-1].setLooping(data.looping);
-        other[other.length-1].setEndTime(millis());
-        // Lo agregamos a la capa local
-        //layers[currLayer].push(otherGestures.get(data.id));
-        // Borramos este gesture
-        //otherGestures.remove(data.id);
-
+        other[other.length-1].setEndTime(t1);
     }
 
 
