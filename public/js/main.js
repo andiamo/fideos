@@ -333,20 +333,20 @@ $(document).ready(function() {
 
     */
 
-    function mouseMoveHandler(e) {
+    // function mouseMoveHandler(e) {
 
-        // Chequeamos cuando fue el lastEmit para no emitir mensajes de mas
-        if ($.now() - lastEmit > 20) {
-            var movement = {
-                'x': e.pageX,
-                'y': e.pageY,
-                'id': id
-            }
-            socket.emit("mousemove", movement);
-            lastEmit = $.now();
-        }
+    //     // Chequeamos cuando fue el lastEmit para no emitir mensajes de mas
+    //     if ($.now() - lastEmit > 20) {
+    //         var movement = {
+    //             'x': e.pageX,
+    //             'y': e.pageY,
+    //             'id': id
+    //         }
+    //         // socket.emit("mousemove", movement);
+    //         lastEmit = $.now();
+    //     }
 
-    }
+    // }
 
     /*
 
@@ -354,7 +354,7 @@ $(document).ready(function() {
 
     */
 
-    doc.on('mousemove', mouseMoveHandler);
+    // doc.on('mousemove', mouseMoveHandler);
 
     /*
 

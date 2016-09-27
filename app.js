@@ -123,9 +123,9 @@ io.on('connection', function(socket) {
     });
 
     // Movimiento del puntero
-    socket.on('mousemove', function(data) {
-        socket.broadcast.to(room_id).emit('move', data);
-    });
+    // socket.on('mousemove', function(data) {
+    //     socket.broadcast.to(room_id).emit('move', data);
+    // });
 
     // Movimiento de los trazos
     socket.on('externalMouseEvent',function(data){
