@@ -72,7 +72,8 @@ app.post('/sendMail', function(req, res) {
 // Crea un nuevo board y redirige
 app.get('/board/', function(req, res) {
     boards++;
-    var board_id = hashids.encode(boards,boards);
+    // var board_id = hashids.encode(boards,boards);
+    var board_id = 0;
     res.redirect('/board/'+board_id);
 });
 
@@ -156,7 +157,7 @@ io.on('connection', function(socket) {
                 'layer': i,
                 'id': id
             }
-            socket.broadcast.emit("deleteEvent", del);
+            socket.broadcast.to(room_id).emit("deleteEvent", del);
         }
         delete clients[client_id];
     });
