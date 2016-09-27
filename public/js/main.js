@@ -348,6 +348,22 @@ $(document).ready(function() {
 });// End ready
 
 
+function keyPressed() {
+  if (keyCode == 27) {
+    var elem = document.getElementById("andiamo");
+    if (!elem) return
+    if (elem.requestFullscreen) {
+      elem.requestFullscreen();
+    } else if (elem.msRequestFullscreen) {
+      elem.msRequestFullscreen();
+    } else if (elem.mozRequestFullScreen) {
+      elem.mozRequestFullScreen();
+    } else if (elem.webkitRequestFullscreen) {
+      elem.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
+    }
+  }
+}
+
 /*
 
 mousePressed() - P5.js
