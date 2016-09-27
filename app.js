@@ -11,6 +11,9 @@ var Hashids = require("hashids"),
 hashids = new Hashids("this is my salt",0, "0123456789abcdef");
 var connections = 0;
 
+// Mapea los socket ids con el id generado por cada cliente
+var clients = {}
+
 // Lo uso para generar ids de boards
 var boards = 0;
 
@@ -97,6 +100,7 @@ io.on('connection', function(socket) {
 
     // Recibo desde el cliente el room_id
     var room_id = socket.handshake.query.room_id;
+    var client_id = socket.client.conn.id;
     socket.join(room_id);
 
     // Suma una conexion
@@ -111,6 +115,11 @@ io.on('connection', function(socket) {
     // Usuario conectado
     socket.emit('connections', {
         connections: connections
+    });
+
+    socket.on('clientConnectionEvent', function(data) {
+        clients[client_id] = data.id;
+        console.log("Se conecto el usuario " + clients[client_id]);
     });
 
     // Movimiento del puntero
@@ -128,13 +137,28 @@ io.on('connection', function(socket) {
     });
 
     // Desconexion de un cliente
-    socket.on('disconnect', function() {
+    socket.on('disconnect', function(data) {
         connections--;
-        console.log("Se desconecto un usuario.");
+        console.log("Se desconecto el usuario " + clients[client_id]);
         console.log('Usuarios conectados: ', connections);
         socket.broadcast.emit('user_disconnected', {
             connections: connections
         });
+
+        socket.broadcast.emit('deleteEvent', {
+            connections: connections
+        });
+
+        // Delete all gestures from this client 
+        var id = clients[client_id];
+        for (var i = 0; i < 4; i++) {
+            var del = {
+                'layer': i,
+                'id': id
+            }
+            socket.broadcast.emit("deleteEvent", del);
+        }
+        delete clients[client_id];
     });
 
 });

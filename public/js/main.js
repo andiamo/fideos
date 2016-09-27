@@ -391,6 +391,10 @@ $(document).ready(function() {
         }
     }, 5000);
 
+  var con = {
+    'id': id
+  }  
+  socket.emit("clientConnectionEvent", con);
 
 });// End ready
 
