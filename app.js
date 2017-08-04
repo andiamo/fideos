@@ -1,9 +1,10 @@
 // Dependencias
+var fs = require('fs');
 var express = require('express');
+var nodegit = require('nodegit');
 var app = express();
 var server = require('http').createServer(app);
 var io = require('socket.io')(server);
-var fs = require("fs");
 var Hashids = require("hashids"),
 hashids = new Hashids("this is my salt",0, "0123456789abcdef");
 var connections = 0;
@@ -95,6 +96,7 @@ io.on('connection', function(socket) {
     socket.on('deleteEvent', function(data) {
         socket.broadcast.to(room_id).emit('deleteEvent', data);
     });
+
 
     // Desconexion de un cliente
     socket.on('disconnect', function() {
