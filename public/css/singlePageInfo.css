@@ -316,7 +316,7 @@ footer .flecha {
         background: none;
     }
     section#intro .logo {
-        width: 35%;
+        width: 25%;
     }
     section#intro h2 {
         font-size:2em;
@@ -337,6 +337,9 @@ footer .flecha {
     section#quienesSomos h2 {
         font-size: 1.8em;
     }
+    section#quienesSomos .colRight {
+        width: 55%;
+    }
     section#quienesSomos #btnContactar{
         font-size: 1.5em;
     }
@@ -346,6 +349,9 @@ footer .flecha {
         text-align: center;
         padding: 0;
         font-size: 1.8em;
+    }
+    section#dondeVenimos h2{
+        margin: 0;
     }
     section#dondeVenimos .fp-tableCell{
         padding: 30px 60px;
