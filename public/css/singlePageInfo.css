@@ -329,13 +329,13 @@ footer .flecha {
         width: 10%;
     }
     section#quienesSomos .colRight p {
-        font-size: 2em;
+        font-size: 1.8em;
     }
     section#quienesSomos .colRight ul li {
         font-size: 1.5em;
     }
     section#quienesSomos h2 {
-        font-size: 2em;
+        font-size: 1.8em;
     }
     section#quienesSomos #btnContactar{
         font-size: 1.5em;
@@ -356,12 +356,12 @@ footer .flecha {
         margin-top: 25px;
     }
     section#contacto input,section#contacto textarea {
-        font-size: 2em;
+        font-size: 1.8em;
     }
     section#contacto textarea {
         margin:3em 0 4em;
     }
     section#contacto #btnEnviar{
-        font-size: 2em;
+        font-size: 1.8em;
     }
 }
