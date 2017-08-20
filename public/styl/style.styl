@@ -509,6 +509,22 @@ SIDEBAR
         img{
             width: mobile_icon_width;
         }
+        .wrapperCapa {
+          img {
+            &:nth-child(1) {
+              top: -10%;
+            }
+            &:nth-child(2) {
+              top: 25%;
+            }
+            &:nth-child(3) {
+              top: 55%;
+            }
+            &:nth-child(4) {
+              top: 85%;
+            }
+          }
+        }
         &.delete_button img {
             width: mobile_icon_width*0.6;
             margin:0;
