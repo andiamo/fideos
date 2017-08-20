@@ -26,6 +26,9 @@ a {
     border-radius: 33px;
     margin-top: 2em;
 }
+.mobile{
+    display: none !important;
+}
 
 header {
     /*border-bottom: 1px solid #00FF00;*/
@@ -71,7 +74,7 @@ section#intro {
     text-align: center;
     background-image: url("../img/fondo-intro.png");
     background-size: cover;
-    background-repeat: no-repeat
+    background-repeat: no-repeat;
     padding-top: 3em;
 }
 section#intro .logo {
@@ -291,4 +294,74 @@ footer img {
 
 footer .flecha {
     margin: 0 1em;
+}
+
+
+
+@media (max-width: 1000px) {
+    #desktopHeader{
+        display: none;
+    }
+    .mobile{
+        display: block !important;
+    }
+    .boton.mobile{
+        display: block !important;
+        width: 250px;
+        padding: 25px;
+        font-size: 2em;
+        margin: 70px auto;
+    }
+    section#intro {
+        background: none;
+    }
+    section#intro .logo {
+        width: 35%;
+    }
+    section#intro h2 {
+        font-size:2em;
+    }
+    section#intro .texto {
+        font-size: 1.8em;
+        width: 80%;
+    }
+    section#intro a img {
+        width: 10%;
+    }
+    section#quienesSomos .colRight p {
+        font-size: 2em;
+    }
+    section#quienesSomos .colRight ul li {
+        font-size: 1.5em;
+    }
+    section#quienesSomos h2 {
+        font-size: 2em;
+    }
+    section#quienesSomos #btnContactar{
+        font-size: 1.5em;
+    }
+    section#dondeVenimos .columna {
+        float: none;
+        width: 100%;
+        text-align: center;
+        padding: 0;
+        font-size: 1.8em;
+    }
+    section#dondeVenimos .fp-tableCell{
+        padding: 30px 60px;
+    }
+    section#dondeVenimos img {
+        width: 28%;
+        margin-bottom: 0;
+        margin-top: 25px;
+    }
+    section#contacto input,section#contacto textarea {
+        font-size: 2em;
+    }
+    section#contacto textarea {
+        margin:3em 0 4em;
+    }
+    section#contacto #btnEnviar{
+        font-size: 2em;
+    }
 }
