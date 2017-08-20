@@ -11,6 +11,9 @@ sidebar_background_color = #202020;
 sidebar_button_hover_opacity = 0.8;
 sidebar_separator_color = #046904;
 pointer_color = #666666;
+icon_width = 45px;
+mobile_icon_width = 10vw;
+mobile_sidebar_width = 15vw;
 
 
 /*
@@ -64,7 +67,7 @@ SIDEBAR
     position: relative;
     background-color: #AE00ff;
     margin: 20px auto;
-    border-radius: 20px;
+    border-radius: 100%;
     // border: 1px solid #ffffff;
 
     // Menú desplegable del selector de color
@@ -77,13 +80,18 @@ SIDEBAR
         margin-left: 75px;
         border-radius: 5px;
         background-color: #222;
-
+        .colors-wrap{
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+            height:100%;
+        }
         .color_button{
             width: 30px;
             height: 30px;
             margin: 5px;
             background-color: white;
-            border-radius: 20px;
+            border-radius: 100%;
             float:left;
         }
 
@@ -106,53 +114,36 @@ SIDEBAR
     position: relative;
     // background-color: #333;
     border-radius: 20px;
+    display: flex;
+    align-items: center;
     border: 1px solid #404041;
     // cursor: pointer;
 
-
     .weight_point{
-        position:absolute;
-        top:0;
+        background-color: #ffffff;
+        margin: 0 auto;
+        position: relative;
+        border-radius: 100%;
     }
 
     .weight_point_tam01{
-        background-color: #ffffff;
         width: 6px;
         height: 6px;
-        margin: 0 auto;
-        position: relative;
-        top: 43%;
-        border-radius: 5px;
     }
 
     .weight_point_tam02{
-        background-color: #ffffff;
         width: 15px;
         height: 15px;
-        margin: 0 auto;
-        position: relative;
-        top: 31%;
-        border-radius: 13px;
     }
 
     .weight_point_tam03{
-        background-color: #ffffff;
         width: 22px;
         height: 22px;
-        margin: 0 auto;
-        position: relative;
-        top: 23%;
-        border-radius: 22px;
     }
 
     .weight_point_tam04{
-        background-color: #ffffff;
         width: 30px;
         height: 30px;
-        margin: 0 auto;
-        position: relative;
-        top: 12%;
-        border-radius: 13px;
     }
 
     // Menu Desplegable del ancho del trazos
@@ -167,41 +158,35 @@ SIDEBAR
         background-color: #222;
         margin-left:75px;
         top:0;
-
+        .weight_wrap{
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+            height:100%;
+        }
+        .weight_button{
+            background-color: white;
+            border-radius: 100%;
+            float:left;
+        }
         .weight_button_01{
             width: 10px;
             height: 10px;
-            margin: 15px 10px;
-            background-color: white;
-            border-radius: 20px;
-            float:left;
         }
 
         .weight_button_02{
             width: 20px;
             height: 20px;
-            margin: 10px 10px;
-            background-color: white;
-            border-radius: 20px;
-            float:left;
         }
 
         .weight_button_03{
             width: 30px;
             height: 30px;
-            margin: 5px 10px;
-            background-color: white;
-            border-radius: 20px;
-            float:left;
         }
 
         .weight_button_04{
             width: 35px;
             height: 35px;
-            margin: 2px 5px;
-            background-color: white;
-            border-radius: 20px;
-            float:left;
         }
 
         .weight_button01:hover,.weight_button_02:hover,.weight_button_03:hover,.weight_button_04:hover{
@@ -225,10 +210,10 @@ SIDEBAR
 
     .wrapper {
         margin: 0 auto;
-        width: 45px;
-        height: 45px;
+        width: icon_width;
+        height: icon_width;
         border: 1px solid #404041;
-        border-radius: 40px;
+        border-radius: 100%;
         position: relative;
     }
 
@@ -277,10 +262,10 @@ SIDEBAR
         }
 
         .clickUp, .clickDown {
-            width: 45px;
+            width: icon_width;
             height: 22.5px;
             position: absolute;
-            border-radius: 45px 45px 0 0;
+            border-radius: icon_width icon_width 0 0;
 
             &:hover {
                 background: url("../img/flecha_arr.svg");
@@ -291,7 +276,7 @@ SIDEBAR
         }
         .clickDown {
             bottom: 0;
-            border-radius: 0 0 45px 45px;
+            border-radius: 0 0 icon_width icon_width;
 
             &:hover {
                 background: url("../img/flecha_ab.svg");
@@ -311,9 +296,9 @@ SIDEBAR
 
         .clickLeft, .clickRight {
             width: 22.5px;
-            height: 45px;
+            height: icon_width;
             position: absolute;
-            border-radius: 45px 0 0 45px;
+            border-radius: icon_width 0 0 icon_width;
             // background: url("../img/flecha_iz.svg");
 
             &:hover {
@@ -325,7 +310,7 @@ SIDEBAR
         }
         .clickRight {
             right: 0;
-            border-radius: 0 45px 45px 0;
+            border-radius: 0 icon_width icon_width 0;
 
             &:hover {
                 background: url("../img/flecha_de.svg");
@@ -338,7 +323,7 @@ SIDEBAR
     }
 
     img{
-        width: 45px;
+        width: icon_width;
         display: block;
         margin: 0 auto;
     }
@@ -437,6 +422,131 @@ SIDEBAR
         background-color:#444444;
     }
 }
+
+
+@media (max-width: 1000px) {
+
+#modalIndex {
+    img.logo {
+        width: 50%;
+    }
+    .boton {
+        width: 40%;
+        font-size: 2em;
+    }
+}
+
+
+#andiamo{
+    position: fixed;
+}
+
+#sidebar{
+    position: fixed;
+    z-index 99;
+    width: mobile_sidebar_width;
+    #btnHome {
+        height: mobile_icon_width*0.7;
+        line-height: mobile_icon_width;
+        img {
+            width: mobile_icon_width*0.5;
+        }
+    }
+    .sidebar_button_color{
+        width:mobile_icon_width;
+        height:mobile_icon_width;
+        .drop_color{
+            width: mobile_icon_width*7;
+            height: mobile_icon_width;
+            border: 1px solid #424242;
+            margin-left: mobile_icon_width*1.2;
+            .color_button{
+                width: 7vw;
+                height:  7vw;
+            }
+            .color_button:hover{
+                opacity:sidebar_button_hover_opacity;
+            }
+        }
+    }
+    .sidebar_weight_button{
+        width:mobile_icon_width;
+        height:mobile_icon_width;
+        border-radius: 50%;
+        .drop_weight{
+            width: mobile_icon_width*4;
+            height: mobile_icon_width;
+            margin-left: mobile_icon_width*1.2;
+        }
+        .weight_point_tam01,.weight_button_01{
+            width: mobile_icon_width*0.2;
+            height: mobile_icon_width*0.2;
+        }
+
+        .weight_point_tam02,.weight_button_02{
+            width: mobile_icon_width*0.4;
+            height: mobile_icon_width*0.4;
+        }
+
+        .weight_point_tam03,.weight_button_03{
+            width: mobile_icon_width*0.6;
+            height: mobile_icon_width*0.6;
+        }
+
+        .weight_point_tam04,.weight_button_04{
+            width: mobile_icon_width*0.8;
+            height: mobile_icon_width*0.8;
+        }
+    }
+    .sidebar_button{
+        margin-bottom: mobile_icon_width*0.5;
+        .wrapper {
+            width: mobile_icon_width;
+            height: mobile_icon_width;
+            display: flex;
+            justify-content: center;
+        }
+        img{
+            width: mobile_icon_width;
+        }
+        &.delete_button img {
+            width: mobile_icon_width*0.6;
+            margin:0;
+        }
+        &.share_button img {
+            width: mobile_icon_width*0.8;
+            margin:0;
+        }
+    }
+
+}
+
+#share_dialog{
+    position: fixed;
+    height: auto;
+    border-radius: 20px;
+    margin: auto;
+    padding: 50px;
+    top: 25%;
+    left: 25%;
+    width: 60%;
+    h1{
+        font-size:2.5em;
+    }
+    p,a,.close_button,.shareDialogInput{
+        font-size: 2em
+    }
+    .shareDialogInput{
+        height: auto;
+    }
+}
+
+
+
+}
+
+
+
 
 
 /*

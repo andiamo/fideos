@@ -18,7 +18,7 @@ module.exports = function(grunt) {
                 options: {
                 },
                 files: {
-                    'public/css/result.css': 'public/styl/style.styl', // 1:1 compile \
+                    'public/css/style.css': 'public/styl/style.styl', // 1:1 compile \
                 }
             }
         }

@@ -29,6 +29,7 @@ body {
 }
 #modalIndex canvas {
     position: absolute;
+    z-index:-1;
 }
 
 .boton:hover {
