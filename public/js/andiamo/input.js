@@ -1,4 +1,3 @@
-// 
 // var startGestureTime = 0;
 //
 // function mousePressed() {

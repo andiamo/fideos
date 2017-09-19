@@ -1,12 +1,18 @@
 // Dependencias
 var express = require('express');
+var textBody = require("body")
 var app = express();
 var server = require('http').createServer(app);
 var io = require('socket.io')(server);
 var fs = require("fs");
+var uuid = require('node-uuid');
+var mkdirp = require('mkdirp')
 var Hashids = require("hashids"),
 hashids = new Hashids("this is my salt",0, "0123456789abcdef");
 var connections = 0;
+
+// Mapea los socket ids con el id generado por cada cliente
+var clients = {}
 
 // Lo uso para generar ids de boards
 var boards = 0;
@@ -25,6 +31,24 @@ function includeSidebarAndSend(html, res) {
         var resultHTML = html.replace(SIDEBAR_INCLUDE,sidebarHTML);
         res.send(resultHTML);
     });
+}
+
+function saveImage(rawData) {
+    var regex = /^data:.+\/(.+);base64,(.*)$/;
+
+    var matches = rawData.match(regex);
+    var ext = matches[1];
+    var data = matches[2];
+    var buffer = new Buffer(data, 'base64');
+    const publicDir = 'public';
+    const usrImgDir = 'user-img';
+    const pubUserImgDir = publicDir + '/' + usrImgDir;
+    var filename = usrImgDir + '/' + uuid.v4() + '.' + ext;
+    mkdirp(pubUserImgDir, function(err) {});
+    fs.writeFile(publicDir + '/' + filename, buffer, function(err) {
+        if (err) throw err;
+    });
+    return filename;
 }
 
 // Main route, muestra la página de inicio
@@ -60,12 +84,24 @@ app.get('/board/:board_id',function(req,res){
     });
 });
 
+app.post('/files', function(req, res) {
+    const extract = function (err, data) {
+        if (!data) return
+        res.setHeader('Content-Type', 'application/json');
+        const filePath = saveImage(data);
+        res.send(JSON.stringify({ filename: filePath}));
+        console.log('Saved file: ' + filePath);
+    }
+
+    textBody(req, extract);
+});
 
 // Conexión
 io.on('connection', function(socket) {
 
     // Recibo desde el cliente el room_id
     var room_id = socket.handshake.query.room_id;
+    var client_id = socket.client.conn.id;
     socket.join(room_id);
 
     // Suma una conexion
@@ -82,10 +118,15 @@ io.on('connection', function(socket) {
         connections: connections
     });
 
-    // Movimiento del puntero
-    socket.on('mousemove', function(data) {
-        socket.broadcast.to(room_id).emit('move', data);
+    socket.on('clientConnectionEvent', function(data) {
+        clients[client_id] = data.id;
+        console.log("Se conecto el usuario " + clients[client_id]);
     });
+
+    // Movimiento del puntero
+    // socket.on('mousemove', function(data) {
+    //     socket.broadcast.to(room_id).emit('move', data);
+    // });
 
     // Movimiento de los trazos
     socket.on('externalMouseEvent',function(data){
@@ -97,13 +138,28 @@ io.on('connection', function(socket) {
     });
 
     // Desconexion de un cliente
-    socket.on('disconnect', function() {
+    socket.on('disconnect', function(data) {
         connections--;
-        console.log("Se desconecto un usuario.");
+        console.log("Se desconecto el usuario " + clients[client_id]);
         console.log('Usuarios conectados: ', connections);
         socket.broadcast.emit('user_disconnected', {
             connections: connections
         });
+
+        socket.broadcast.emit('deleteEvent', {
+            connections: connections
+        });
+
+        // Delete all gestures from this client
+        var id = clients[client_id];
+        for (var i = 0; i < 4; i++) {
+            var del = {
+                'layer': i,
+                'id': id
+            }
+            socket.broadcast.to(room_id).emit("deleteEvent", del);
+        }
+        delete clients[client_id];
     });
 
 });
