@@ -6,11 +6,11 @@
     <title>Trazos</title>
     <link rel="stylesheet" href="../css/style.css">
     <!-- jQuery -->
-    <script src="../js/jquery.min.js"></script>
+    <script src="../js/lib/jquery.min.js"></script>
     <!-- p5.js -->
-    <script src="../js/p5.min.js"></script>
+    <script src="../js/lib/p5.min.js"></script>
     <!-- gifshot.js -->
-    <script src="../js/gifshot.min.js"></script>    
+    <script src="../js/lib/gifshot.min.js"></script>
     <!-- <script src="../js/p5.dom.js"></script> -->
     <!-- andiamo  -->
     <script src="../js/andiamo/parameters.js"></script>
@@ -32,6 +32,30 @@
         <a href="" class="shareLinkMailto">O invitar via email.</a><br>
         <button class="close_button">Cerrar</button>
     </div>
+    <div class="gif-modal">
+        <button class="close_button">Cerrar</button>
+    </div>
+    <div class="login-modal">
+        <div class="login-wrapper">
+            <h3 class="title">Ingresa tu sobrenombre</h3>
+            <input class="usernameInput" type="text" maxlength="30" />
+            <div class="button-wrap">
+                <button class="enter-chat classic">Ingresar</button>
+                <button class="close-chat classic">Salir</button>
+            </div>
+        </div>
+    </div>
+    <div class="chat-modal">
+        <div class="chat-wrapper">
+            <div class="chat">
+                <ul class="messages"></ul>
+                <form class="chat-form" action="">
+                    <input id="m" class="inputMessage" autocomplete="off" /><button>Enviar</button>
+                </form>
+            </div>
+            <button class="close_button">Cerrar</button>
+        </div>
+    </div>
     {SIDEBAR}
 
     <!-- Aca mostramos los otros punteros -->
@@ -45,8 +69,11 @@
     <!-- Socket IO -->
     <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
 
-    <!-- Cliente -->
-    <script src="../js/main.js"></script>
+    <!-- Cliente: El orden de inclusión es importante -->
+    <script src="../js/trazos/board/canvas.js"></script>
+    <script src="../js/trazos/board/chat.js"></script>
+    <script src="../js/trazos/board/sidebar.js"></script>
+    <script src="../js/trazos/board.js"></script>
 
 </body>
 </html>

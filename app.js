@@ -1,18 +1,19 @@
 // Dependencias
 var express = require('express');
-var textBody = require("body")
+var textBody = require("body");
 var app = express();
 var server = require('http').createServer(app);
 var io = require('socket.io')(server);
 var fs = require("fs");
 var uuid = require('node-uuid');
-var mkdirp = require('mkdirp')
+var mkdirp = require('mkdirp');
 var Hashids = require("hashids"),
 hashids = new Hashids("this is my salt",0, "0123456789abcdef");
 var connections = 0;
+var chatConnections = [];
 
 // Mapea los socket ids con el id generado por cada cliente
-var clients = {}
+var clients = {};
 
 // Lo uso para generar ids de boards
 var boards = 0;
@@ -24,7 +25,7 @@ app.use(express.static(__dirname + '/public'));
 //Dado que el sidebar se carga en más de una página hago un sólo archivo y lo incluyo
 var SIDEBAR_INCLUDE = "{SIDEBAR}";
 function includeSidebarAndSend(html, res) {
-    fs.readFile('./sidebar.inc.html', function (err, sidebarHTML) {
+    fs.readFile('./partials/sidebar.inc.html', function (err, sidebarHTML) {
         html = html.toString();
         sidebarHTML = sidebarHTML.toString();
 
@@ -98,11 +99,14 @@ app.post('/files', function(req, res) {
 
 // Conexión
 io.on('connection', function(socket) {
+    var chatUser = false;
 
     // Recibo desde el cliente el room_id
     var room_id = socket.handshake.query.room_id;
     var client_id = socket.client.conn.id;
     socket.join(room_id);
+
+    if (!chatConnections[room_id]) chatConnections[room_id] = 0;
 
     // Suma una conexion
     connections++;
@@ -123,6 +127,47 @@ io.on('connection', function(socket) {
         console.log("Se conecto el usuario " + clients[client_id]);
     });
 
+    // Mensaje del chat
+    socket.on('new message', function (data) {
+        socket.broadcast.to(room_id).emit('new message', {
+            username: socket.username,
+            message: data
+        });
+    });
+
+    // Nuevo usuario al chat
+    socket.on('add user', function (username) {
+        if (chatUser) return;
+        // we store the username in the socket session for this client
+        socket.username = username;
+        ++chatConnections[room_id];
+        console.log('Usuarios conectados al chat: ', chatConnections[room_id]);
+        console.log("Se conecto al chat el usuario " + username);
+        chatUser = true;
+        socket.emit('chat login', {
+            numUsers: chatConnections[room_id]
+        });
+        // echo globally (all clients) that a person has connected
+        socket.broadcast.to(room_id).emit('user joined', {
+            username: socket.username,
+            numUsers: chatConnections[room_id]
+        });
+    });
+
+    // when the client emits 'typing', we broadcast it to others
+    socket.on('typing', function () {
+        socket.broadcast.to(room_id).emit('typing', {
+            username: socket.username
+        });
+    });
+
+    // when the client emits 'stop typing', we broadcast it to others
+    socket.on('stop typing', function () {
+        socket.broadcast.to(room_id).emit('stop typing', {
+            username: socket.username
+        });
+    });
+
     // Movimiento del puntero
     // socket.on('mousemove', function(data) {
     //     socket.broadcast.to(room_id).emit('move', data);
@@ -139,6 +184,7 @@ io.on('connection', function(socket) {
 
     // Desconexion de un cliente
     socket.on('disconnect', function(data) {
+        if(chatUser) chatConnections[room_id]--;
         connections--;
         console.log("Se desconecto el usuario " + clients[client_id]);
         console.log('Usuarios conectados: ', connections);
@@ -146,7 +192,8 @@ io.on('connection', function(socket) {
             connections: connections
         });
 
-        socket.broadcast.emit('deleteEvent', {
+        socket.broadcast.to(room_id).emit('deleteEvent', {
+            username: socket.username,
             connections: connections
         });
 

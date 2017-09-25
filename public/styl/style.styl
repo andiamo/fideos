@@ -30,6 +30,18 @@ body{
     width:100%;
     height:100%;
     position:relative;
+    font-family:"Helvetica", Arial, sans-serif;
+}
+
+button.classic{
+    background-color: #252525;
+    border: 1px solid #444;
+    border-radius: 6px;
+    padding: 8px 28px;
+    font-size: .8em;
+    margin: 20px;
+    color: #fff;
+    cursor: pointer;
 }
 
 /*
@@ -369,6 +381,148 @@ SIDEBAR
     margin-bottom: 1em;
 }
 
+.gif-modal{
+    display: none;
+    z-index:9999;
+    position:absolute;
+    width:400px;
+    height:200px;
+    padding:10px;
+    top:50%;
+    left:50%;
+    background-color:#333333;
+    border:1px solid #444444;
+    border-radius:5px;
+    margin-top:-100px;
+    margin-left:-200px;
+    font-family:"Helvetica", Arial, sans-serif;
+    color:#fff;
+
+    .shareDialogInput{
+        width:98%;
+        font-size:1em;
+        display:block;
+        height:30px;
+
+    }
+
+    h1{
+        font-size:1.8em;
+        font-weight:normal;
+        margin-bottom:10px;
+    }
+
+    p,a{
+        font-size:0.8em;
+        color:#fff;
+    }
+
+    .close_button{
+        float: right;
+        background-color: #252525;
+        border: 1px solid #444;
+        border-radius: 6px;
+        padding: 8px 28px;
+        font-size: .8em;
+        color: #fff;
+    }
+    .close_button:hover{
+        background-color:#444444;
+    }
+}
+
+.login-modal{
+    display: none;
+    z-index:9999;
+    position:absolute;
+    padding:30px;
+    top:50%;
+    left:50%;
+    margin-top:-100px;
+    margin-left:-200px;
+    background-color:#333333;
+    border:1px solid #444444;
+    border-radius:5px;
+    color:#fff;
+    .login-wrapper {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        justify-content: center;
+        input{
+            font-size: 1.2em;
+        }
+    }
+}
+.chat-modal{
+    display: none;
+    z-index:9999;
+    position:absolute;
+    padding:10px;
+    width: 50%
+    height: 50%
+    top:20%;
+    left:20%;
+    background-color:#333333;
+    border:1px solid #444444;
+    border-radius:5px;
+    color:#fff;
+    .chat-wrapper {
+        position: relative;
+        height: 100%;
+        .chat {
+            position: relative;
+            height: 95%;
+            form {
+                padding: 3px;
+                height: 15%;
+                width: 100%;
+                input {
+                    border: 0;
+                    padding: 10px;
+                    width: 80%;
+                    margin-right: .5%;
+                }
+                button {
+                    width: 15%;
+                    background: rgb(130, 224, 255);
+                    border: none;
+                    padding: 10px;
+                }
+            }
+            .messages {
+                list-style-type: none;
+                height: 75%;
+                margin: 0;
+                overflow-y: scroll;
+                padding: 10px 20px 10px 20px;
+                .username{
+                    margin-right: 10px;
+                }
+                li {
+                    padding: 5px 10px;
+                }
+                li:nth-child(odd) {
+                    background: #555;
+                }
+            }
+        }
+        .close_button {
+            position :absolute;
+            bottom:0;
+            right:0;
+            background-color: #252525;
+            border: 1px solid #444;
+            border-radius: 6px;
+            padding: 8px 28px;
+            font-size: .8em;
+            color: #fff;
+        }
+        .close_button:hover {
+            background-color: #444444;
+        }
+    }
+}
 
 
 #share_dialog{
@@ -416,8 +570,6 @@ SIDEBAR
         font-size: .8em;
         color: #fff;
     }
-
-
     .close_button:hover{
         background-color:#444444;
     }
@@ -506,8 +658,9 @@ SIDEBAR
             display: flex;
             justify-content: center;
         }
-        img{
+        img,svg {
             width: mobile_icon_width;
+            height mobile_icon_width;
         }
         .wrapperCapa {
           img {
@@ -556,7 +709,44 @@ SIDEBAR
         height: auto;
     }
 }
+.login-modal{
+    position: fixed;
+    height: auto;
+    border-radius: 20px;
+    margin: auto;
+    padding: 50px;
+    top: 25%;
+    left: 25%;
+    width: 60%;
+    font-size:2.5em;
+}
+.chat-modal{
+    position: fixed;
+    height: 80%;
+    border-radius: 20px;
+    margin: auto;
+    padding: 50px;
+    top: 10%;
+    left: 25%;
+    width: 60%;
+    font-size:2.5em;
+    .chat-wrapper .chat{
+        form{
+            input{
+                width: 65%;
+                font-size: 1em;
+            }
+            button {
+                width: 25%;
+                font-size: 1em;
+            }
+        }
+        .messages {
+            height: 90%;
+        }
+    }
 
+}
 
 
 }
