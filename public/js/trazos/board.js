@@ -38,13 +38,14 @@ function initSocketObservers(){
     socket.on('chat login', function (data) {
         connected = true;
         // Display the welcome message
-        addChatLog("Bienvenido al chat de Trazos club! Estas en el tablero: "+room_id, {
+        chat.$welcome.text("Bienvenido al chat de Trazos club! Estas en el tablero: "+room_id, {
             prepend: true
         });
         addParticipantsMessage(data);
     });
     // Whenever the server emits 'new message', update the chat body
     socket.on('new message', function (data) {
+        addUnreadMsg();
         addChatMessage(data);
     });
     // Whenever the server emits 'user joined', log it in the chat body

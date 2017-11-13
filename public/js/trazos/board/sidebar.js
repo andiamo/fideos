@@ -206,17 +206,12 @@ function initSidebar(){
 
     })
 
-    $(".chat_button").click(function(){
-        modal_open = true;
-        if(chat.username){
-            $(".chat-modal").fadeIn();
-            chat.$inputMessage.focus();
-            chat.$inputMessage.select();
-        }else{
-            $(".login-modal").fadeIn();
-            chat.$usernameInput.focus();
-            chat.$usernameInput.select();
-        }
+    $('#chat-slider').slideReveal({
+        trigger: $(".chat_button"),
+        push:false,
+        width:'40%',
+        show: openChat,
+        hide: hideChat
     });
 
     $('.enter-chat').click(function(){
@@ -298,4 +293,3 @@ function initSidebar(){
     });
 
 }
-

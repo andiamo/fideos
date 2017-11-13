@@ -8,14 +8,18 @@ var COLORS = [
 var chat = {};
 var typing = false;
 var lastTypingTime;
+var unreadNum = 0;
 
 function initChat(){
 // Initialize variables
     chat.$usernameInput = $('.usernameInput'); // Input for username
     chat.$messages = $('.messages'); // Messages area
     chat.$inputMessage = $('.inputMessage'); // Input message input box
-    chat.$loginModal = $('.login-modal'); // The login page
-    chat.$chatModal = $('.chat-modal'); // The chatroom page
+    chat.$loginWrapper = $('.login-wrapper'); // The login page
+    chat.$chatWrapper = $('.chat-wrapper'); // The chatroom page
+    chat.$welcome = $('.welcome-msg'); // The chatroom page
+    chat.$onlineList = $('.ppl'); // The chatroom page
+    chat.$unreadNotice = $('.chat_button .button-badge'); // The chatroom page
     chat.$currentInput = chat.$usernameInput.focus();
 
     chat.$inputMessage.on('input', function() {
@@ -24,14 +28,31 @@ function initChat(){
 }
 
 
-function addParticipantsMessage (data) {
-    var message = '';
-    if (data.numUsers === 1) {
-        message += "¡Estas solx por ahora!";
+function openChat(){
+    modal_open = true;
+    if(chat.username){
+        clearUnreadMsg();
+        $(".chat-wrapper").show();
+        chat.$inputMessage.focus();
+        chat.$inputMessage.select();
     }else{
-        message += "Hay " + data.numUsers + " participantes activos";
+        $(".login-wrapper").show();
+        chat.$usernameInput.focus();
+        chat.$usernameInput.select();
     }
-    addChatLog(message);
+}
+
+function hideChat(){
+    modal_open = false;
+}
+
+function addParticipantsMessage (data) {
+    if (data.numUsers === 1) {
+        message = "¡Estas solx por ahora!";
+    }else{
+        message = "Hay " + data.numUsers + " participantes activos";
+    }
+    chat.$onlineList.text(message);
 }
 
 // Sets the client's username
@@ -40,13 +61,13 @@ function setUsername () {
 
     // If the username is valid
     if (chat.username) {
-        chat.$loginModal.fadeOut();
-        chat.$chatModal.show();
-        chat.$loginModal.off('click');
+        chat.$loginWrapper.fadeOut();
+        chat.$chatWrapper.show();
+        chat.$loginWrapper.off('click');
         chat.$currentInput = chat.$inputMessage.focus();
 
-        // Tell the server your username
         socket.emit('add user', chat.username);
+        clearUnreadMsg();
     }
 }
 
@@ -187,11 +208,25 @@ function getUsernameColor (username) {
     return COLORS[index];
 }
 
+function clearUnreadMsg(){
+    unreadNum = 0;
+    chat.$unreadNotice.text(unreadNum);
+    chat.$unreadNotice.hide();
+}
+
+function addUnreadMsg(){
+    if(!modal_open){
+        unreadNum++;
+        chat.$unreadNotice.text(unreadNum);
+        chat.$unreadNotice.show();
+    }
+}
+
 
 // Click events
 
 // // Focus input when clicking anywhere on login page
-// $loginModal.click(function () {
+// $loginWrapper.click(function () {
 //     $currentInput.focus();
 // });
 //

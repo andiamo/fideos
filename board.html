@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="../css/style.css">
     <!-- jQuery -->
     <script src="../js/lib/jquery.min.js"></script>
+    <script src="../js/lib/jquery.slidereveal.min.js"></script>
     <!-- p5.js -->
     <script src="../js/lib/p5.min.js"></script>
     <!-- gifshot.js -->
@@ -35,26 +36,27 @@
     <div class="gif-modal">
         <button class="close_button">Cerrar</button>
     </div>
-    <div class="login-modal">
+    <div id="chat-slider">
         <div class="login-wrapper">
             <h3 class="title">Ingresa tu sobrenombre</h3>
             <input class="usernameInput" type="text" maxlength="30" />
             <div class="button-wrap">
                 <button class="enter-chat classic">Ingresar</button>
-                <button class="close-chat classic">Salir</button>
             </div>
         </div>
-    </div>
-    <div class="chat-modal">
         <div class="chat-wrapper">
             <div class="chat">
+                <div class="info">
+                    <div class="welcome-msg"></div>
+                    <div class="ppl"></div>
+                </div>
                 <ul class="messages"></ul>
                 <form class="chat-form" action="">
-                    <input id="m" class="inputMessage" autocomplete="off" /><button>Enviar</button>
+                    <input id="m" class="inputMessage" autocomplete="off" /><button><span class="fa fa-paper-plane" aria-hidden="true"></span> </button>
                 </form>
             </div>
-            <button class="close_button">Cerrar</button>
         </div>
+        <!--<button class="close_button">Cerrar</button>-->
     </div>
     {SIDEBAR}
 
