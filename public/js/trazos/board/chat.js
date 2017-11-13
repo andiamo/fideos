@@ -61,10 +61,8 @@ function addParticipantsMessage (data) {
     chat.$onlineList.text(message);
 }
 
-// Sets the client's username
 function setUsername () {
     chat.username = cleanInput(chat.$usernameInput.val().trim());
-
     // If the username is valid
     if (chat.username) {
         chat.$loginWrapper.fadeOut();
