@@ -9,6 +9,7 @@ var chat = {};
 var typing = false;
 var lastTypingTime;
 var unreadNum = 0;
+var usersMsg = "";
 
 function initChat(){
 // Initialize variables
@@ -46,11 +47,16 @@ function hideChat(){
     modal_open = false;
 }
 
+function updateParticipants(data){
+    usersMsg = data.usernames.join(", ");
+    addParticipantsMessage(data);
+}
+
 function addParticipantsMessage (data) {
     if (data.numUsers === 1) {
         message = "¡Estas solx por ahora!";
     }else{
-        message = "Hay " + data.numUsers + " participantes activos";
+        message = "Hay " + data.numUsers + " participantes activos: " + usersMsg ;
     }
     chat.$onlineList.text(message);
 }

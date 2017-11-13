@@ -106,7 +106,7 @@ io.on('connection', function(socket) {
     var client_id = socket.client.conn.id;
     socket.join(room_id);
 
-    if (!chatConnections[room_id]) chatConnections[room_id] = 0;
+    if (!chatConnections[room_id]) chatConnections[room_id] = {qty:0,usernames:[]};
 
     // Suma una conexion
     connections++;
@@ -140,17 +140,20 @@ io.on('connection', function(socket) {
         if (chatUser) return;
         // we store the username in the socket session for this client
         socket.username = username;
-        ++chatConnections[room_id];
-        console.log('Usuarios conectados al chat: ', chatConnections[room_id]);
+        ++chatConnections[room_id].qty;
+        chatConnections[room_id].usernames.push(username);
+        console.log('Usuarios conectados al chat: ', chatConnections[room_id].qty);
         console.log("Se conecto al chat el usuario " + username);
         chatUser = true;
         socket.emit('chat login', {
-            numUsers: chatConnections[room_id]
+            numUsers: chatConnections[room_id].qty,
+            usernames: chatConnections[room_id].usernames
         });
         // echo globally (all clients) that a person has connected
         socket.broadcast.to(room_id).emit('user joined', {
             username: socket.username,
-            numUsers: chatConnections[room_id]
+            numUsers: chatConnections[room_id].qty,
+            usernames: chatConnections[room_id].usernames
         });
     });
 
@@ -184,19 +187,32 @@ io.on('connection', function(socket) {
 
     // Desconexion de un cliente
     socket.on('disconnect', function(data) {
-        if(chatUser) chatConnections[room_id]--;
+        console.log("VOY A PROBAR");
+        console.log("SOCKET USERNAME: "+socket.username);
+        console.log("IS CHAT USER: "+chatUser);
+        if(chatUser){
+            chatConnections[room_id].qty--;
+            for (var i=chatConnections[room_id].usernames.length-1; i>=0; i--) {
+                if (chatConnections[room_id].usernames[i] === socket.username) {
+                    chatConnections[room_id].usernames.splice(i, 1);
+                    // break;       //<-- Uncomment  if only the first term has to be removed
+                }
+            }
+            socket.broadcast.to(room_id).emit('chat logout', {
+                numUsers: chatConnections[room_id].qty,
+                usernames: chatConnections[room_id].usernames
+            });
+        }
         connections--;
         console.log("Se desconecto el usuario " + clients[client_id]);
         console.log('Usuarios conectados: ', connections);
         socket.broadcast.emit('user_disconnected', {
             connections: connections
         });
-
-        socket.broadcast.to(room_id).emit('deleteEvent', {
-            username: socket.username,
-            connections: connections
-        });
-
+        // socket.broadcast.to(room_id).emit('deleteEvent', {
+        //     username: socket.username,
+        //     connections: connections
+        // });
         // Delete all gestures from this client
         var id = clients[client_id];
         for (var i = 0; i < 4; i++) {

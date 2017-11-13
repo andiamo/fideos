@@ -36,28 +36,26 @@ function initSocketObservers(){
     socket.on('deleteEvent', deleteHandler);
     // Whenever the server emits 'login', log the login message
     socket.on('chat login', function (data) {
+        console.log(data.username + ' entered');
         connected = true;
         // Display the welcome message
         chat.$welcome.text("Bienvenido al chat de Trazos club! Estas en el tablero: "+room_id, {
             prepend: true
         });
-        addParticipantsMessage(data);
+        updateParticipants(data);;
     });
-    // Whenever the server emits 'new message', update the chat body
+    socket.on('chat logout', function (data) {
+        console.log(data.username + ' left');
+        updateParticipants(data);
+        removeChatTyping(data);
+    });
     socket.on('new message', function (data) {
         addUnreadMsg();
         addChatMessage(data);
     });
-    // Whenever the server emits 'user joined', log it in the chat body
     socket.on('user joined', function (data) {
         log(data.username + ' joined');
-        addParticipantsMessage(data);
-    });
-    // Whenever the server emits 'user left', log it in the chat body
-    socket.on('user left', function (data) {
-        log(data.username + ' left');
-        addParticipantsMessage(data);
-        removeChatTyping(data);
+        updateParticipants(data);
     });
     // Whenever the server emits 'typing', show the typing message
     socket.on('typing', function (data) {

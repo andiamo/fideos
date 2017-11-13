@@ -2,7 +2,7 @@
 function deleteHandler(data) {
     var layer = data.layer;
     var id = data.id;
-    var gestures = otherGestures[layer].get(id);
+    if(otherGestures[layer]) var gestures = otherGestures[layer].get(id);
     for (var idx in gestures) {
         var g = gestures[idx];
         // if (g.layer == layer) {
