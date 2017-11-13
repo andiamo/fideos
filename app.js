@@ -187,9 +187,6 @@ io.on('connection', function(socket) {
 
     // Desconexion de un cliente
     socket.on('disconnect', function(data) {
-        console.log("VOY A PROBAR");
-        console.log("SOCKET USERNAME: "+socket.username);
-        console.log("IS CHAT USER: "+chatUser);
         if(chatUser){
             chatConnections[room_id].qty--;
             for (var i=chatConnections[room_id].usernames.length-1; i>=0; i--) {
