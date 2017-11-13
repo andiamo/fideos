@@ -214,6 +214,13 @@ function initSidebar(){
         hide: hideChat
     });
 
+    $('.login-form').submit(function(){
+        if (chat.$usernameInput.val()) {
+            setUsername();
+        }
+        return false;
+    });
+
     $('.enter-chat').click(function(){
         if (chat.$usernameInput.val()) {
             setUsername();

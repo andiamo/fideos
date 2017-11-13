@@ -62,7 +62,7 @@ app.get('/', function(req, res) {
 
 // Página de informacion (singlePageInfo)
 app.get('/info', function(req, res) {
-    res.sendFile(__dirname + '/singlePageInfo.html');
+    res.sendFile(__dirname + '/about.html');
 });
 
 // Aca debería mandar un mail (capaz habría que tener cuidado con los spambots)
