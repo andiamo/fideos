@@ -12,8 +12,12 @@ sidebar_button_hover_opacity = 0.8;
 sidebar_separator_color = #046904;
 pointer_color = #666666;
 icon_width = 45px;
+
 mobile_icon_width = 10vw;
 mobile_sidebar_width = 15vw;
+
+tablet_icon_width = 4vw;
+tablet_sidebar_width = 8vw;
 
 
 /*
@@ -584,7 +588,7 @@ SIDEBAR
 }
 
 
-@media (max-width: 1300px) {
+@media (max-width: 700px) {
 
 #modalIndex {
     img.logo {
@@ -759,6 +763,152 @@ SIDEBAR
 }
 
 
+@media (min-width: 701px) and (max-width: 1300px) {
+
+    //#modalIndex {
+    //    img.logo {
+    //        width: 50%;
+    //    }
+    //    .boton {
+    //        width: 40%;
+    //        font-size: 2em;
+    //    }
+    //}
+
+
+    #andiamo{
+        position: fixed;
+    }
+
+    #sidebar{
+        position: fixed;
+        z-index 99;
+        width: tablet_sidebar_width;
+        #btnHome {
+            height: tablet_icon_width*0.7;
+            line-height: tablet_icon_width;
+            img {
+                width: tablet_icon_width*0.5;
+            }
+        }
+        .sidebar_button_color{
+            width:tablet_icon_width;
+            height:tablet_icon_width;
+            .drop_color{
+                width: tablet_icon_width*7;
+                height: tablet_icon_width;
+                border: 1px solid #424242;
+                margin-left: tablet_icon_width*1.2;
+                //.color_button{
+                //    width: 7vw;
+                //    height:  7vw;
+                //}
+                .color_button:hover{
+                    opacity:sidebar_button_hover_opacity;
+                }
+            }
+        }
+        .sidebar_weight_button{
+            width:tablet_icon_width;
+            height:tablet_icon_width;
+            border-radius: 50%;
+            .drop_weight{
+                width: tablet_icon_width*4;
+                height: tablet_icon_width;
+                margin-left: tablet_icon_width*1.2;
+            }
+            .weight_point_tam01,.weight_button_01{
+                width: tablet_icon_width*0.2;
+                height: tablet_icon_width*0.2;
+            }
+
+            .weight_point_tam02,.weight_button_02{
+                width: tablet_icon_width*0.4;
+                height: tablet_icon_width*0.4;
+            }
+
+            .weight_point_tam03,.weight_button_03{
+                width: tablet_icon_width*0.6;
+                height: tablet_icon_width*0.6;
+            }
+
+            .weight_point_tam04,.weight_button_04{
+                width: tablet_icon_width*0.8;
+                height: tablet_icon_width*0.8;
+            }
+        }
+        .sidebar_button{
+            margin-bottom: tablet_icon_width*0.5;
+            .wrapper {
+                width: tablet_icon_width;
+                height: tablet_icon_width;
+                display: flex;
+                justify-content: center;
+            }
+            img,svg {
+                width: tablet_icon_width;
+                height tablet_icon_width;
+            }
+            .wrapperCapa {
+                img {
+                    &:nth-child(1) {
+                        top: -10%;
+                    }
+                    &:nth-child(2) {
+                        top: 25%;
+                    }
+                    &:nth-child(3) {
+                        top: 55%;
+                    }
+                    &:nth-child(4) {
+                        top: 85%;
+                    }
+                }
+            }
+            &.delete_button img {
+                width: tablet_icon_width*0.6;
+                margin:0;
+            }
+            &.share_button img {
+                width: tablet_icon_width*0.8;
+                margin:0;
+            }
+            .button-badge {
+                font-size: 12px;
+            }
+        }
+
+    }
+
+    #share_dialog{
+        position: fixed;
+    }
+    #chat-slider{
+        //font-size:2.5em;
+        z-index:1;
+        width:50% !important;
+        margin-left: tablet_sidebar_width - 1vw;
+        .chat-wrapper .chat{
+            form{
+                input{
+                    margin-left: 10px;
+                    width: 70%;
+                    font-size: 1em;
+                }
+                button {
+                    width: 23%;
+                    font-size: 1em;
+                }
+            }
+            .messages {
+                height: 90%;
+            }
+        }
+
+    }
+
+
+}
 
 
 
