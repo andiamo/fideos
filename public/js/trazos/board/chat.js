@@ -37,7 +37,7 @@ function openChat(){
         chat.$inputMessage.focus();
         chat.$inputMessage.select();
     }else{
-        $(".login-wrapper").show();
+        $(".login-wrapper").show().css('display', 'flex');
         chat.$usernameInput.focus();
         chat.$usernameInput.select();
     }
