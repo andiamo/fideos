@@ -3,12 +3,17 @@
 <html>
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>Trazos</title>
     <link rel="stylesheet" href="../css/style.css">
     <!-- jQuery -->
-    <script src="../js/jquery.min.js"></script>
+    <script src="../js/lib/jquery.min.js"></script>
+    <script src="../js/lib/jquery.slidereveal.min.js"></script>
+    <script src="../js/lib/jquery.backDetect.min.js"></script>
     <!-- p5.js -->
-    <script src="../js/p5.min.js"></script>
+    <script src="../js/lib/p5.min.js"></script>
+    <!-- gifshot.js -->
+    <script src="../js/lib/gifshot.min.js"></script>
     <!-- <script src="../js/p5.dom.js"></script> -->
     <!-- andiamo  -->
     <script src="../js/andiamo/parameters.js"></script>
@@ -30,6 +35,35 @@
         <a href="" class="shareLinkMailto">O invitar via email.</a><br>
         <button class="close_button">Cerrar</button>
     </div>
+    <!--<div class="gif-modal">-->
+        <!--<button class="close_button">Cerrar</button>-->
+    <!--</div>-->
+    <div id="chat-slider">
+        <div class="login-wrapper">
+            <h3 class="title">Ingresa tu sobrenombre</h3>
+            <form class="login-form" action="">
+                <input class="usernameInput" type="text" maxlength="30" />
+                <div class="button-wrap">
+                    <button class="enter-chat classic">Ingresar</button>
+                </div>
+            </form>
+            <a class="close_button">x</a>
+        </div>
+        <div class="chat-wrapper">
+            <div class="chat">
+                <div class="info">
+                    <div class="welcome-msg"></div>
+                    <div class="ppl"></div>
+                    <a class="close_button">x</a>
+                </div>
+                <ul class="messages"></ul>
+                <form class="chat-form" action="">
+                    <input id="m" class="inputMessage" autocomplete="off" /><button><span class="fa fa-paper-plane" aria-hidden="true"></span> </button>
+                </form>
+            </div>
+        </div>
+        <!--<button class="close_button">Cerrar</button>-->
+    </div>
     {SIDEBAR}
 
     <!-- Aca mostramos los otros punteros -->
@@ -43,8 +77,11 @@
     <!-- Socket IO -->
     <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
 
-    <!-- Cliente -->
-    <script src="../js/main.js"></script>
+    <!-- Cliente: El orden de inclusión es importante -->
+    <script src="../js/trazos/board/canvas.js"></script>
+    <script src="../js/trazos/board/chat.js"></script>
+    <script src="../js/trazos/board/sidebar.js"></script>
+    <script src="../js/trazos/board.js"></script>
 
 </body>
 </html>
