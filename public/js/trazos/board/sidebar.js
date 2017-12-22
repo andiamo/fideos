@@ -285,6 +285,7 @@ function initSidebar(){
     // Close dialogs
     $(".close_button").click(function(){
         if(modal_open){
+            $(".chat_button").click();
             $("#share_dialog").fadeOut();
             $(".chat-modal").fadeOut();
             modal_open = false;
