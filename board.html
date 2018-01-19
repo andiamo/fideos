@@ -4,6 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta property="og:url"                content="http://trazos.gastonlozano.com" />
+    <!--<meta property="og:url"                content="http://trazos.club" />-->
+    <meta property="og:title"              content="Trazos Club"/>
+    <meta property="og:description"        content="Trazos Club es una plataforma web para dibujo colectivo"/>
+    <meta property="og:image"              content="http://trazos.club/img/trazos-logo.png" />
+    <meta property="fb:app_id"              content="1163179900483113" />
     <title>Trazos</title>
     <link rel="stylesheet" href="../css/style.css">
     <!-- jQuery -->
@@ -29,14 +35,26 @@
 <body>
     <div id="share_dialog">
         <h1>Invitar al tablero</h1>
+        <!--<p>Copiar este link:</p>-->
+        <p class="link row">
+            <i class="fa fa-link" aria-hidden="true"></i>
+            <input type="text" class="shareDialogInput" readonly><br>
+        </p>
+        <p class="social row">
+            <span>O desde las redes: </span>
+            <a href="" id="shareBtn" class="facebook">
+                <i class="fa fa-facebook-official" aria-hidden="true"></i>
+            </a>
+            <a href="" class="shareLinkMailto">
+                <i class="fa fa-envelope" aria-hidden="true"></i>
+            </a>
+        </p>
+        <!--<a href="" class="shareLinkMailto">O invitar via email.</a><br>-->
 
-        <p>Copiar este link:</p>
-        <input type="text" class="shareDialogInput"></input><br>
-        <a href="" class="shareLinkMailto">O invitar via email.</a><br>
-        <button class="close_button">Cerrar</button>
+        <button class="close-button share-close-button">Cerrar</button>
     </div>
     <!--<div class="gif-modal">-->
-        <!--<button class="close_button">Cerrar</button>-->
+        <!--<button class="close-button">Cerrar</button>-->
     <!--</div>-->
     <div id="chat-slider">
         <div class="login-wrapper">
@@ -47,14 +65,14 @@
                     <button class="enter-chat classic">Ingresar</button>
                 </div>
             </form>
-            <a class="close_button">x</a>
+            <a class="close-button chat-close-button">x</a>
         </div>
         <div class="chat-wrapper">
             <div class="chat">
                 <div class="info">
                     <div class="welcome-msg"></div>
                     <div class="ppl"></div>
-                    <a class="close_button">x</a>
+                    <a class="close-button chat-close-button">x</a>
                 </div>
                 <ul class="messages"></ul>
                 <form class="chat-form" action="">
@@ -62,7 +80,7 @@
                 </form>
             </div>
         </div>
-        <!--<button class="close_button">Cerrar</button>-->
+        <!--<button class="close-button">Cerrar</button>-->
     </div>
     {SIDEBAR}
 
@@ -80,8 +98,29 @@
     <!-- Cliente: El orden de inclusión es importante -->
     <script src="../js/trazos/board/canvas.js"></script>
     <script src="../js/trazos/board/chat.js"></script>
+    <script src="../js/trazos/board/share.js"></script>
     <script src="../js/trazos/board/sidebar.js"></script>
     <script src="../js/trazos/board.js"></script>
 
 </body>
+
+<script>
+    window.fbAsyncInit = function() {
+        FB.init({
+            appId      : '1163179900483113',
+            xfbml      : true,
+            version    : 'v2.11'
+        });
+        FB.AppEvents.logPageView();
+    };
+
+    (function(d, s, id){
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {return;}
+        js = d.createElement(s); js.id = id;
+        js.src = "https://connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+</script>
+
 </html>

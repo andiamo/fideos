@@ -118,7 +118,7 @@ Captura el mousePressed dentro del canvas de P5.js.
 */
 
 function mousePressed() {
-    if (modal_open) return;
+    if (modals_open) return;
 
     var t0 = millis();
 
@@ -164,7 +164,7 @@ Captura el touch de mobile
 
 
 function touchStarted() {
-    if (modal_open) return;
+    if (modals_open) return;
 
     var t0 = millis();
 
@@ -211,7 +211,7 @@ Captura el mouseDragged dentro del canvas de P5.js
 
 
 function mouseDragged() {
-    if (modal_open) return;
+    if (modals_open) return;
 
     if (currGesture) {
         var t = millis();
@@ -245,7 +245,7 @@ Captura el touch.
 */
 
 function touchMoved() {
-    if (modal_open) return;
+    if (modals_open) return;
 
     if (currGesture) {
         var t = millis();
@@ -277,7 +277,7 @@ Captura el mouseReleased dentro del canvas de P5.js
 */
 
 function mouseReleased() {
-    if (modal_open) return;
+    if (modals_open) return;
 
     if (currGesture) {
 
@@ -320,7 +320,7 @@ Captura el touch.
 */
 
 function touchEnded() {
-    if (modal_open) return;
+    if (modals_open) return;
 
     if (currGesture) {
 
