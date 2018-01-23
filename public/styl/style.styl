@@ -94,7 +94,7 @@ SIDEBAR
         width: 330px;
         height: 40px;
         border: 1px solid #424242;
-        margin-left: 75px;
+        margin-left: icon_width*1.2;
         border-radius: 5px;
         background-color: #222;
         .colors-wrap{
@@ -118,11 +118,6 @@ SIDEBAR
     }
 
 }
-
-.sidebar_button_color:hover{
-    opacity:sidebar_button_hover_opacity;
-}
-
 
 .sidebar_weight_button{
     height: 40px;
@@ -170,10 +165,9 @@ SIDEBAR
         width: 170px;
         height: 40px;
         border: 1px solid #424242;
-        //margin-left: 75px;
+        margin-left: icon_width*1.2;
         border-radius: 5px;
         background-color: #222;
-        margin-left:75px;
         top:0;
         .weight_wrap{
             display: flex;
@@ -213,11 +207,6 @@ SIDEBAR
 
     }
 }
-
-.sidebar_weight_button:hover{
-    opacity:sidebar_button_hover_opacity;
-}
-
 
 // Boton normal
 .sidebar_button{
@@ -448,9 +437,8 @@ SIDEBAR
 }
 
 #chat-slider{
-    background-color:black;
+    background-color: rgba(0, 0, 0, 0.7);
     margin-left: sidebar_width - 1px;
-    background-color:#333333;
     border:1px solid #444444;
     .close-button{
         bottom: auto;
@@ -498,9 +486,10 @@ SIDEBAR
                 list-style-type: none;
                 flex-grow: 1;
                 margin: 0;
+                color:#fff;
                 overflow-y: scroll;
                 padding: 10px 20px 10px 20px;
-                background: #fafafa;
+                background: rgba(81, 81, 81, 0.3);
                 .username{
                     margin-right: 10px;
                 }
