@@ -433,7 +433,7 @@ SIDEBAR
         color:#fff;
     }
 
-    .close_button{
+    .close-button{
         float: right;
         background-color: #252525;
         border: 1px solid #444;
@@ -442,7 +442,7 @@ SIDEBAR
         font-size: .8em;
         color: #fff;
     }
-    .close_button:hover{
+    .close-button:hover{
         background-color:#444444;
     }
 }
@@ -452,7 +452,7 @@ SIDEBAR
     margin-left: sidebar_width - 1px;
     background-color:#333333;
     border:1px solid #444444;
-    .close_button{
+    .close-button{
         bottom: auto;
         position: absolute;
         right: 0;
@@ -531,7 +531,7 @@ SIDEBAR
                 }
             }
         }
-        //.close_button {
+        //.close-button {
         //    position :absolute;
         //    bottom:0;
         //    right:0;
@@ -542,7 +542,7 @@ SIDEBAR
         //    font-size: .8em;
         //    color: #fff;
         //}
-        //.close_button:hover {
+        //.close-button:hover {
         //    background-color: #444444;
         //}
     }
@@ -567,11 +567,11 @@ SIDEBAR
     color:#fff;
 
     .shareDialogInput{
-        width:98%;
+        float:left;
+        width:80%;
         font-size:1em;
         display:block;
         height:30px;
-
     }
 
     h1{
@@ -581,21 +581,49 @@ SIDEBAR
     }
 
     p,a{
-        font-size:0.8em;
         color:#fff;
     }
 
-    .close_button{
-        float: right;
+    .row{
+        width:100%;
+        clear: both;
+        &.link{
+            .fa {
+                margin-top: 7px;
+                margin-right: 10px;
+            }
+        }
+        &.social{
+            span{
+                float: left;
+                padding-top: 7px;
+            }
+            .fa{
+                font-size: 2em;
+                margin-left: 10px;
+            }
+            padding:15px;
+        }
+    }
+
+    .fa {
+        float:left;
+        font-size: 1.6em;
+    }
+
+    .close-button{
         background-color: #252525;
         border: 1px solid #444;
         border-radius: 6px;
         padding: 8px 28px;
         font-size: .8em;
         color: #fff;
-    }
-    .close_button:hover{
-        background-color:#444444;
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        &:hover {
+            background-color: #444444;
+        }
     }
 }
 
@@ -716,17 +744,20 @@ SIDEBAR
 
 }
 
-#share_dialog{
+#share_dialog {
     position: fixed;
-    height: auto;
     border-radius: 20px;
     margin: auto;
     padding: 16px;
     top: 25%;
     left: 25%;
     width: 60%;
-    .shareDialogInput{
+    .shareDialogInput {
         height: auto;
+    }
+    .row.social {
+        padding-top: 10px;
+        padding-left: 0;
     }
 }
 .login-modal{

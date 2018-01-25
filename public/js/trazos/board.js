@@ -4,7 +4,7 @@ var id = Math.round($.now() * Math.random()); // Temporal ID Generator
 var clients = {};
 var pointers = {};
 var connected = false;
-var modal_open = false;
+var modals_open = 0;
 
 $(document).ready(function() {
     initSidebar();

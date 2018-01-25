@@ -30,7 +30,7 @@ function initChat(){
 
 
 function openChat(){
-    modal_open = true;
+    modals_open++;
     if(chat.username){
         clearUnreadMsg();
         $(".chat-wrapper").show();
@@ -44,7 +44,7 @@ function openChat(){
 }
 
 function hideChat(){
-    modal_open = false;
+    modals_open--;
 }
 
 function updateParticipants(data){
@@ -219,7 +219,7 @@ function clearUnreadMsg(){
 }
 
 function addUnreadMsg(){
-    if(!modal_open){
+    if(!modals_open){
         unreadNum++;
         chat.$unreadNotice.text(unreadNum);
         chat.$unreadNotice.show();
