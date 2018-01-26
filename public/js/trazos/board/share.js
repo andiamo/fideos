@@ -23,7 +23,7 @@ function createGif(){
                 data: {
                     'api_key':'phMDT8Jy1QVT2ftqfB8XKbRoaG0RDT7K',
                     'username':'trazosclub',
-                    'source_post_url' : hostAndPort + data.filename,
+                    'source_image_url' : hostAndPort + data.filename,
                     'tags': 'trazos,trazosclub,processing,collaborative,drawing,draw'
                 },
                 success: function(data) {
