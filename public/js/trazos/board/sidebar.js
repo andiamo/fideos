@@ -254,46 +254,7 @@ function initSidebar(){
         setTimeout( function() {
             $(".share_social_button img").attr("src", "../img/social.svg");
         }, 400);
-
-
-        saveFrames("out", "png", 5, 10, function(data) {
-
-            var images = []
-            for (var i = 0; i < data.length; i++) {
-                images.push(data[i].imageData);
-            }
-
-            const urlSplit = window.location.href.split('/');
-            const hostAndPort = urlSplit[0] + '//' + urlSplit[2] + '/';
-
-            var r = canvas.width / canvas.height;
-            var gifw = 500;
-            var gifh = Math.round(gifw / r);
-
-
-            gifshot.createGIF({'images': images,
-                'gifWidth': gifw, 'gifHeight': gifh}, function(obj) {
-                if(!obj.error) {
-                    var image = obj.image;
-
-                    println("success :)");
-                    $.ajax({
-                        type: "POST",
-                        url: hostAndPort + 'files',
-                        data: image,
-                        success: function(data) {
-                            console.log('Exported gif: ' + hostAndPort + data.filename);
-                            window.alert('Exported!');
-                        },
-                        error: function(obj){println("no luck...");println(obj);},
-                        dataType: 'json'
-                    });
-                } else {
-                    println("error :(");
-                }
-
-            });
-        });
+        createGif();
     })
 
     // Close dialogs
