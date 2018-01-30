@@ -15,16 +15,20 @@ function initSidebar(){
     // Menú desplegable de color
     $(".sidebar_button_color").hover(function(){
         $(".drop_color").stop().fadeIn(200);
-    },function(){
+    },null,0);
+
+    $(".sidebar_button_color").hover(null,function(){
         $(".drop_color").stop().fadeOut(200);
-    });
+    },400);
 
     // Menú desplegable de color
     $(".sidebar_weight_button").hover(function(){
         $(".drop_weight").stop().fadeIn(200);
-    },function(){
+    },null,0);
+
+    $(".sidebar_weight_button").hover(null,function(){
         $(".drop_weight").stop().fadeOut(200);
-    });
+    },400);
 
     $(".weight_button_01").click(function(){
         RIBBON_WIDTH = RIBBON_WIDTHS[0];
