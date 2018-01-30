@@ -196,18 +196,28 @@ function initSidebar(){
 
     // Share button
     $(".share_button").click(function(){
-        $(".share_button img").attr("src","../img/share_click.svg")
+        $(".share_button").prop('disabled', true);
+        $(".share_button img").attr("src","../img/share_click.svg");
         setTimeout( function() {
             $(".share_button img").attr("src", "../img/share.svg");
+            $(".share_button").prop('disabled', false);
         }, 400);
 
-        $("#share_dialog").fadeIn();
+        if($("#share_dialog").is(':visible')){
+            $("#share_dialog").fadeOut();
+            modals_open--;
+        }else{
+            $("#share_dialog").fadeIn();
+            modals_open++;
+            $(".shareDialogInput").val(window.location.href);
+            $(".shareDialogInput").focus();
+            $(".shareDialogInput").select();
+        }
+    })
 
-        modal_open = true;
-
+    $("#share_dialog .fa-link").click(function (){
         $(".shareDialogInput").focus();
         $(".shareDialogInput").select();
-
     })
 
     $('#chat-slider').slideReveal({
@@ -287,13 +297,14 @@ function initSidebar(){
     })
 
     // Close dialogs
-    $(".close_button").click(function(){
-        if(modal_open){
-            $(".chat_button").click();
-            $("#share_dialog").fadeOut();
-            $(".chat-modal").fadeOut();
-            modal_open = false;
-        }
+    $(".chat-close-button").click(function(){
+        $('#chat-slider').slideReveal("hide");
+        $(".chat-slider").fadeOut();
+    });
+
+    $(".share-close-button").click(function(){
+        $("#share_dialog").fadeOut();
+        modals_open--;
     })
 
     $(".shareLinkMailto").on('click', function (event) {
