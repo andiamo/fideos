@@ -91,7 +91,7 @@ var gif = (function(){
         var r = canvas.width / canvas.height;
         var gifw = 500;
         var gifh = Math.round(gifw / r);
-        saveFrames("out", "png", 5, 10, function(data) {
+        saveFrames("out", "png", 3, 7, function(data) {
             var images = []
             for (var i = 0; i < data.length; i++) {
                 images.push(data[i].imageData);
