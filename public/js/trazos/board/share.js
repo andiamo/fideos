@@ -174,7 +174,7 @@ var gif = (function(){
 
     var copyLink = function () {
         if(gif.currentGiphyId){
-            $("#giphyLink").val("https://media.giphy.com/media/"+gif.currentGiphyId+"/giphy.gif");
+            $("#giphyLink").html("https://media.giphy.com/media/"+gif.currentGiphyId+"/giphy.gif");
             document.getElementById("giphyLink").select();
             document.execCommand("Copy");
             $msg.html("¡Copiado!");
