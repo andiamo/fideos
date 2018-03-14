@@ -12,6 +12,7 @@ var gif = (function(){
     const hostAndPort = urlSplit[0] + '//' + urlSplit[2] + '/';
 
     var currentGif = null;
+    var currentGiphyId = null;
     var giphyResponse = null;
     var $modal = $("#gif-modal");
     var $spinner = $("#gif-modal .trazos-spinner");
@@ -50,15 +51,15 @@ var gif = (function(){
     var setInternalButtons = function(){
         $buttons.html('<button id="regenerate"><span class="fa fa-refresh" aria-hidden="true"></span>\n' +
             '                        <p class="note">Generar de nuevo</p></button>\n' +
-            '                    <button id="uploadGif"><span class="fa fa-upload" aria-hidden="true"></span>\n' +
-            '                        <p class="note">Subir a GIPHY y compartir</p> </button>')
+            '                    <a id="uploadGif"><span class="fa fa-upload" aria-hidden="true"></span>\n' +
+            '                        <p class="note">Subir a GIPHY y compartir</p> </a>')
     }
 
-    var setGIPHYButtons = function(){
+    var setGIPHYButtons = function(id){
         $buttons.html('<button id="link"><span class="fa fa-link" aria-hidden="true"></span>\n' +
             '                        <p class="note">Copiar link</p></button>\n' +
-            '                    <button id="download"><span class="fa fa-download" aria-hidden="true"></span>\n' +
-            '                        <p class="note">Descargar</p> </button>')
+            '                    <a id="download" download><span class="fa fa-download" aria-hidden="true"></span>\n' +
+            '                        <p class="note">Descargar</p> </a>')
     }
 
     var showGif = function(_gif){
@@ -147,8 +148,9 @@ var gif = (function(){
                     $msg.html("");
                     $spinner.fadeOut();
                     $buttons.css("opacity",0.9);
-                    setGIPHYButtons();
                     giphyResponse = data;
+                    gif.currentGiphyId = giphyResponse.data.id;
+                    setGIPHYButtons();
                     console.log("Success uploading to giphy");
                     console.log(data);
                 },
@@ -157,8 +159,11 @@ var gif = (function(){
                     $msg.html("");
                     $spinner.fadeOut();
                     $buttons.css("opacity",0.9);
-                    setGIPHYButtons();
-
+                    $msg.html("Algo salió mal subiendo el GIF, proba de nuevo!");
+                    setInternalButtons();
+                    setTimeout(function(){
+                        $msg.html("");
+                    },3000)
                     console.log("There was an error when uploading to Giphy");
                     console.log(data);
                 },
@@ -168,13 +173,26 @@ var gif = (function(){
     };
 
     var copyLink = function () {
+        if(gif.currentGiphyId){
+            $("#giphyLink").val("https://media.giphy.com/media/"+gif.currentGiphyId+"/giphy.gif");
+            document.getElementById("giphyLink").select();
+            document.execCommand("Copy");
+            $msg.html("¡Copiado!");
+            setTimeout(function(){
+                $msg.html("");
+            },1500)
+        }else{
+            $msg.html("Algo salió mal subiendo el GIF, proba de nuevo!");
+            setTimeout(function(){
+                $msg.html("");
+            },3000)
+        }
 
-    }
-
+    };
 
     var download = function () {
-
-    }
+        $("#download").attr("href","https://media.giphy.com/media/"+gif.currentGiphyId+"/giphy.mp4");
+    };
 
     return {
         currentGif:currentGif,
