@@ -28,7 +28,6 @@ var gif = (function(){
             currentGif = null;
             $gif.html("");
             $buttons.css("opacity",0);
-            $msg.html("Generando GIF");
             $spinner.fadeIn();
             createGif(function (_gif) {
                 if(!_gif.error) {
@@ -93,7 +92,9 @@ var gif = (function(){
         var r = canvas.width / canvas.height;
         var gifw = 500;
         var gifh = Math.round(gifw / r);
+        $msg.html("Grabando el lienzo");
         saveFrames("out", "png", 5, 6, function(data) {
+            $msg.html("Generando GIF");
             var images = []
             for (var i = 0; i < data.length; i++) {
                 images.push(data[i].imageData);
