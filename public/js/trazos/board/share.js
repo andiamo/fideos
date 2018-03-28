@@ -63,6 +63,7 @@ var gif = (function(){
     }
 
     var showGif = function(_gif){
+        gif.currentGif = _gif;
         animatedImage = document.createElement('img');
         animatedImage.src = _gif;
         animatedImage.height = 200;
@@ -92,7 +93,7 @@ var gif = (function(){
         var r = canvas.width / canvas.height;
         var gifw = 500;
         var gifh = Math.round(gifw / r);
-        saveFrames("out", "png", 3, 7, function(data) {
+        saveFrames("out", "png", 5, 6, function(data) {
             var images = []
             for (var i = 0; i < data.length; i++) {
                 images.push(data[i].imageData);
@@ -144,12 +145,12 @@ var gif = (function(){
                     'tags': 'trazos,trazosclub,processing,collaborative,drawing,draw'
                 },
                 success: function(data) {
-                    showGif(gif.currentGif);
                     $msg.html("");
                     $spinner.fadeOut();
                     $buttons.css("opacity",0.9);
                     giphyResponse = data;
                     gif.currentGiphyId = giphyResponse.data.id;
+                    showGif("https://media.giphy.com/media/"+gif.currentGiphyId+"/giphy.gif");
                     setGIPHYButtons();
                     console.log("Success uploading to giphy");
                     console.log(data);
@@ -175,7 +176,8 @@ var gif = (function(){
     var copyLink = function () {
         if(gif.currentGiphyId){
             $("#giphyLink").html("https://media.giphy.com/media/"+gif.currentGiphyId+"/giphy.gif");
-            document.getElementById("giphyLink").select();
+            var copyTextarea = document.querySelector('#giphyLink');
+            copyTextarea.select();
             document.execCommand("Copy");
             $msg.html("¡Copiado!");
             setTimeout(function(){
