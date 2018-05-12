@@ -33,7 +33,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 </head>
 <body>
-    <div id="share_dialog">
+    <div id="share-modal">
         <h1>Invitar al tablero</h1>
         <!--<p>Copiar este link:</p>-->
         <p class="link row">
@@ -50,12 +50,21 @@
             </a>
         </p>
         <!--<a href="" class="shareLinkMailto">O invitar via email.</a><br>-->
-
         <button class="close-button share-close-button">Cerrar</button>
     </div>
-    <!--<div class="gif-modal">-->
-        <!--<button class="close-button">Cerrar</button>-->
-    <!--</div>-->
+    <div class="overlay">
+        <div class="modals-wrap">
+            <div id="gif-modal">
+                <img src="../img/giphy_logo.png" id="giphyLogo">
+                <div class="trazos-spinner"></div>
+                <div class="gif"></div>
+                <div class="msg"></div>
+                <textarea id="giphyLink" style="opacity: 0"></textarea>
+                <div class="buttons"></div>
+                <a class="close-button">x</a>
+            </div>
+        </div>
+    </div>
     <div id="chat-slider">
         <div class="login-wrapper">
             <h3 class="title">Ingresa tu sobrenombre</h3>

@@ -1,4 +1,6 @@
 // out: ../css/style.css, sourcemap: true, compress: false
+@import spinner
+
 /*
 
 VARIABLES
@@ -62,379 +64,402 @@ SIDEBAR
     width:sidebar_width;
     position: absolute;
     height: 100%;
-}
 
-#btnHome {
-    display: block;
-    background-color: #0f0f0f;
-    text-align: center;
-    height: 32px;
-    border-bottom: 1px solid #404041;
-    line-height: 32px;
+    #btnHome {
+        display: block;
+        background-color: #0f0f0f;
+        text-align: center;
+        height: 32px;
+        border-bottom: 1px solid #404041;
+        line-height: 32px;
 
-    img {
-        width: 15px;
+        img {
+            width: 15px;
+        }
     }
-}
-
-// Boton de cambiar color
-.sidebar_button_color{
-    height: 40px;
-    width: 40px;
-    position: relative;
-    background-color: #AE00ff;
-    margin: 20px auto;
-    border-radius: 100%;
+    // Boton de cambiar color
+    .sidebar_button_color{
+        height: 40px;
+        width: 40px;
+        position: relative;
+        background-color: #AE00ff;
+        margin: 20px auto;
+        border-radius: 100%;
     // border: 1px solid #ffffff;
 
     // Menú desplegable del selector de color
-    .drop_color{
-        position: absolute;
-        display: none;
-        width: 330px;
-        height: 40px;
-        border: 1px solid #424242;
-        margin-left: icon_width*1.2;
-        border-radius: 5px;
-        background-color: #222;
-        .colors-wrap{
-            display: flex;
-            align-items: center;
-            justify-content: space-evenly;
-            height:100%;
-        }
-        .color_button{
-            width: 30px;
-            height: 30px;
+        .drop_color{
+            position: absolute;
+            display: none;
+            width: 330px;
+            height: 40px;
+            border: 1px solid #424242;
+            margin-left: icon_width*1.2;
+            border-radius: 5px;
+            background-color: #222;
+            .colors-wrap{
+                display: flex;
+                align-items: center;
+                justify-content: space-evenly;
+                height:100%;
+            }
+            .color_button{
+                width: 30px;
+                height: 30px;
             //margin: 5px;
-            background-color: white;
-            border-radius: 100%;
-            float:left;
+                background-color: white;
+                border-radius: 100%;
+                float:left;
+            }
+
+            .color_button:hover{
+                opacity:sidebar_button_hover_opacity;
+            }
         }
 
-        .color_button:hover{
-            opacity:sidebar_button_hover_opacity;
-        }
     }
 
-}
-
-.sidebar_weight_button{
-    height: 40px;
-    width: 40px;
-    margin: 20px auto;
-    position: relative;
+    .sidebar_weight_button{
+        height: 40px;
+        width: 40px;
+        margin: 20px auto;
+        position: relative;
     // background-color: #333;
-    border-radius: 20px;
-    display: flex;
-    align-items: center;
-    border: 1px solid #404041;
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        border: 1px solid #404041;
     // cursor: pointer;
 
-    .weight_point{
-        background-color: #ffffff;
-        margin: 0 auto;
-        position: relative;
-        border-radius: 100%;
-    }
-
-    .weight_point_tam01{
-        width: 6px;
-        height: 6px;
-    }
-
-    .weight_point_tam02{
-        width: 15px;
-        height: 15px;
-    }
-
-    .weight_point_tam03{
-        width: 22px;
-        height: 22px;
-    }
-
-    .weight_point_tam04{
-        width: 30px;
-        height: 30px;
-    }
-
-    // Menu Desplegable del ancho del trazos
-    .drop_weight{
-        position:absolute;
-        display:none;
-        width: 170px;
-        height: 40px;
-        border: 1px solid #424242;
-        margin-left: icon_width*1.2;
-        border-radius: 5px;
-        background-color: #222;
-        top:0;
-        .weight_wrap{
-            display: flex;
-            align-items: center;
-            justify-content: space-evenly;
-            height:100%;
-        }
-        .weight_button{
-            background-color: white;
+        .weight_point{
+            background-color: #ffffff;
+            margin: 0 auto;
+            position: relative;
             border-radius: 100%;
-            float:left;
-        }
-        .weight_button_01{
-            width: 10px;
-            height: 10px;
         }
 
-        .weight_button_02{
-            width: 20px;
-            height: 20px;
+        .weight_point_tam01{
+            width: 6px;
+            height: 6px;
         }
 
-        .weight_button_03{
+        .weight_point_tam02{
+            width: 15px;
+            height: 15px;
+        }
+
+        .weight_point_tam03{
+            width: 22px;
+            height: 22px;
+        }
+
+        .weight_point_tam04{
             width: 30px;
             height: 30px;
         }
 
-        .weight_button_04{
-            width: 35px;
-            height: 35px;
-        }
-
-        .weight_button01:hover,.weight_button_02:hover,.weight_button_03:hover,.weight_button_04:hover{
-            opacity:sidebar_button_hover_opacity;
-        }
-
-
-    }
-}
-
-// Boton normal
-.sidebar_button{
-    margin-bottom: 20px;
-    position:relative;
-    cursor: pointer;
-
-    .wrapper {
-        margin: 0 auto;
-        width: icon_width;
-        height: icon_width;
-        border: 1px solid #404041;
-        border-radius: 100%;
-        position: relative;
-    }
-
-    .wrapper.wrapperCapa {
-        border: none;
-        border-radius: 0;
-    }
-
-    .wrapperCapa {
-        img {
-            position: absolute;
-
-            &:nth-child(1) {
-                top: -10%;
-                z-index: 10;
+    // Menu Desplegable del ancho del trazos
+        .drop_weight{
+            position:absolute;
+            display:none;
+            width: 170px;
+            height: 40px;
+            border: 1px solid #424242;
+            margin-left: icon_width*1.2;
+            border-radius: 5px;
+            background-color: #222;
+            top:0;
+            .weight_wrap{
+                display: flex;
+                align-items: center;
+                justify-content: space-evenly;
+                height:100%;
             }
-            &:nth-child(2) {
-                top: 15%;
-                z-index: 9;
+            .weight_button{
+                background-color: white;
+                border-radius: 100%;
+                float:left;
             }
-            &:nth-child(3) {
-                top: 40%;
-                z-index: 8;
+            .weight_button_01{
+                width: 10px;
+                height: 10px;
             }
-            &:nth-child(4) {
-                top: 65%;
-                z-index: 7;
+
+            .weight_button_02{
+                width: 20px;
+                height: 20px;
             }
+
+            .weight_button_03{
+                width: 30px;
+                height: 30px;
+            }
+
+            .weight_button_04{
+                width: 35px;
+                height: 35px;
+            }
+
+            .weight_button01:hover,.weight_button_02:hover,.weight_button_03:hover,.weight_button_04:hover{
+                opacity:sidebar_button_hover_opacity;
+            }
+
+
         }
     }
 
-    #loop.wrapper.inactive {
-        border: 1px solid #00FF00;
-    }
+    // Boton normal
+    .sidebar_button{
+        margin-bottom: 20px;
+        position:relative;
+        cursor: pointer;
 
-    .wrapperSimple:hover {
-        background-color: #114412;
-    }
-
-    .wrapperVertical {
-        &.down {
-            background: linear-gradient(0deg, #114412 50%, rgba(0,0,0,0) 50%);
-        }
-        &.up {
-            background: linear-gradient(0deg, rgba(0,0,0,0) 50%, #114412 50%);
-        }
-
-        .clickUp, .clickDown {
+        .wrapper {
+            margin: 0 auto;
             width: icon_width;
-            height: 22.5px;
-            position: absolute;
-            border-radius: icon_width icon_width 0 0;
-
-            &:hover {
-                background: url("../img/flecha_arr.svg");
-                background-repeat: no-repeat;
-                background-size: 12px;
-                background-position: top center;
-            }
-        }
-        .clickDown {
-            bottom: 0;
-            border-radius: 0 0 icon_width icon_width;
-
-            &:hover {
-                background: url("../img/flecha_ab.svg");
-                background-repeat: no-repeat;
-                background-size: 12px;
-                background-position: bottom center;
-            }
-        }
-    }
-    .wrapperHorizontal {
-        &.down {
-            background: linear-gradient(90deg, #114412 50%, rgba(0,0,0,0) 50%);
-        }
-        &.up {
-            background: linear-gradient(90deg, rgba(0,0,0,0) 50%, #114412 50%);
-        }
-
-        .clickLeft, .clickRight {
-            width: 22.5px;
             height: icon_width;
-            position: absolute;
-            border-radius: icon_width 0 0 icon_width;
+            border: 1px solid #404041;
+            border-radius: 100%;
+            position: relative;
+        }
+
+        .wrapper.wrapperCapa {
+            border: none;
+            border-radius: 0;
+        }
+
+        .wrapperCapa {
+            img {
+                position: absolute;
+
+                &:nth-child(1) {
+                    top: -10%;
+                    z-index: 10;
+                }
+                &:nth-child(2) {
+                    top: 15%;
+                    z-index: 9;
+                }
+                &:nth-child(3) {
+                    top: 40%;
+                    z-index: 8;
+                }
+                &:nth-child(4) {
+                    top: 65%;
+                    z-index: 7;
+                }
+            }
+        }
+
+        #loop.wrapper.inactive {
+            border: 1px solid #00FF00;
+        }
+
+        .wrapperSimple:hover {
+            background-color: #114412;
+        }
+
+        .wrapperVertical {
+            &.down {
+                background: linear-gradient(0deg, #114412 50%, rgba(0,0,0,0) 50%);
+            }
+            &.up {
+                background: linear-gradient(0deg, rgba(0,0,0,0) 50%, #114412 50%);
+            }
+
+            .clickUp, .clickDown {
+                width: icon_width;
+                height: 22.5px;
+                position: absolute;
+                border-radius: icon_width icon_width 0 0;
+
+                &:hover {
+                    background: url("../img/flecha_arr.svg");
+                    background-repeat: no-repeat;
+                    background-size: 12px;
+                    background-position: top center;
+                }
+            }
+            .clickDown {
+                bottom: 0;
+                border-radius: 0 0 icon_width icon_width;
+
+                &:hover {
+                    background: url("../img/flecha_ab.svg");
+                    background-repeat: no-repeat;
+                    background-size: 12px;
+                    background-position: bottom center;
+                }
+            }
+        }
+        .wrapperHorizontal {
+            &.down {
+                background: linear-gradient(90deg, #114412 50%, rgba(0,0,0,0) 50%);
+            }
+            &.up {
+                background: linear-gradient(90deg, rgba(0,0,0,0) 50%, #114412 50%);
+            }
+
+            .clickLeft, .clickRight {
+                width: 22.5px;
+                height: icon_width;
+                position: absolute;
+                border-radius: icon_width 0 0 icon_width;
             // background: url("../img/flecha_iz.svg");
 
-            &:hover {
-                background: url("../img/flecha_iz.svg");
-                background-repeat: no-repeat;
-                background-size: 16px;
-                background-position: center left;
+                &:hover {
+                    background: url("../img/flecha_iz.svg");
+                    background-repeat: no-repeat;
+                    background-size: 16px;
+                    background-position: center left;
+                }
+            }
+            .clickRight {
+                right: 0;
+                border-radius: 0 icon_width icon_width 0;
+
+                &:hover {
+                    background: url("../img/flecha_de.svg");
+                    background-repeat: no-repeat;
+                    background-size: 16px;
+                    background-position: center right;
+                }
+
             }
         }
-        .clickRight {
-            right: 0;
-            border-radius: 0 icon_width icon_width 0;
 
-            &:hover {
-                background: url("../img/flecha_de.svg");
-                background-repeat: no-repeat;
-                background-size: 16px;
-                background-position: center right;
-            }
+        img{
+            width: icon_width;
+            display: block;
+            margin: 0 auto;
+        }
 
+        &.delete-btn img {
+            width: 28px;
+            margin-top: 8px;
+            margin-left: 9px;
+        }
+        &.share-btn img {
+            width: 38px;
+            margin-left: 10px;
+            margin-top: -1px;
+        }
+        .button-badge {
+            display: none;
+            background-color: #fa3e3e;
+            border-radius: 2px;
+            color: white;
+            padding: 1px 3px;
+            font-size: 10px;
+            position: absolute;
+            top: 0;
+            right: 10px;
+            z-index: 99;
         }
     }
 
-    img{
-        width: icon_width;
-        display: block;
-        margin: 0 auto;
-    }
-
-    &.delete_button img {
-        width: 28px;
-        margin-top: 8px;
-        margin-left: 9px;
-    }
-    &.share_button img {
-        width: 38px;
-        margin-left: 10px;
-        margin-top: -1px;
-    }
-    .button-badge {
-        display: none;
-        background-color: #fa3e3e;
-        border-radius: 2px;
-        color: white;
-        padding: 1px 3px;
-        font-size: 10px;
-        position: absolute;
-        top: 0;
-        right: 10px;
-        z-index: 99;
-    }
-}
-
-.sidebar_button:hover{
+    .sidebar_button:hover{
     // opacity:sidebar_button_hover_opacity;
+    }
+
+    // Boton de cambiar de capa
+    .sidebar_button_layer{
+        margin: 10px;
+        img{
+            width: 40px;
+            height: 50px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            margin: auto;
+        }
+    }
+
+    .sidebar_button_layer:hover{
+        opacity:sidebar_button_hover_opacity;
+    }
+
+    // Separador del sidebar
+    .sidebar_separator{
+        width: 97%;
+        border: 1px solid sidebar_separator_color;
+        margin-bottom: 1em;
+    }
+
 }
 
-// Boton de cambiar de capa
-.sidebar_button_layer{
-    margin: 10px;
-    img{
-        width: 40px;
-        height: 50px;
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
-        margin: auto;
+.overlay{
+    position: absolute;
+    width:100%;
+    height: 100%;
+    .modals-wrap{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        #gif-modal{
+            display: none;
+            position: relative;
+            z-index:9999;
+            width:360px;
+            min-height:200px;
+            padding:10px;
+            background-color: rgba(0, 0, 0, 0.7);
+            border:1px solid #444444;
+            border-radius:1px;
+            font-family:"Helvetica", Arial, sans-serif;
+            color:#fff;
+            .msg{
+                position: absolute;
+                bottom: 10px;
+                /* margin: auto; */
+                text-align: center;
+                width: 100%;
+                opacity: 0.6;
+            }
+            .buttons{
+                width: 85%;
+                margin: auto;
+                display: flex;
+                opacity: 0;
+                .fa{
+                    font-size: 2em;
+                }
+                button,a{
+                    cursor: pointer;
+                    flex: 1;
+                    color: #00ff01;
+                    background: none;
+                    border: none;
+                    font-size: 1em;
+                    padding: 10px 30px;
+                    text-align: center;
+                    .note{
+                        color: #808080;
+                        font-size: 0.8em;
+                    }
+                }
+            }
+            .gif{
+                display: flex;
+                justify-content: center;
+                img{
+                    //outline: #026903 1px solid;
+                }
+            }
+            .close-button{
+                position: absolute;
+                top: 8px;
+                right: 10px;
+                font-size: .8em;
+                color: #fff;
+                cursor: pointer;
+            }
+        }
+
     }
 }
 
-.sidebar_button_layer:hover{
-    opacity:sidebar_button_hover_opacity;
-}
-
-// Separador del sidebar
-.sidebar_separator{
-    width: 97%;
-    border: 1px solid sidebar_separator_color;
-    margin-bottom: 1em;
-}
-
-.gif-modal{
-    display: none;
-    z-index:9999;
-    position:absolute;
-    width:400px;
-    height:200px;
-    padding:10px;
-    top:50%;
-    left:50%;
-    background-color:#333333;
-    border:1px solid #444444;
-    border-radius:5px;
-    margin-top:-100px;
-    margin-left:-200px;
-    font-family:"Helvetica", Arial, sans-serif;
-    color:#fff;
-
-    .shareDialogInput{
-        width:98%;
-        font-size:1em;
-        display:block;
-        height:30px;
-
-    }
-
-    h1{
-        font-size:1.8em;
-        font-weight:normal;
-        margin-bottom:10px;
-    }
-
-    p,a{
-        font-size:0.8em;
-        color:#fff;
-    }
-
-    .close-button{
-        float: right;
-        background-color: #252525;
-        border: 1px solid #444;
-        border-radius: 6px;
-        padding: 8px 28px;
-        font-size: .8em;
-        color: #fff;
-    }
-    .close-button:hover{
-        background-color:#444444;
-    }
-}
 
 #chat-slider{
     background-color: rgba(0, 0, 0, 0.7);
@@ -538,7 +563,7 @@ SIDEBAR
 }
 
 
-#share_dialog{
+#share-modal{
     display: none;
     z-index:9999;
     position:absolute;
@@ -547,9 +572,9 @@ SIDEBAR
     padding:10px;
     top:50%;
     left:50%;
-    background-color:#333333;
+    background-color: rgba(0, 0, 0, 0.7);
     border:1px solid #444444;
-    border-radius:5px;
+    border-radius:1px;
     margin-top:-100px;
     margin-left:-200px;
     font-family:"Helvetica", Arial, sans-serif;
@@ -564,9 +589,9 @@ SIDEBAR
     }
 
     h1{
-        font-size:1.8em;
+        font-size:1.7em;
         font-weight:normal;
-        margin-bottom:10px;
+        margin-bottom:15px;
     }
 
     p,a{
@@ -603,7 +628,7 @@ SIDEBAR
     .close-button{
         background-color: #252525;
         border: 1px solid #444;
-        border-radius: 6px;
+        border-radius: 2px;
         padding: 8px 28px;
         font-size: .8em;
         color: #fff;
@@ -616,6 +641,7 @@ SIDEBAR
     }
 }
 
+// MOBILE (first breakpoint)
 
 @media (max-width: 570px) {
 
@@ -647,6 +673,7 @@ SIDEBAR
     .sidebar_button_color{
         width:mobile_icon_width;
         height:mobile_icon_width;
+        margin: 10px auto;
         .drop_color{
             width: mobile_icon_width*7;
             height: mobile_icon_width;
@@ -664,6 +691,7 @@ SIDEBAR
     .sidebar_weight_button{
         width:mobile_icon_width;
         height:mobile_icon_width;
+        margin: 10px auto;
         border-radius: 50%;
         .drop_weight{
             width: mobile_icon_width*4;
@@ -691,7 +719,7 @@ SIDEBAR
         }
     }
     .sidebar_button{
-        margin-bottom: mobile_icon_width*0.5;
+        margin-bottom: mobile_icon_width*0.3;
         .wrapper {
             width: mobile_icon_width;
             height: mobile_icon_width;
@@ -718,11 +746,14 @@ SIDEBAR
             }
           }
         }
-        &.delete_button img {
+        &.layers-btn{
+            margin-bottom: mobile_icon_width*0.7;
+        }
+        &.delete-btn img {
             width: mobile_icon_width*0.6;
             margin:0;
         }
-        &.share_button img {
+        &.share-btn img {
             width: mobile_icon_width*0.8;
             margin:0;
         }
@@ -730,10 +761,12 @@ SIDEBAR
             font-size: 15px;
         }
     }
-
+    .sidebar_separator{
+        margin-bottom: 0.5em;
+    }
 }
 
-#share_dialog {
+#share-modal {
     position: fixed;
     border-radius: 20px;
     margin: auto;
@@ -749,15 +782,10 @@ SIDEBAR
         padding-left: 0;
     }
 }
-.login-modal{
+.overlay .modals-wrap #gif-modal{
     position: fixed;
-    height: auto;
-    border-radius: 20px;
-    margin: auto;
-    padding: 50px;
-    top: 25%;
-    left: 25%;
-    width: 60%;
+    top:20%;
+    width 300px;
 }
 #chat-slider{
     z-index:1;
@@ -790,13 +818,13 @@ SIDEBAR
 
 }
 
+// TABLETS (second breakpoint)
 
 @media (min-width: 571px) and (max-width: 1200px) {
 
     #andiamo{
         position: fixed;
     }
-
     #sidebar{
         position: fixed;
         z-index 99;
@@ -855,7 +883,7 @@ SIDEBAR
             }
         }
         .sidebar_button{
-            margin-bottom: tablet_icon_width*0.5;
+            margin-bottom: tablet_icon_width*0.4;
             .wrapper {
                 width: tablet_icon_width;
                 height: tablet_icon_width;
@@ -882,11 +910,14 @@ SIDEBAR
                     }
                 }
             }
-            &.delete_button img {
+            &.layers-btn{
+                margin-bottom: mobile_icon_width*0.7;
+            }
+            &.delete-btn img {
                 width: tablet_icon_width*0.6;
                 margin:0;
             }
-            &.share_button img {
+            &.share-btn img {
                 width: tablet_icon_width*0.8;
                 margin:0;
             }
@@ -897,8 +928,13 @@ SIDEBAR
 
     }
 
-    #share_dialog{
+    #share-modal{
         position: fixed;
+    }
+    .overlay .modals-wrap #gif-modal{
+        position: fixed;
+        top:25%;
+        width 300px;
     }
     #chat-slider{
         //font-size:2.5em;

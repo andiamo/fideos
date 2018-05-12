@@ -20,7 +20,7 @@ function initChat(){
     chat.$chatWrapper = $('.chat-wrapper'); // The chatroom page
     chat.$welcome = $('.welcome-msg'); // The chatroom page
     chat.$onlineList = $('.ppl'); // The chatroom page
-    chat.$unreadNotice = $('.chat_button .button-badge'); // The chatroom page
+    chat.$unreadNotice = $('.chat-btn .button-badge'); // The chatroom page
     chat.$currentInput = chat.$usernameInput.focus();
 
     chat.$inputMessage.on('input', function() {

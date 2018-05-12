@@ -54,7 +54,7 @@ function initSidebar(){
         $(".weight_point").addClass('weight_point_tam04');
     });
 
-    $(".delete_button").click(function() {
+    $(".delete-btn").click(function() {
         // for (var i = 0; i < layers.length; i++) {
         var i = currLayer;
         for (var j = layers[i].length - 1; j >= 0; j--) {
@@ -185,29 +185,29 @@ function initSidebar(){
         }
     });
     // Boton delete
-    $(".delete_button img").on("mousedown", function() {
+    $(".delete-btn img").on("mousedown", function() {
         $(this).attr("src", "../img/tacho_click.svg");
     });
-    $(".delete_button img").on("mouseup", function() {
+    $(".delete-btn img").on("mouseup", function() {
         setTimeout( function() {
-            $(".delete_button img").attr("src", "../img/tacho.svg");
+            $(".delete-btn img").attr("src", "../img/tacho.svg");
         }, 600);
     });
 
     // Share button
-    $(".share_button").click(function(){
-        $(".share_button").prop('disabled', true);
-        $(".share_button img").attr("src","../img/share_click.svg");
+    $(".share-btn").click(function(){
+        $(".share-btn").prop('disabled', true);
+        $(".share-btn img").attr("src","../img/share_click.svg");
         setTimeout( function() {
-            $(".share_button img").attr("src", "../img/share.svg");
-            $(".share_button").prop('disabled', false);
+            $(".share-btn img").attr("src", "../img/share.svg");
+            $(".share-btn").prop('disabled', false);
         }, 400);
 
-        if($("#share_dialog").is(':visible')){
-            $("#share_dialog").fadeOut();
+        if($("#share-modal").is(':visible')){
+            $("#share-modal").fadeOut();
             modals_open--;
         }else{
-            $("#share_dialog").fadeIn();
+            $("#share-modal").fadeIn();
             modals_open++;
             $(".shareDialogInput").val(window.location.href);
             $(".shareDialogInput").focus();
@@ -215,13 +215,13 @@ function initSidebar(){
         }
     })
 
-    $("#share_dialog .fa-link").click(function (){
+    $("#share-modal .fa-link").click(function (){
         $(".shareDialogInput").focus();
         $(".shareDialogInput").select();
     })
 
     $('#chat-slider').slideReveal({
-        trigger: $(".chat_button"),
+        trigger: $(".chat-btn"),
         push:false,
         width:'40%',
         show: openChat,
@@ -249,51 +249,8 @@ function initSidebar(){
     });
 
     // Share social media
-    $(".share_social_button").click(function(){
-        $(".share_social_button img").attr("src","../img/social_click.svg")
-        setTimeout( function() {
-            $(".share_social_button img").attr("src", "../img/social.svg");
-        }, 400);
-
-
-        saveFrames("out", "png", 5, 10, function(data) {
-
-            var images = []
-            for (var i = 0; i < data.length; i++) {
-                images.push(data[i].imageData);
-            }
-
-            const urlSplit = window.location.href.split('/');
-            const hostAndPort = urlSplit[0] + '//' + urlSplit[2] + '/';
-
-            var r = canvas.width / canvas.height;
-            var gifw = 500;
-            var gifh = Math.round(gifw / r);
-
-
-            gifshot.createGIF({'images': images,
-                'gifWidth': gifw, 'gifHeight': gifh}, function(obj) {
-                if(!obj.error) {
-                    var image = obj.image;
-
-                    println("success :)");
-                    $.ajax({
-                        type: "POST",
-                        url: hostAndPort + 'files',
-                        data: image,
-                        success: function(data) {
-                            console.log('Exported gif: ' + hostAndPort + data.filename);
-                            window.alert('Exported!');
-                        },
-                        error: function(obj){println("no luck...");println(obj);},
-                        dataType: 'json'
-                    });
-                } else {
-                    println("error :(");
-                }
-
-            });
-        });
+    $(".gif-btn").click(function(){
+        gif.toggleModal();
     })
 
     // Close dialogs
@@ -302,10 +259,32 @@ function initSidebar(){
         $(".chat-slider").fadeOut();
     });
 
-    $(".share-close-button").click(function(){
-        $("#share_dialog").fadeOut();
+    $("#share-modal .close-button").click(function(){
+        $("#share-modal").fadeOut();
         modals_open--;
-    })
+    });
+
+    $("#gif-modal .close-button").click(function(){
+        $("#gif-modal").fadeOut();
+        modals_open--;
+    });
+
+    $("#gif-modal").on('click','#regenerate', function (event) {
+        gif.regenerateGif();
+    });
+
+    $("#gif-modal").on('click','#uploadGif', function (event) {
+        gif.uploadGif();
+    });
+
+    $("#gif-modal").on('click','#link', function (event) {
+        gif.copyLink();
+    });
+
+    $("#gif-modal").on('click','#download', function (event) {
+        gif.download();
+    });
+
 
     $(".shareLinkMailto").on('click', function (event) {
         event.preventDefault();
