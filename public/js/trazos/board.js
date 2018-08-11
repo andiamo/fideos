@@ -78,4 +78,10 @@ function initSocketObservers(){
         log('attempt to reconnect has failed');
     });
     socket.on('externalMouseEvent', externalMouseEvent);
+
+    socket.on('previousLines', function(lines){
+        lines.forEach(function(line){
+            externalMouseEvent(line.data);
+        })
+    });
 }

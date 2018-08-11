@@ -5,6 +5,7 @@ var app = express();
 var server = require('http').createServer(app);
 var io = require('socket.io')(server);
 var fs = require("fs");
+var MongoClient = require("mongodb").MongoClient;
 var uuid = require('node-uuid');
 var mkdirp = require('mkdirp');
 var Hashids = require("hashids"),
@@ -12,11 +13,17 @@ hashids = new Hashids("this is my salt",0, "0123456789abcdef");
 var connections = 0;
 var chatConnections = [];
 
+// MongoDB vars
+var db = null;
+const url = 'mongodb://localhost:27017';
+const dbName = 'mongo_trazos';
+
 // Mapea los socket ids con el id generado por cada cliente
 var clients = {};
 
 // Lo uso para generar ids de boards
-var boards = 0;
+var boardSeed = 0;
+var boards = [];
 
 // Importo la carpeta public para poder routear assets
 // estaticos.
@@ -31,6 +38,14 @@ function includeSidebarAndSend(html, res) {
 
         var resultHTML = html.replace(SIDEBAR_INCLUDE,sidebarHTML);
         res.send(resultHTML);
+    });
+}
+
+function initDB(){
+    // Use connect method to connect to the server
+    MongoClient.connect(url, { useNewUrlParser: true },function(err, client) {
+        console.log("Connected successfully to Mongo");
+        db = client.db(dbName);
     });
 }
 
@@ -72,9 +87,8 @@ app.post('/sendMail', function(req, res) {
 
 // Crea un nuevo board y redirige
 app.get('/board/', function(req, res) {
-    boards++;
-    var board_id = hashids.encode(boards,boards);
-    // var board_id = 0;
+    boardSeed++;
+    var board_id = hashids.encode(boardSeed,boardSeed);
     res.redirect('/board/'+board_id);
 });
 
@@ -110,6 +124,15 @@ io.on('connection', function(socket) {
 
     // Suma una conexion
     connections++;
+    if(boards[room_id]){
+        boards[room_id].connections++;
+    }else{
+        boards[room_id] = {
+            "id":room_id,
+            "connections":1
+        };
+    }
+
     console.log('Usuarios conectados: ', connections);
 
     // Usuario conectado
@@ -178,6 +201,7 @@ io.on('connection', function(socket) {
 
     // Movimiento de los trazos
     socket.on('externalMouseEvent',function(data){
+        db.collection("lines").insert({board:room_id,data:data,user:client_id,timestamp:new Date()});
         socket.broadcast.to(room_id).emit('externalMouseEvent',data);
     });
 
@@ -218,13 +242,39 @@ io.on('connection', function(socket) {
                 'id': id
             }
             socket.broadcast.to(room_id).emit("deleteEvent", del);
+            // db.collection("lines").deleteMany({"user":client_id});
         }
+        console.log(JSON.stringify(boards));
+        boards[room_id].connections--;
+        if(boards[room_id].connections < 1){
+            // db.collection("lines").deleteMany({"board":room_id});
+        }
+
         delete clients[client_id];
     });
+
+    setTimeout(function(){
+        db.collection('lines').find({"board":room_id}).toArray(function (err, result) {
+            if(result.length){
+                socket.emit("previousLines",result);
+            }
+        });
+    },1000);
 
 });
 
 // Levantamos el servidor en el puerto 3000
 server.listen(3000, function() {
     console.log('Running on *:3000');
+    initDB();
+    console.log('Mongo running on '+url);
+
+    // Borramos boards viejos
+    setInterval(function () {
+        var THREE_HOURS = 3 * 60 * 60 * 1000; /* ms */
+        db.collection("lines").deleteMany(
+            {
+                "timestamp" : {$lt : new Date((new Date())-THREE_HOURS)}
+            });
+    }, 1 * 60 * 60 * 1000);
 });
