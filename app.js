@@ -242,12 +242,12 @@ io.on('connection', function(socket) {
                 'id': id
             }
             socket.broadcast.to(room_id).emit("deleteEvent", del);
-            // db.collection("lines").deleteMany({"user":client_id});
+            db.collection("lines").deleteMany({"user":client_id});
         }
         console.log(JSON.stringify(boards));
         boards[room_id].connections--;
         if(boards[room_id].connections < 1){
-            // db.collection("lines").deleteMany({"board":room_id});
+            db.collection("lines").deleteMany({"board":room_id});
         }
 
         delete clients[client_id];
@@ -269,12 +269,10 @@ server.listen(3000, function() {
     initDB();
     console.log('Mongo running on '+url);
 
-    // Borramos boards viejos
+    // Borramos lineas viejas
+    db.collection("lines").deleteMany({"timestamp" : {$lt : new Date((new Date())-THREE_HOURS)}});
     setInterval(function () {
         var THREE_HOURS = 3 * 60 * 60 * 1000; /* ms */
-        db.collection("lines").deleteMany(
-            {
-                "timestamp" : {$lt : new Date((new Date())-THREE_HOURS)}
-            });
+        db.collection("lines").deleteMany({"timestamp" : {$lt : new Date((new Date())-THREE_HOURS)}});
     }, 1 * 60 * 60 * 1000);
 });
