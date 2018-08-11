@@ -270,7 +270,6 @@ server.listen(3000, function() {
     console.log('Mongo running on '+url);
 
     // Borramos lineas viejas
-    db.collection("lines").deleteMany({"timestamp" : {$lt : new Date((new Date())-THREE_HOURS)}});
     setInterval(function () {
         var THREE_HOURS = 3 * 60 * 60 * 1000; /* ms */
         db.collection("lines").deleteMany({"timestamp" : {$lt : new Date((new Date())-THREE_HOURS)}});
