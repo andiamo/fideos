@@ -252,14 +252,12 @@ io.on('connection', function(socket) {
 
         delete clients[client_id];
     });
-
-    setTimeout(function(){
-        db.collection('lines').find({"board":room_id}).toArray(function (err, result) {
-            if(result.length){
-                socket.emit("previousLines",result);
-            }
-        });
-    },1000);
+    
+    db.collection('lines').find({"board":room_id}).toArray(function (err, result) {
+        if(result.length){
+            socket.emit("previousLines",result);
+        }
+    });
 
 });
 

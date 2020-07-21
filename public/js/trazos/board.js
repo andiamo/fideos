@@ -79,9 +79,19 @@ function initSocketObservers(){
     });
     socket.on('externalMouseEvent', externalMouseEvent);
 
-    socket.on('previousLines', function(lines){
-        lines.forEach(function(line){
-            externalMouseEvent(line.data);
+    socket.on('previousLines', async function(lines){
+        document.querySelector("#joining-modal").style.display = "flex";
+        $("#joining-modal .msg").html("Cargando "+lines.length+" trazos");
+        $("#joining-modal .start").on("click",function(){
+            document.querySelector("#joining-modal").style.display = "none";
         })
+        setTimeout(
+            function(){
+                lines.forEach(function(line){externalMouseEvent(line.data)});
+                $("#joining-modal .msg").html(lines.length+" trazos cargados.");
+                $("#joining-modal .trazos-spinner").fadeOut(null,null,function(){$("#joining-modal .start").fadeIn()});
+            },
+            1500
+        );
     });
 }

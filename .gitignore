@@ -5,6 +5,9 @@ node_modules
 .DS_Store
 .DS_Store?
 ._*
+.idea
+dump.rdb
+.vscode
 .Spotlight-V100
 .Trashes
 ehthumbs.db
