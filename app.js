@@ -201,12 +201,24 @@ io.on('connection', function(socket) {
 
     // Movimiento de los trazos
     socket.on('externalMouseEvent',function(data){
-        db.collection("lines").insert({board:room_id,data:data,user:client_id,timestamp:new Date()});
+        db.collection("lines").insert({
+            board:room_id,
+            data:data,
+            layer:data.layer,
+            user:client_id,
+            timestamp:new Date()
+        });
         socket.broadcast.to(room_id).emit('externalMouseEvent',data);
     });
 
     socket.on('deleteEvent', function(data) {
         socket.broadcast.to(room_id).emit('deleteEvent', data);
+
+        db.collection("lines").deleteMany({
+            board:room_id,
+            user:client_id,
+            layer:data.layer
+        });
     });
 
     // Desconexion de un cliente
