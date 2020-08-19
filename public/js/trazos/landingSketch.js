@@ -17,8 +17,8 @@ var nscale =   [       0,         0,           0,          0,            0,     
 function setup() {
 
     //Para que se ajuste bien al tamaño de la pantalla y el logo
-    var canvasHeight = $("#modalIndex .logo").height() + 0.2 * 0.8 * windowHeight;
-    var canvas = createCanvas(0.8*windowWidth, canvasHeight);
+    // var canvasHeight = $("#modalIndex .logo").height() + 0.2 * 0.8 * windowHeight;
+    var canvas = createCanvas(0.8*windowWidth, windowHeight);
     canvas.parent('canvas');
     w = width;
     h = height;
@@ -27,7 +27,7 @@ function setup() {
     $("#modalIndex, #sidebar").css("height", windowHeight);
 
     //De esta manera orbita alrededor del logo
-    orbit = $("#modalIndex .logo").width() * 0.75;
+    orbit = $("#modalIndex .logo").width() * 0.5;
 
     //esto es para probar nada mas
     // stroke(255);
