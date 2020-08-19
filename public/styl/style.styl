@@ -14,7 +14,9 @@ sidebar_button_hover_opacity = 0.8;
 sidebar_separator_color = #046904;
 pointer_color = #666666;
 icon_width = 45px;
-
+primary_color = "06FF02";
+secondary_color = #FF03FF;
+secondary_color_alpha = rgba(255,3,255,0.5);
 mobile_icon_width = 8vw;
 mobile_sidebar_width = 13vw;
 
@@ -49,6 +51,10 @@ button.classic{
     margin: 20px;
     color: #fff;
     cursor: pointer;
+}
+
+.introjs-tooltip {
+    border: 1px rgba(255,255,255,0.5) solid;
 }
 
 /*
@@ -811,8 +817,89 @@ SIDEBAR
         font-size: 1em;
     }
 }
+  
+}
 
-
+.onboarding{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    #onboarding-modal{
+        display: none;
+        position: relative;
+        width: 60vw;
+        max-width: 600px;
+        border: secondary_color 1px solid;
+        border-radius: 4px;
+        flex-direction: column;
+        color: rgba(255,255,255,0.95);
+        align-items: center;
+        padding: 16px;
+        text-align: center;
+        .bg{
+            position: absolute;
+            top:0;
+            left:0;
+            width:100%;
+            height: 100%;
+            opacity: 0.8;
+            background: url("../img/fondo-vio.png");
+            z-index: -1;
+        }
+        h3{
+            color:secondary_color;
+        }
+        .text{
+            margin-bottom: 16px;    
+        }
+        .confirmation{
+            display:none;
+            font-size: 1.2em;
+            font-style: italic;
+            color:secondary_color;
+            padding-bottom: 16px;
+        }
+        .buttons{
+            button{
+                background: none;
+                border: secondary_color 1px solid;
+                padding:8px 32px;
+                border-radius: 16px;
+                color: secondary_color;
+                cursor:pointer;
+                margin: 0 4px;
+            }
+            .active{
+                background: secondary_color;
+                color: black;
+            }
+        }
+    }
+}  
+#sidebar.introjs-fixParent {
+    // z-index: 99 !important;
+    position: absolute !important;
+}
+.introjs-arrow{
+    border-color: transparent transparent rgb(255, 0, 255) !important;
+}
+.introjs-tooltip {
+    border-color: secondary_color_alpha;
+    .introjs-tooltipbuttons{
+        a{
+            color: secondary_color;
+        }    
+        .introjs-nextbutton,.introjs-donebutton{
+            border-color: secondary_color;
+        }
+    }
+}
+.introjs-helperLayer {
+    background-color: rgba(255,255,255,.5) !important;
 }
 
 // TABLETS (second breakpoint)
@@ -917,6 +1004,9 @@ SIDEBAR
             &.share-btn img {
                 width: tablet_icon_width*0.8;
                 margin:0;
+            }
+            &.onboarding-btn img{
+                fill:secondary_color;
             }
             .button-badge {
                 font-size: 12px;

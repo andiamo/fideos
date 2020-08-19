@@ -253,6 +253,11 @@ function initSidebar(){
         gif.toggleModal();
     })
 
+    // Share social media
+    $(".onboarding-btn").click(function(){
+        $("#onboarding-modal").fadeIn();   
+    })
+
     // Close dialogs
     $(".chat-close-button").click(function(){
         $('#chat-slider').slideReveal("hide");

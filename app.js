@@ -72,6 +72,11 @@ app.post('/sendMail', function(req, res) {
 
 // Crea un nuevo board y redirige
 app.get('/board/', function(req, res) {
+    let intro = req.query.intro;
+    let introQuery = '';
+    if(intro != null){
+        introQuery = '?intro';
+    }
     boards++;
     var board_id = hashids.encode(boards,boards);
     // var board_id = 0;

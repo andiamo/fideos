@@ -16,6 +16,10 @@
     <script src="../js/lib/jquery.hoverdelay.min.js"></script>
     <script src="../js/lib/jquery.slidereveal.min.js"></script>
     <script src="../js/lib/jquery.backDetect.min.js"></script>
+    <!-- Intro.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/2.9.3/intro.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intro.js/2.9.3/introjs.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intro.js@2.9.3/themes/introjs-modern.css">
     <!-- p5.js -->
     <script src="../js/lib/p5.min.js"></script>
     <!-- gifshot.js -->
@@ -32,6 +36,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 </head>
 <body>
+    {SIDEBAR}
     <div id="share-modal">
         <h1>Invitar al tablero</h1>
         <!--<p>Copiar este link:</p>-->
@@ -50,6 +55,21 @@
         </p>
         <!--<a href="" class="shareLinkMailto">O invitar via email.</a><br>-->
         <button class="close-button share-close-button">Cerrar</button>
+    </div>
+    <div class="onboarding">
+        <div id="onboarding-modal">
+            <div class="bg"></div>
+            <h3>¡Bienvenida/o al lienzo!</h2>
+                <div class="text">
+                    <p>En esta pantalla, o lienzo, es donde la magia sucede.</p>
+                    <p>Aquí lo más importante es dibujar, para hacerlo <strong>prueba arrastrar el puntero</strong> por la ventana.</p>
+                </div>
+            <p class="confirmation first-gesture">¡Excelente! sigamos el recorrido</p>
+            <div class="buttons">
+                <button class="close">Cerrar</button>
+                <button class="next">Continuar</button>
+            </div>
+        </div>
     </div>
     <div class="overlay">
         <div class="modals-wrap">
@@ -90,7 +110,6 @@
         </div>
         <!--<button class="close-button">Cerrar</button>-->
     </div>
-    {SIDEBAR}
 
     <!-- Aca mostramos los otros punteros -->
     <div id="pointers"></div>
@@ -104,6 +123,7 @@
     <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
 
     <!-- Cliente: El orden de inclusión es importante -->
+    <script src="../js/trazos/board/onboarding.js"></script>
     <script src="../js/trazos/board/canvas.js"></script>
     <script src="../js/trazos/board/chat.js"></script>
     <script src="../js/trazos/board/share.js"></script>

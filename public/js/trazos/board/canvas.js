@@ -291,6 +291,9 @@ function mouseReleased() {
         // Pusheamos el gesture a la capa
         if (currGesture.visible) {
             layers[currLayer].push(currGesture);
+            if(layers[currLayer].length == 1){
+                setFirstGesture();
+            }
         }
 
         var movement = {
