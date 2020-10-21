@@ -11,11 +11,13 @@ body {
     padding-top: 3em;
     z-index: 10;
     box-sizing: border-box;
+    display: flex;
+    align-items: center;
 }
 
 #modalIndex .logo {
-    width: 22%;
-    margin: 4% 0 4% -3%;
+    max-height: 100px;
+    max-width: 80%;
 }
 
 #modalIndex .wrapper {
@@ -26,6 +28,8 @@ body {
 
 #modalIndex #canvas {
     text-align: left;
+    position: absolute;
+    top: 0;
 }
 #modalIndex canvas {
     position: absolute;
