@@ -396,7 +396,7 @@ function externalMouseEvent(data){
         // Agregamos el punto
         var t0 = otherGesture.getStartTime();
         var t = t0 + data.t;
-        println("Adding point " + t0 + + " " + data.t);
+        print("Adding point " + t0 + + " " + data.t);
         otherRibbon.addPoint(otherGesture, t, data.color, currAlpha, data.x, data.y);
     }
 
@@ -414,7 +414,7 @@ function externalMouseEvent(data){
         var t0 = otherGesture.getStartTime();
         var t1 = t0 + data.t;
         // t1 = mills();
-        println("Ending gesture " + t0 + + " " + t1);
+        print("Ending gesture " + t0 + + " " + t1);
 
         otherRibbon.addPoint(otherGesture, t1, data.color, currAlpha, data.x, data.y);
         // Seteamos el looping
