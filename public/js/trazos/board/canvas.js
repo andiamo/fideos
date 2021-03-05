@@ -177,13 +177,13 @@ function touchStarted() {
     ribbon.init(RIBBON_WIDTH);
 
     // Agregamos el punto al ribbon
-    ribbon.addPoint(currGesture, t0, currColor, currAlpha, touchX, touchY);
+    ribbon.addPoint(currGesture, t0, currColor, currAlpha, mouseX, mouseY);
 
     // Objeto que se emite
     var movement = {
         'e': "PRESS",
-        'x': touchX,
-        'y': touchY,
+        'x': mouseX,
+        'y': mouseY,
         't': t0,
         'color': currColor,
         'stroke_weight':RIBBON_WIDTH,
@@ -253,8 +253,8 @@ function touchMoved() {
 
         var movement = {
             'e': "DRAGGED",
-            'x': touchX,
-            'y': touchY,
+            'x': mouseX,
+            'y': mouseY,
             't': t - t0,
             'color': currColor,
             'stroke_weight':RIBBON_WIDTH,
@@ -263,7 +263,7 @@ function touchMoved() {
         }
         socket.emit("externalMouseEvent", movement);
 
-        ribbon.addPoint(currGesture, t, currColor, currAlpha, touchX, touchY);
+        ribbon.addPoint(currGesture, t, currColor, currAlpha, mouseX, mouseY);
     }
 }
 
@@ -327,7 +327,7 @@ function touchEnded() {
         // Agregamos el último punto
         var t1 = millis();
         var t0 = currGesture.getStartTime();
-        ribbon.addPoint(currGesture, t1, currColor, currAlpha, touchX, touchY);
+        ribbon.addPoint(currGesture, t1, currColor, currAlpha, mouseX, mouseY);
         currGesture.setLooping(looping);
         currGesture.setEndTime(t1);
 
@@ -338,8 +338,8 @@ function touchEnded() {
 
         var movement = {
             'e': "RELEASED",
-            'x': touchX,
-            'y': touchY,
+            'x': mouseX,
+            'y': mouseY,
             't': t1 - t0,
             'color': currColor,
             'stroke_weight':RIBBON_WIDTH,
