@@ -80,7 +80,7 @@ app.get('/board/', function(req, res) {
     boards++;
     var board_id = hashids.encode(boards,boards);
     // var board_id = 0;
-    res.redirect('/board/'+board_id);
+    res.redirect('/board/'+board_id+introQuery);
 });
 
 app.get('/board/:board_id',function(req,res){
