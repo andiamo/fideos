@@ -117,7 +117,7 @@ Captura el mousePressed dentro del canvas de P5.js.
 
 */
 
-function mousePressed() {
+function mousePressed(event) {
     if (modals_open) return;
 
     var t0 = millis();

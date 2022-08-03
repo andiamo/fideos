@@ -8,7 +8,7 @@ function setFirstGesture(){
 
 function initOnboarding(runIntro = false){
     
-    $("#onboarding-modal button.next").on("click",function(index){
+    $("#onboarding-modal button.next").on("click touchstart",function(index){
         var intro = introJs();
         intro.setOption("exitOnOverlayClick", "false");
         intro.setOption("showBullets", false);
@@ -20,7 +20,7 @@ function initOnboarding(runIntro = false){
         $("#onboarding-modal").fadeOut();   
     });
 
-    $("#onboarding-modal button.close").on("click",function(index){
+    $("#onboarding-modal button.close").on("click touchstart",function(index){
         $("#onboarding-modal").fadeOut();   
     });
 
