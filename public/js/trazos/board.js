@@ -1,4 +1,5 @@
 var room_id = window.location.pathname.split("/")[2];
+var runIntro = window.location.href.includes("intro");
 var socket = io({query: 'room_id='+room_id});
 var id = Math.round($.now() * Math.random()); // Temporal ID Generator
 var clients = {};
@@ -10,7 +11,7 @@ $(document).ready(function() {
     initSidebar();
     initChat();
     initSocketObservers();
-
+    initOnboarding(runIntro);
     // Borramos las conexiones viejas (cada 5000ms)
     setInterval(function() {
         for (var i in clients) {

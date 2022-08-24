@@ -58,3 +58,7 @@ body {
     border: 1px solid #00FF00;
     padding: 1.2em 0;
 }
+.boton.secundario{
+    color: #FF03FF !important;
+    border-color: #FF03FF;
+}

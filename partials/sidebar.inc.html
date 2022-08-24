@@ -3,7 +3,7 @@
     <a id="btnHome" href="/">
         <img src="../img/home.svg" />
     </a>
-    <div class="sidebar_button_color" id="color">
+    <div class="sidebar_button_color" id="color" data-intro="Presiona el selector de color para elegir entre 8 colores disponibles" data-step="1">
         <div class="drop_color">
             <div class="colors-wrap">
                 <div class="color_button" data-color="#000000"></div>
@@ -17,7 +17,7 @@
             </div>
         </div>
     </div>
-    <div class="sidebar_weight_button" id="weight">
+    <div class="sidebar_weight_button" id="weight" data-intro="Con este selector podras seleccionar el grosor del trazo" data-step="2">
         <div class="weight_point weight_point_tam02"></div>
         <div class="drop_weight">
             <div class="weight_wrap">
@@ -29,12 +29,12 @@
         </div>
     </div>
     <div class="sidebar_button">
-        <div class="wrapper wrapperSimple" id="loop">
+        <div class="wrapper wrapperSimple" id="loop"  data-intro="Cuando el efecto Loop esta activo los trazos que desaparecen, vuelven a aparecer de forma continua" data-step="3">
             <img src="../img/girar_1.svg" alt="">
         </div>
     </div>
     <div class="sidebar_button">
-        <div class="wrapper wrapperDual wrapperHorizontal" id="velocidad" data-state="5" data-max-state="10">
+        <div class="wrapper wrapperDual wrapperHorizontal" id="velocidad" data-state="5" data-max-state="10"  data-intro="El reloj permite cambiar la velocidad de desaparición de los trazos" data-step="4">
             <div class="clickLeft"></div>
             <div class="clickRight"></div>
             <img src="../img/velocidad_5.svg" alt="">
@@ -42,14 +42,14 @@
     </div>
     <div class="sidebar_separator"></div>
     <div class="sidebar_button">
-        <div class="wrapper wrapperDual wrapperVertical" id="mirar" data-state="7" data-max-state="7">
+        <div class="wrapper wrapperDual wrapperVertical" id="mirar" data-state="7" data-max-state="7" data-intro="El ojo permite cambiar la transparencia de cada capa" data-step="6">
             <div class="clickUp"></div>
             <div class="clickDown"></div>
             <img src="../img/mirar_7.svg" alt="">
         </div>
     </div>
     <div class="sidebar_button layers-btn">
-        <div class="wrapper wrapperCapa">
+        <div class="wrapper wrapperCapa" data-intro="Hay 4 capas. La capa activa aparece de color verde. Para cambiar la capa activa deberemos hacer click en la nueva que queremos elegir" data-step="5">
             <img class="capa capa1 active" src="../img/capa_active.svg" alt="">
             <img class="capa capa2" src="../img/capa.svg" alt="">
             <img class="capa capa3" src="../img/capa.svg" alt="">
@@ -58,24 +58,24 @@
     </div>
     <div class="sidebar_separator"></div>
     <div class="sidebar_button delete-btn">
-        <div class="wrapper wrapperSimple">
+        <div class="wrapper wrapperSimple" data-intro="Cuando hacemos click en este ícono, se borran los trazos realizados sobre la capa que se encuentra activa" data-step="7">
             <img src="../img/tacho.svg" alt="">
         </div>
     </div>
     <div class="sidebar_separator"></div>
     <div class="sidebar_button share-btn">
-        <div class="wrapper wrapperSimple">
+        <div class="wrapper wrapperSimple" data-intro="Nos permite compartir la sesión de dibujo con otras personas." data-step="8">
             <img src="../img/share.svg" alt="">
         </div>
     </div>
     <div class="sidebar_button gif-btn">
-        <div class="wrapper wrapperSimple">
+        <div class="wrapper wrapperSimple" data-intro="Permite generar, guardar y compartir un gif animado del lienzo" data-step="9">
             <img src="../img/social.svg" alt="">
         </div>
     </div>
     <div class="sidebar_button chat-btn">
         <span class="button-badge">4</span>
-        <div class="wrapper wrapperSimple">
+        <div class="wrapper wrapperSimple" data-intro="Quienes estén conectados/as en el mismo lienzo pueden comunicarse también mediante el chat" data-step="10">
             <svg width="44px" height="37px" viewBox="0 0 44 37" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                 <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                     <g id="V1-a" transform="translate(-245.000000, -584.000000)" fill-rule="nonzero" fill="#00FF00">
@@ -88,6 +88,11 @@
                     </g>
                 </g>
             </svg>
+        </div>
+    </div>
+    <div class="sidebar_button onboarding-btn">
+        <div class="wrapper wrapperSimple" data-intro="Si necesitas ver este tutorial nuevamente, solo presiona aquí" data-step="11">
+            <img src="../img/onboarding.svg" alt="">
         </div>
     </div>
 </div>

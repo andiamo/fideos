@@ -1,3 +1,5 @@
+var chatSlider;
+
 function initSidebar(){
     // Seteo el color en base al data-color de cada uno
     $(".color_button").each(function(index){
@@ -5,56 +7,65 @@ function initSidebar(){
     });
 
     // Setea el color cuando clickea
-    $(".color_button").click(function(){
+    $(document).on('click touchstart', ".color_button",function(){
         // Esta es una variable local que esta en andiamo.js
         currColor = STROKE_COLORS[$(this).index()];
         // Cambio el color de la UI
         $(".sidebar_button_color").css('background-color', $(this).data('color'));
+        setTimeout(()=>{
+            $(".drop_color").fadeOut(200);
+        },10);
+        
     });
 
     // Menú desplegable de color
-    $(".sidebar_button_color").hover(function(){
+    $(document).on('mouseover touchstart', ".sidebar_button_color",function(){
         $(".drop_color").stop().fadeIn(200);
     },null,0);
 
-    $(".sidebar_button_color").hover(null,function(){
-        $(".drop_color").stop().fadeOut(200);
-    },400);
-
-    // Menú desplegable de color
-    $(".sidebar_weight_button").hover(function(){
+    
+    $(document).on('mouseover touchstart', ".sidebar_weight_button",function(){
         $(".drop_weight").stop().fadeIn(200);
     },null,0);
-
-    $(".sidebar_weight_button").hover(null,function(){
-        $(".drop_weight").stop().fadeOut(200);
-    },400);
-
-    $(".weight_button_01").click(function(){
+    
+    $(document).on('click touchstart', ".weight_button_01",function(){
         RIBBON_WIDTH = RIBBON_WIDTHS[0];
         $(".weight_point").removeClass('weight_point_tam01 weight_point_tam02 weight_point_tam03 weight_point_tam04');
         $(".weight_point").addClass('weight_point_tam01');
+        setTimeout(()=>{
+            $(".drop_weight").fadeOut(200);
+        },10);
     });
 
-    $(".weight_button_02").click(function(){
+    $(document).on('click touchstart', ".weight_button_02",function(){
         RIBBON_WIDTH = RIBBON_WIDTHS[1];
         $(".weight_point").removeClass('weight_point_tam01 weight_point_tam02 weight_point_tam03 weight_point_tam04');
         $(".weight_point").addClass('weight_point_tam02');
+        setTimeout(()=>{
+            $(".drop_weight").fadeOut(200);
+        },10);
     });
 
-    $(".weight_button_03").click(function(){
+
+   $(document).on('click touchstart', ".weight_button_03",function(){
         RIBBON_WIDTH = RIBBON_WIDTHS[2];
         $(".weight_point").removeClass('weight_point_tam01 weight_point_tam02 weight_point_tam03 weight_point_tam04');
         $(".weight_point").addClass('weight_point_tam03');
+        setTimeout(()=>{
+            $(".drop_weight").fadeOut(200);
+        },10);
     });
 
-    $(".weight_button_04").click(function(){
+    $(document).on('click touchstart', ".weight_button_04",function(){
         RIBBON_WIDTH = RIBBON_WIDTHS[3];
         $(".weight_point").removeClass('weight_point_tam01 weight_point_tam02 weight_point_tam03 weight_point_tam04');
         $(".weight_point").addClass('weight_point_tam04');
+        setTimeout(()=>{
+            $(".drop_weight").fadeOut(200);
+        },10);
     });
 
-    $(".delete-btn").click(function() {
+    $(document).on('click touchstart', ".delete-btn",function(){
         // for (var i = 0; i < layers.length; i++) {
         var i = currLayer;
         for (var j = layers[i].length - 1; j >= 0; j--) {
@@ -70,10 +81,11 @@ function initSidebar(){
     });
 
     // Botones divididos
-    $(".sidebar_button .clickUp, .sidebar_button .clickRight").on("mouseover", function() {
+
+    $(".sidebar_button .clickUp, .sidebar_button .clickRight").on("mouseover touchstart", function() {
         $(this).parent().addClass("up");
     })
-    $(".sidebar_button .clickDown, .sidebar_button .clickLeft").on("mouseover", function() {
+    $(".sidebar_button .clickDown, .sidebar_button .clickLeft").on("mouseover touchstart", function() {
         $(this).parent().addClass("down");
     })
     $(".sidebar_button .clickUp, .sidebar_button .clickRight").on("mouseleave", function() {
@@ -82,7 +94,7 @@ function initSidebar(){
     $(".sidebar_button .clickDown, .sidebar_button .clickLeft").on("mouseleave", function() {
         $(this).parent().removeClass("down");
     })
-    $(".sidebar_button .wrapperDual").on("click", function() {
+    $(document).on('click touchstart', ".sidebar_button .wrapperDual",function(){
         var state = Number( $(this).attr("data-state") );
 
         if ( $(this).hasClass("down") ) {
@@ -94,6 +106,7 @@ function initSidebar(){
                 var name = $(this).attr("id");
                 $img.attr("src", "../img/" + name + "_" + state + ".svg");
             }
+            $(".sidebar_button .clickDown, .sidebar_button .clickLeft").parent().removeClass("down");
         }
         if ( $(this).hasClass("up") ) {
             var maxState = Number( $(this).attr("data-max-state") );
@@ -106,6 +119,7 @@ function initSidebar(){
                 $img.attr("src", "../img/" + name + "_" + state + ".svg");
 
             }
+            $(".sidebar_button .clickUp, .sidebar_button .clickRight").parent().removeClass("up");
         }
 
         if ( name == "velocidad" ) {
@@ -134,7 +148,7 @@ function initSidebar(){
         }
     });
     //Boton loop
-    $(".sidebar_button #loop").click(function() {
+    $(document).on('click touchstart', ".sidebar_button #loop",function(){
         if ( !$(this).hasClass("inactive") ) {
             $(this).addClass("inactive");
             var $img =  $(this).children("img");
@@ -160,7 +174,7 @@ function initSidebar(){
             $(this).attr("src", "../img/capa.svg");
         }
     });
-    $(".wrapperCapa img").on("click", function() {
+    $(document).on('click touchstart', ".wrapperCapa img",function(){
         var numeroCapa = this.className.split(" ")[1].substring(4,5);
 
         $(".wrapperCapa img").each(function() {
@@ -185,17 +199,17 @@ function initSidebar(){
         }
     });
     // Boton delete
-    $(".delete-btn img").on("mousedown", function() {
+    $(".delete-btn img").on("mousedown touchstart", function() {
         $(this).attr("src", "../img/tacho_click.svg");
     });
-    $(".delete-btn img").on("mouseup", function() {
+    $(".delete-btn img").on("mouseup touchend", function() {
         setTimeout( function() {
             $(".delete-btn img").attr("src", "../img/tacho.svg");
         }, 600);
     });
 
     // Share button
-    $(".share-btn").click(function(){
+    $(document).on('click touchstart', ".share-btn",function(){
         $(".share-btn").prop('disabled', true);
         $(".share-btn img").attr("src","../img/share_click.svg");
         setTimeout( function() {
@@ -215,13 +229,21 @@ function initSidebar(){
         }
     })
 
-    $("#share-modal .fa-link").click(function (){
+    $(document).on('click touchstart', "#share-modal .fa-link",function(){
         $(".shareDialogInput").focus();
         $(".shareDialogInput").select();
     })
 
-    $('#chat-slider').slideReveal({
-        trigger: $(".chat-btn"),
+    $(document).on('click touchend','.chat-btn',function(){
+        chatSlider.slideReveal("toggle",{
+            push:false,
+            width:'40%',
+            show: openChat,
+            hide: hideChat
+        });
+    })
+
+    chatSlider = $('#chat-slider').slideReveal({
         push:false,
         width:'40%',
         show: openChat,
@@ -235,7 +257,7 @@ function initSidebar(){
         return false;
     });
 
-    $('.enter-chat').click(function(){
+    $(document).on('click touchstart', ".enter-chat",function(){
         if (chat.$usernameInput.val()) {
             setUsername();
         }
@@ -249,39 +271,44 @@ function initSidebar(){
     });
 
     // Share social media
-    $(".gif-btn").click(function(){
+    $(document).on('click touchend', ".gif-btn",function(e){
         gif.toggleModal();
     })
 
+    // Share social media
+    $(document).on('click touchstart', ".onboarding-btn",function(){
+        $("#onboarding-modal").fadeIn();   
+    })
+
     // Close dialogs
-    $(".chat-close-button").click(function(){
+    $(document).on('click touchstart', ".chat-close-button",function(){
         $('#chat-slider').slideReveal("hide");
         $(".chat-slider").fadeOut();
     });
 
-    $("#share-modal .close-button").click(function(){
+    $(document).on('click touchstart', "#share-modal .close-button",function(){
         $("#share-modal").fadeOut();
         modals_open--;
     });
 
-    $("#gif-modal .close-button").click(function(){
+    $(document).on('click touchstart', "#gif-modal .close-button",function(){
         $("#gif-modal").fadeOut();
         modals_open--;
     });
 
-    $("#gif-modal").on('click','#regenerate', function (event) {
+    $("#gif-modal").on('click touchstart','#regenerate', function (event) {
         gif.regenerateGif();
     });
 
-    $("#gif-modal").on('click','#uploadGif', function (event) {
+    $("#gif-modal").on('click touchstart','#uploadGif', function (event) {
         gif.uploadGif();
     });
 
-    $("#gif-modal").on('click','#link', function (event) {
+    $("#gif-modal").on('click touchstart','#link', function (event) {
         gif.copyLink();
     });
 
-    $("#gif-modal").on('click','#download', function (event) {
+    $("#gif-modal").on('click touchstart','#download', function (event) {
         gif.download();
     });
 
@@ -292,6 +319,11 @@ function initSidebar(){
         var subject = 'Invitación al tablero';
         var emailBody = 'Ingresa a este tablero: '+window.location.href;
         window.location = 'mailto:' + email + '?subject=' + subject + '&body=' +   emailBody;
+    });
+
+    $(document).on('touchend',".introjs-tooltipbuttons a, #btnHome", function(e) {
+        e.preventDefault();
+        e.target.click();
     });
 
 }
