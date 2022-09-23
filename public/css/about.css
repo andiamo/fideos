@@ -77,6 +77,13 @@ section#intro {
     background-repeat: no-repeat;
     padding-top: 3em;
 }
+section#intro .link a{
+    color: #00ff00 !important;
+}
+section#intro .link img{
+    height: 30px;
+    width: auto;
+}
 section#intro .logo {
     /* width: 15%; */
 }
@@ -129,6 +136,12 @@ section#quienesSomos .colLeft
 {
     margin-top: 4em;
     margin-bottom: 3em;
+}
+
+section#quienesSomos .colLeft .second-tier{
+    font-size: 1.2em;
+    line-height: 36px;
+    padding-top: 16px;
 }
 
 section#quienesSomos .colRight {
@@ -324,6 +337,12 @@ footer .flecha {
     section#intro .texto {
         font-size: 1.8em;
         width: 80%;
+    }
+    section#quienesSomos .colLeft .second-tier {
+        font-size: 2em;
+    }
+    section#intro .link img{
+        height: 70px;
     }
     section#intro a img {
         width: 10%;
